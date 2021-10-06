@@ -20,8 +20,12 @@ class BranchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BranchRepositoryInterface $branchRepository)
     {
+        $branches = $branchRepository->all();
+        return response()->json([
+            'branches' => $branches
+        ],200);
         //
     }
 
@@ -45,7 +49,6 @@ class BranchController extends Controller
     {
        $branches = [
            'branch_name' => $request->branch_name,
-           'location' => $request->location
        ];
         $branch = $branchRepository->create($branches);
         return response()->json(['success' => 'Branch Added Succesfully'],200);

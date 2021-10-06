@@ -18,7 +18,12 @@ use App\Http\Controllers\InventoryController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $branch = \App\Models\Branch::first();
+
+    $brands = \App\Models\Brand::all();
+
+    $branch->brands()->attach($brands);
+
 });
 Route::resource('product',ProductController::class);
 Route::resource('branch',BranchController::class);

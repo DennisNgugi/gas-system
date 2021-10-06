@@ -95,6 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -483,7 +484,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("option", { attrs: { value: "13" } }, [_vm._v("13 Kg")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "50" } }, [_vm._v("50 Kg")])
+                    _c("option", { attrs: { value: "50" } }, [_vm._v("50 Kg")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "0" } }, [_vm._v("N/A")])
                   ]
                 )
               ]),

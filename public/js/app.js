@@ -2215,7 +2215,7 @@ var routes = [{
   path: '/admin/inventory/index',
   name: 'inventory.index',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ "resources_js_components_Products_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Products/Index.vue */ "./resources/js/components/Products/Index.vue"));
+    return __webpack_require__.e(/*! import() */ "resources_js_components_Inventory_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Inventory/Index.vue */ "./resources/js/components/Inventory/Index.vue"));
   }
 }, {
   path: '/admin/brand/create',
@@ -2252,7 +2252,9 @@ __webpack_require__.r(__webpack_exports__);
     products: [],
     cart: [],
     reciepts: [],
-    brands: []
+    brands: [],
+    branches: [],
+    inventory: []
   },
   getters: {
     getProducts: function getProducts(state) {
@@ -2260,6 +2262,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     getBrands: function getBrands(state) {
       return state.brands;
+    },
+    getBranches: function getBranches(state) {
+      return state.branches;
+    },
+    getInventory: function getInventory(state) {
+      return state.inventory;
     }
   },
   mutations: {
@@ -2268,6 +2276,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateBrands: function updateBrands(state, data) {
       return state.brands = data;
+    },
+    updateBranches: function updateBranches(state, data) {
+      return state.branches = data;
+    },
+    updateInventory: function updateInventory(state, data) {
+      return state.inventory = data;
     }
   },
   actions: {
@@ -2281,6 +2295,20 @@ __webpack_require__.r(__webpack_exports__);
     fetchBrand: function fetchBrand(context) {
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('/brand').then(function (response) {
         context.commit("updateBrands", response.data.brands);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    fetchBranch: function fetchBranch(context) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/branch').then(function (response) {
+        context.commit("updateBranches", response.data.branches);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    fetchInventory: function fetchInventory(context) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/inventory').then(function (response) {
+        context.commit("updateInventory", response.data.inventory);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -57810,7 +57838,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Dashboard_Dashboard_vue":1,"resources_js_components_Products_Create_vue":1,"resources_js_components_Products_Index_vue":1,"resources_js_components_Branch_Create_vue":1,"resources_js_components_Branch_Index_vue":1,"resources_js_components_Inventory_AddInventory_vue":1,"resources_js_components_Brands_Create_vue":1,"resources_js_components_Brands_Index_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Dashboard_Dashboard_vue":1,"resources_js_components_Products_Create_vue":1,"resources_js_components_Products_Index_vue":1,"resources_js_components_Branch_Create_vue":1,"resources_js_components_Branch_Index_vue":1,"resources_js_components_Inventory_AddInventory_vue":1,"resources_js_components_Inventory_Index_vue":1,"resources_js_components_Brands_Create_vue":1,"resources_js_components_Brands_Index_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

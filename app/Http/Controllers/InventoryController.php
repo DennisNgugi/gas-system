@@ -2,20 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\BranchRepositoryInterface;
+use App\Interfaces\BrandRepositoryInterface;
+use App\Models\Branch;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
+use App\Http\Requests\InventoryRequest;
+use App\Interfaces\InventoryRepositoryInterface;
 
 class InventoryController extends Controller
 {
+
+    private $branchRepository;
+    private $brandRepository;
+
+    public function __construct(BranchRepositoryInterface $branchRepository,BrandRepositoryInterface $brandRepository){
+        $this->branchRepository = $branchRepository;
+        $this->brandRepository = $brandRepository;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+//    public function index(InventoryRepositoryInterface $inventoryRepository)
+//    {
+//       // $inventory = Inventory::with('branches','brands')->get();
+//        $inventory = Branch::with('inventories','inventories.brands')->get();
+//
+//        // $inventory = $inventoryRepository->withRelation(['branches','brands']);
+//        // return $inventory;
+//        return response()->json([
+//            'inventory' => $inventory
+//        ],200);
+//    }
 
     /**
      * Show the form for creating a new resource.
@@ -30,12 +50,30 @@ class InventoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\H  ttp\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InventoryRequest $request,BranchRepositoryInterface $branchRepository,BrandRepositoryInterface $brandRepository)
     {
-        //
+        $branch = $branchRepository->findIndex($request->branch_id);
+        $brand = $brandRepository->findIndex($request->brand_id);
+
+        $branch->brands()->syncWithoutDetaching([
+            $brand->id => [
+                'quantity' => $request->quantity,
+                'stock_in' => $request->stock_in,
+                'stock_out' => $request->stock_out
+            ]
+        ]);
+//        $inventory = [
+//            'brand_id' => $request->brand_id,
+//            'branch_id' => $request->branch_id,
+//            'quantity' => $request->quantity,
+//            'stock_in' => $request->stock_in,
+//            'stock_out' => $request->stock_out
+//        ];
+//         $inventoryRepository->create($inventory);
+         return response()->json(['success' => 'Inventory Added Succesfully'],200);
     }
 
     /**

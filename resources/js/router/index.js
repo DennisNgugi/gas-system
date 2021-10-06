@@ -37,7 +37,7 @@ export const routes =  [
         {
             path: '/admin/inventory/index',
             name: 'inventory.index',
-            component: () => import('../components/Products/Index.vue'),
+            component: () => import('../components/Inventory/Index.vue'),
         },
         {
             path: '/admin/brand/create',

@@ -38,6 +38,7 @@
                                     <option value="6">6 Kg</option>
                                     <option value="13">13 Kg</option>
                                     <option value="50">50 Kg</option>
+                                    <option value="0">N/A</option>
 
                                 </select>
                             </div>
