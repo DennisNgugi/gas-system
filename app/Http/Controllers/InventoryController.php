@@ -25,17 +25,13 @@ class InventoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-//    public function index(InventoryRepositoryInterface $inventoryRepository)
-//    {
-//       // $inventory = Inventory::with('branches','brands')->get();
-//        $inventory = Branch::with('inventories','inventories.brands')->get();
-//
-//        // $inventory = $inventoryRepository->withRelation(['branches','brands']);
-//        // return $inventory;
-//        return response()->json([
-//            'inventory' => $inventory
-//        ],200);
-//    }
+    public function index(BranchRepositoryInterface $branchRepository,BrandRepositoryInterface $brandRepository)
+    {
+       $inventory = $branchRepository->withRelation(['brands','brands.products']);
+        return response()->json([
+            'inventory' => $inventory
+        ],200);
+    }
 
     /**
      * Show the form for creating a new resource.

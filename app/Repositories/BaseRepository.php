@@ -42,7 +42,7 @@ class BaseRepository implements BaseRepositoryInterface{
       // Eager load database relationships
     public function withRelation(array $relations = array())
     {
-        return $this->model->with($relations)->orderBy('id','desc')->cursor();
+        return $this->model->with($relations)->orderBy('id','desc')->get();
     }
     // Eager load database relationships paginated
    public function withRelationPaginated(array $relations = array())

@@ -8,24 +8,55 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-nowrap mb-0">
+<!--                    <table class="table table-bordered table-nowrap mb-0">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th>#</th>-->
+<!--                            <th>Branch name</th>-->
+<!--                            <th>Brand Name</th>-->
+<!--                            <th>Brand products</th>-->
+
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tr v-for="(inventory, index) in filteredData" :key="inventory.id">-->
+
+<!--                            <td rowspan=3>{{index + 1}}</td>-->
+<!--                            <td rowspan=4>{{ inventory.branch_name }}</td>-->
+
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td rowspan=1>App Memory</td>-->
+<!--                            <td rowspan=1>App Test</td>-->
+<!--                        </tr>-->
+
+
+<!--                        <tr>-->
+<!--                            <td rowspan=1>SystemEnv2</td>-->
+<!--                            <td rowspan=1>System Test</td>-->
+
+<!--                        </tr>-->
+
+
+<!--                    </table>-->
+                    <table class="table table-responsive-md table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Category name</th>
-                                <th></th>
-                                <th>Action</th>
+                                <th>Branch name</th>
+                                <th>Brand name</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(inventory, index) in filteredData" :key="inventory.id">
                                 <td>{{index + 1}}</td>
-                                <!-- <td>{{category.category_name}}</td> -->
-
+                                 <td size="4">{{inventory.branch_name}}</td>
                                 <td>
+                                    <ol>
+                                    <li v-for="brandy in inventory.brands">{{brandy.brand_name}} - {{brandy.pivot.quantity}}</li>
+                                    </ol>
                                     <!-- <router-link :to=" { name: 'categories.create'} " exact v-on:click.native="emitEditValue(category)" class="btn btn-primary btn-sm">Edit</router-link> -->
                                     <!-- <button class="btn btn-danger btn-sm" @click="disable(category.id)">Delete</button> -->
-
                                 </td>
 
                             </tr>

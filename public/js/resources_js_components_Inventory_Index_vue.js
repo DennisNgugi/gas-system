@@ -50,6 +50,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import SearchComponent from '../Search/SearchComponent.vue';
 // import {
 //     EventBus
@@ -209,21 +240,43 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
-            _c("table", { staticClass: "table table-nowrap mb-0" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.filteredData, function(inventory, index) {
-                  return _c("tr", { key: inventory.id }, [
-                    _c("td", [_vm._v(_vm._s(index + 1))]),
-                    _vm._v(" "),
-                    _c("td")
-                  ])
-                }),
-                0
-              )
-            ])
+            _c(
+              "table",
+              { staticClass: "table table-responsive-md table-bordered" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.filteredData, function(inventory, index) {
+                    return _c("tr", { key: inventory.id }, [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { size: "4" } }, [
+                        _vm._v(_vm._s(inventory.branch_name))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "ol",
+                          _vm._l(inventory.brands, function(brandy) {
+                            return _c("li", [
+                              _vm._v(
+                                _vm._s(brandy.brand_name) +
+                                  " - " +
+                                  _vm._s(brandy.pivot.quantity)
+                              )
+                            ])
+                          }),
+                          0
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
           ])
         ])
       ])
@@ -247,11 +300,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Category name")]),
+        _c("th", [_vm._v("Branch name")]),
         _vm._v(" "),
-        _c("th"),
-        _vm._v(" "),
-        _c("th", [_vm._v("Action")])
+        _c("th", [_vm._v("Brand name")])
       ])
     ])
   }
