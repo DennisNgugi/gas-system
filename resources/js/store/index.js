@@ -37,6 +37,12 @@ export default {
         updateInventory(state, data) {
             return state.inventory = data
         },
+        removeFromCart(state, index) {
+            state.cart.splice(index, 1);
+        },
+        updateCart(state, cart) {
+            state.cart = cart;
+        },
     },
     actions:{
         fetchProduct(context) {
@@ -71,6 +77,16 @@ export default {
                 console.log(error)
             })
         },
+        clearCart({
+                      commit
+                  }) {
+            commit('updateCart', []);
+        },
+        holdCart({
+                     commit
+                 }) {
+            commit('holdCartItems');
+        }
     }
-    
+
 }

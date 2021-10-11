@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RecieptController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\BranchController;
@@ -18,17 +19,14 @@ use App\Http\Controllers\InventoryController;
 */
 
 Route::get('/', function () {
-    $branch = \App\Models\Branch::first();
-
-    $brands = \App\Models\Brand::all();
-
-    $branch->brands()->attach($brands);
+  return view('store');
 
 });
 Route::resource('product',ProductController::class);
 Route::resource('branch',BranchController::class);
 Route::resource('inventory',InventoryController::class);
 Route::resource('brand',BrandController::class);
+Route::resource('checkout',RecieptController::class);
 Route::get('/admin/{any}', function () {
     return view('dashboard');
   })->where('any', '.*');

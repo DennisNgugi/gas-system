@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function index(ProductRepositoryInterface $productRepository)
     {
-        $products = $productRepository->all();
+        $products = $productRepository->withRelation(['brands']);
         return response()->json([
             'products' => $products
         ],200);
@@ -46,13 +46,13 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request,ProductRepositoryInterface $productRepository)
     {
-        
+
         $products = [
             'brand_id' => $request->brand_id,
             'unit' => $request->unit,
             'retail_price' => $request->retail_price,
             'wholesale_price' => $request->wholesale_price,
-    
+
         ];
         $product = $productRepository->create($products);
         return response()->json(['success' => 'Product Added Succesfully'],200);
