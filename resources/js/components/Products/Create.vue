@@ -61,7 +61,7 @@
                                     <label class="col-form-label col-lg-4">Retail Price</label>
                                 </div>
                                 <div class="col-md-5">
-                                <input type="text" class="form-control" v-model="price.complete.retail_price" aria-describedby="sizing-addon1" @keydown="errors.clear('price.complete.retail_price')" >
+                                <input type="text" class="form-control" v-model.number="price.complete.retail_price" aria-describedby="sizing-addon1" @keydown="errors.clear('price.complete.retail_price')" >
                             </div>
                             </div>
                         <div class="input-group input-group-lg mt-2">
@@ -69,7 +69,7 @@
                                 <label class="col-form-label col-lg-4">Wholesale Price</label>
                             </div>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" v-model="price.complete.wholesale_price" aria-describedby="sizing-addon1" @keydown="errors.clear('price.complete.wholesale_price')" >
+                                <input type="text" class="form-control" v-model.number="price.complete.wholesale_price" aria-describedby="sizing-addon1" @keydown="errors.clear('price.complete.wholesale_price')" >
                             </div>
                         </div>
                             <span class="help is-danger" style="color:red;" v-text="errors.get('price.complete.wholesale_price')"></span>
@@ -86,7 +86,7 @@
                                  <label class="col-form-label col-lg-4">Retail Price</label>
                              </div>
                              <div class="col-md-5">
-                                 <input type="text" class="form-control" v-model="price.refill.retail_price" aria-describedby="sizing-addon1" @keydown="errors.clear('price.refill.retail_price')" >
+                                 <input type="text" class="form-control" v-model.number="price.refill.retail_price" aria-describedby="sizing-addon1" @keydown="errors.clear('price.refill.retail_price')" >
                              </div>
                          </div>
                          <div class="input-group input-group-lg mt-2">
@@ -94,7 +94,7 @@
                                  <label class="col-form-label col-lg-4">Wholesale Price</label>
                              </div>
                              <div class="col-md-5">
-                                 <input type="text" class="form-control" v-model="price.refill.wholesale_price" aria-describedby="sizing-addon1" @keydown="errors.clear('price.refill.wholesale_price')" >
+                                 <input type="text" class="form-control" v-model.number="price.refill.wholesale_price" aria-describedby="sizing-addon1" @keydown="errors.clear('price.refill.wholesale_price')" >
                              </div>
                          </div>
                          <span class="help is-danger" style="color:red;" v-text="errors.get('price.refill.wholesale_price')"></span>
@@ -105,12 +105,37 @@
 
                          <label class="col-form-label col-lg-4">Quantity</label>
 
-                         <div class="input-group input-group-lg">
-                         <input type="text" class="form-control" v-model="quantity" aria-describedby="sizing-addon1" @keydown="errors.clear('quantity')" >
-
+                         <div class="input-group input-group-lg mt-2">
+                             <div class="col-md-4">
+                                 <label class="col-form-label col-lg-4">Outlight</label>
+                             </div>
+                             <div class="col-md-5">
+                                 <input type="text" class="form-control" v-model.number="quantity.outlight" aria-describedby="sizing-addon1" @keydown="errors.clear('quantity.outlight')" >
+                             </div>
+                             <span class="help is-danger" style="color:red;" v-text="errors.get('quantity.outlight')"></span>
                          </div>
 
-                         <span class="help is-danger" style="color:red;" v-text="errors.get('quantity')"></span>
+                         <div class="input-group input-group-lg mt-2">
+                             <div class="col-md-4">
+                                 <label class="col-form-label col-lg-4">Empty</label>
+                             </div>
+                             <div class="col-md-5">
+                                 <input type="text" class="form-control" v-model.number="quantity.empty" aria-describedby="sizing-addon1" @keydown="errors.clear('quantity.empty')" >
+                             </div>
+                             <span class="help is-danger" style="color:red;" v-text="errors.get('quantity.empty')"></span>
+                         </div>
+
+                         <div class="input-group input-group-lg mt-2">
+                             <div class="col-md-4">
+                                 <label class="col-form-label col-lg-4">Qty</label>
+                             </div>
+                             <div class="col-md-5">
+                                 <input type="text" class="form-control" v-model.number="quantity.normal" aria-describedby="sizing-addon1" @keydown="errors.clear('quantity.normal')" >
+                             </div>
+                             <span class="help is-danger" style="color:red;" v-text="errors.get('quantity.normal')"></span>
+                         </div>
+
+
                      </div>
 
 
@@ -146,7 +171,11 @@ export default {
                    wholesale_price: ''
                }
             },
-            quantity:'',
+            quantity:{
+                outlight:'',
+                empty:'',
+                normal:''
+            },
             edit: false,
             errors: new Errors(),
             alert: new SweetAlert(),

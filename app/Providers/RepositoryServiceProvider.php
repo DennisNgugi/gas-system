@@ -5,12 +5,14 @@ namespace App\Providers;
 
 use App\Interfaces\CheckoutRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
+use App\Interfaces\StockRepositoryInterface;
 use App\Repositories\BaseRepository;
 use App\Repositories\BranchRepository;
 use App\Repositories\BrandRepository;
 use App\Repositories\CheckoutRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\StockRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\InventoryRepository;
 use App\Interfaces\BaseRepositoryInterface;
@@ -35,6 +37,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(InventoryRepositoryInterface::class, InventoryRepository::class);
         $this->app->bind(BrandRepositoryInterface::class, BrandRepository::class);
         $this->app->bind(CheckoutRepositoryInterface::class, CheckoutRepository::class);
+        $this->app->bind(StockRepositoryInterface::class, StockRepository::class);
     }
 
     /**

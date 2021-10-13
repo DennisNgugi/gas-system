@@ -13,6 +13,8 @@ class Product extends Model
 
     protected $casts = [
         'price' => 'json',
+        'quantity'=>'array',
+        'stock'=>'json'
     ];
 
     public function brands(){

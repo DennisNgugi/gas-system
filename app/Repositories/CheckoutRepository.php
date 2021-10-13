@@ -3,18 +3,22 @@
 namespace App\Repositories;
 
 use App\Interfaces\CheckoutRepositoryInterface;
+use App\Interfaces\StockRepositoryInterface;
 use App\Models\Reciept;
 use App\Models\Sale;
 use App\Models\Sales;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInterface
 {
-    public $model;
-    public function __construct(Reciept $model){
-        parent::__construct($model);
-        $this->model = $model;
+
+    // inject the stock constructor in order to change quantity
+    private $stockRepository;
+    public function __construct(StockRepositoryInterface $stockRepository){
+
+        $this->stockRepository = $stockRepository;
     }
 
     public function saveTransaction($data)
@@ -22,20 +26,24 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
 
         $checkoutDetails = $data->checkout;
         $cartDetails = $data->cart;
+        $balance = $data->balance;
+        $total_amount = $data->total_amount;
+        $total_quantity = $data->total_quantity;
+        $discount = $data->discount;
 
         try {
-            DB::transaction(function () use ($checkoutDetails,$cartDetails){
+            DB::transaction(function () use ($checkoutDetails,$cartDetails,$balance,$discount,$total_amount,$total_quantity){
                 $reciept = new Reciept;
                 $reciept->reciept_code = $this->generateRecieptCode();
-                $reciept->user_id = 1;
-                //$reciept->customer_name = $checkoutDetails['customer_name'];
-                $reciept->total_quantity = $checkoutDetails['total_quantity'];
-                $reciept->total_amount = $checkoutDetails['total_amount'];
+                $reciept->user_id = Auth::id();
+                $reciept->customer_id = $checkoutDetails['customer_id'];
+                $reciept->total_quantity = $total_quantity;
+                $reciept->total_amount = $total_amount;
                 $reciept->amount_paid = $checkoutDetails['amount_paid'];
-                $reciept->balance = $checkoutDetails['balance'];
-                if ($reciept->balance<0){
-                    $reciept->payment_status = false;
-                }
+                $reciept->balance = $balance;
+//                if ($balance<0){
+//                    $reciept->payment_status = false;
+//                }
                 $reciept->payment_mode = $checkoutDetails['payment_mode'];
                 $reciept->phone_number = $checkoutDetails['phone_number'];
 //                $reciept->message_time = $cartDetails['message_time'];
@@ -52,7 +60,9 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
                     $sales->total = $cart['detail']['price'] * $cart['quantity'];
                     $sales->sale_type = $cart['detail']['sale_type'];
                     $sales->gas_type = $cart['detail']['gas_type'];
-                    $sales->save();
+                   $sales->save();
+
+                    $this->stockRepository->decrementStock($cart);
 
                 }
 

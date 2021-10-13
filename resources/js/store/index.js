@@ -7,6 +7,7 @@ export default {
         reciepts: [],
         brands: [],
         branches:[],
+        customers:[],
         inventory:[],
     },
 
@@ -19,6 +20,9 @@ export default {
         },
         getBranches(state) {
             return state.branches
+        },
+        getCustomers(state) {
+            return state.customers
         },
         getInventory(state) {
             return state.inventory
@@ -33,6 +37,9 @@ export default {
         },
         updateBranches(state, data) {
             return state.branches = data
+        },
+        updateCustomers(state, data) {
+            return state.customers = data
         },
         updateInventory(state, data) {
             return state.inventory = data
@@ -65,6 +72,14 @@ export default {
             axios.get('/branch').then((response) => {
 
                 context.commit("updateBranches", response.data.branches)
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
+        fetchCustomer(context) {
+            axios.get('/customer').then((response) => {
+
+                context.commit("updateCustomers", response.data.customers)
             }).catch((error) => {
                 console.log(error)
             })

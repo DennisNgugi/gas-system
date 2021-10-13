@@ -21,6 +21,7 @@ class CreateRecieptsTable extends Migration
             $table->double('total_quantity');
             $table->double('total_amount');
             $table->double('amount_paid');
+            $table->double('discount')->default(0);
             $table->double('balance');
             $table->string('payment_mode'); // cash , mpesa-till , mpesa-paybill ,both
             $table->mediumText('remarks')->nullable();

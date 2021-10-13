@@ -2267,6 +2267,7 @@ __webpack_require__.r(__webpack_exports__);
     reciepts: [],
     brands: [],
     branches: [],
+    customers: [],
     inventory: []
   },
   getters: {
@@ -2278,6 +2279,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getBranches: function getBranches(state) {
       return state.branches;
+    },
+    getCustomers: function getCustomers(state) {
+      return state.customers;
     },
     getInventory: function getInventory(state) {
       return state.inventory;
@@ -2292,6 +2296,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateBranches: function updateBranches(state, data) {
       return state.branches = data;
+    },
+    updateCustomers: function updateCustomers(state, data) {
+      return state.customers = data;
     },
     updateInventory: function updateInventory(state, data) {
       return state.inventory = data;
@@ -2321,6 +2328,13 @@ __webpack_require__.r(__webpack_exports__);
     fetchBranch: function fetchBranch(context) {
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('/branch').then(function (response) {
         context.commit("updateBranches", response.data.branches);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    fetchCustomer: function fetchCustomer(context) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/customer').then(function (response) {
+        context.commit("updateCustomers", response.data.customers);
       })["catch"](function (error) {
         console.log(error);
       });

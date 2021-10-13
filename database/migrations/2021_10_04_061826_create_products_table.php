@@ -19,7 +19,8 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->foreign('brand_id')->references('id')->on('brands')->onUpdate('cascade')->onDelete('set null');
             $table->string("unit");
-            $table->integer('quantity')->default(0);
+            $table->json('quantity'); // complete,empty,normal
+            $table->json('stock')->nullable(); // stock_in,stock_out
             $table->json('price');
             $table->timestamps();
         });

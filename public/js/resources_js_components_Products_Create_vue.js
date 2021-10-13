@@ -140,6 +140,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -158,7 +183,11 @@ __webpack_require__.r(__webpack_exports__);
           wholesale_price: ''
         }
       },
-      quantity: '',
+      quantity: {
+        outlight: '',
+        empty: '',
+        normal: ''
+      },
       edit: false,
       errors: new _errors_errors__WEBPACK_IMPORTED_MODULE_0__["default"](),
       alert: new _alerts_alert__WEBPACK_IMPORTED_MODULE_1__["default"]()
@@ -614,9 +643,10 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model",
+                      rawName: "v-model.number",
                       value: _vm.price.complete.retail_price,
-                      expression: "price.complete.retail_price"
+                      expression: "price.complete.retail_price",
+                      modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
@@ -633,8 +663,11 @@ var render = function() {
                       _vm.$set(
                         _vm.price.complete,
                         "retail_price",
-                        $event.target.value
+                        _vm._n($event.target.value)
                       )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
                     }
                   }
                 })
@@ -649,9 +682,10 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model",
+                      rawName: "v-model.number",
                       value: _vm.price.complete.wholesale_price,
-                      expression: "price.complete.wholesale_price"
+                      expression: "price.complete.wholesale_price",
+                      modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
@@ -668,8 +702,11 @@ var render = function() {
                       _vm.$set(
                         _vm.price.complete,
                         "wholesale_price",
-                        $event.target.value
+                        _vm._n($event.target.value)
                       )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
                     }
                   }
                 })
@@ -702,9 +739,10 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model",
+                      rawName: "v-model.number",
                       value: _vm.price.refill.retail_price,
-                      expression: "price.refill.retail_price"
+                      expression: "price.refill.retail_price",
+                      modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
@@ -721,8 +759,11 @@ var render = function() {
                       _vm.$set(
                         _vm.price.refill,
                         "retail_price",
-                        $event.target.value
+                        _vm._n($event.target.value)
                       )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
                     }
                   }
                 })
@@ -737,9 +778,10 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model",
+                      rawName: "v-model.number",
                       value: _vm.price.refill.wholesale_price,
-                      expression: "price.refill.wholesale_price"
+                      expression: "price.refill.wholesale_price",
+                      modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
@@ -756,8 +798,11 @@ var render = function() {
                       _vm.$set(
                         _vm.price.refill,
                         "wholesale_price",
-                        $event.target.value
+                        _vm._n($event.target.value)
                       )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
                     }
                   }
                 })
@@ -780,38 +825,146 @@ var render = function() {
               _vm._v("Quantity")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "input-group input-group-lg" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.quantity,
-                    expression: "quantity"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                domProps: { value: _vm.quantity },
-                on: {
-                  keydown: function($event) {
-                    return _vm.errors.clear("quantity")
-                  },
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+            _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-5" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.quantity.outlight,
+                      expression: "quantity.outlight",
+                      modifiers: { number: true }
                     }
-                    _vm.quantity = $event.target.value
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
+                  domProps: { value: _vm.quantity.outlight },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.errors.clear("quantity.outlight")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.quantity,
+                        "outlight",
+                        _vm._n($event.target.value)
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
                   }
+                })
+              ]),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "help is-danger",
+                staticStyle: { color: "red" },
+                domProps: {
+                  textContent: _vm._s(_vm.errors.get("quantity.outlight"))
                 }
               })
             ]),
             _vm._v(" "),
-            _c("span", {
-              staticClass: "help is-danger",
-              staticStyle: { color: "red" },
-              domProps: { textContent: _vm._s(_vm.errors.get("quantity")) }
-            })
+            _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-5" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.quantity.empty,
+                      expression: "quantity.empty",
+                      modifiers: { number: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
+                  domProps: { value: _vm.quantity.empty },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.errors.clear("quantity.empty")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.quantity,
+                        "empty",
+                        _vm._n($event.target.value)
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "help is-danger",
+                staticStyle: { color: "red" },
+                domProps: {
+                  textContent: _vm._s(_vm.errors.get("quantity.empty"))
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
+              _vm._m(7),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-5" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.quantity.normal,
+                      expression: "quantity.normal",
+                      modifiers: { number: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
+                  domProps: { value: _vm.quantity.normal },
+                  on: {
+                    keydown: function($event) {
+                      return _vm.errors.clear("quantity.normal")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.quantity,
+                        "normal",
+                        _vm._n($event.target.value)
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "help is-danger",
+                staticStyle: { color: "red" },
+                domProps: {
+                  textContent: _vm._s(_vm.errors.get("quantity.normal"))
+                }
+              })
+            ])
           ]),
           _vm._v(" "),
           _c(
@@ -871,6 +1024,32 @@ var staticRenderFns = [
       _c("label", { staticClass: "col-form-label col-lg-4" }, [
         _vm._v("Wholesale Price")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("label", { staticClass: "col-form-label col-lg-4" }, [
+        _vm._v("Outlight")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("label", { staticClass: "col-form-label col-lg-4" }, [_vm._v("Empty")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("label", { staticClass: "col-form-label col-lg-4" }, [_vm._v("Qty")])
     ])
   }
 ]
