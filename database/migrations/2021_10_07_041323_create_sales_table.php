@@ -19,6 +19,10 @@ class CreateSalesTable extends Migration
             $table->foreign('reciept_id')->references('id')->on('reciepts')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('set null');
+            $table->unsignedBigInteger('exchanged_product_id')->nullable();
+            $table->foreign('exchanged_product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('set null');
+            $table->string('gas_type');
+            $table->string('sale_type');
             $table->double('quantity');
             $table->double('price');
             $table->double('total');

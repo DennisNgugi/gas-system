@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/css/adminlte.min.css">
-  
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -169,7 +169,7 @@
         </div>
       </div>
 
-   
+
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -191,7 +191,7 @@
                   <p>Dashboard v1</p>
                 </a>
               </li>
-          
+
             </ul>
           </li>
           <li class="nav-item">
@@ -213,7 +213,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            
+
               <li class="nav-item">
                 <router-link to="/admin/products/create" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -226,7 +226,7 @@
                   <p>Product List</p>
                 </router-link>
               </li>
-         
+
             </ul>
           </li>
           <li class="nav-item">
@@ -250,9 +250,33 @@
                   <p>Manage Branch</p>
                 </router-link>
               </li>
-           
+
             </ul>
           </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>
+                        Customer
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <router-link to="/admin/customers/create" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Customer</p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/customers/index" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Manage Customers</p>
+                        </router-link>
+                    </li>
+
+                </ul>
+            </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
@@ -274,7 +298,7 @@
                   <p>Inventory List</p>
                 </router-link>
               </li>
-          
+
             </ul>
           </li>
           <li class="nav-item">
@@ -292,7 +316,7 @@
                   <p>Add Gas Brand</p>
                 </router-link>
               </li>
-     
+
             </ul>
           </li>
           <li class="nav-item">
@@ -324,7 +348,7 @@
               </li>
             </ul>
           </li>
-          
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -341,7 +365,7 @@
           <div class="col-sm-6">
             <!-- <h1>Blank Page</h1> -->
           </div>
-       
+
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -349,16 +373,16 @@
     <!-- Main content -->
     <section class="content">
 
-     
+
      <router-view></router-view>
-     
+
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
-   
+
     <strong>Copyright &copy; 2021-2025.</strong> All rights reserved.
   </footer>
 

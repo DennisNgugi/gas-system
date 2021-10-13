@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RecieptController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
@@ -27,6 +28,7 @@ Route::resource('branch',BranchController::class);
 Route::resource('inventory',InventoryController::class);
 Route::resource('brand',BrandController::class);
 Route::resource('checkout',RecieptController::class);
+Route::resource('customer',CustomerController::class);
 Route::get('/admin/{any}', function () {
     return view('dashboard');
   })->where('any', '.*');

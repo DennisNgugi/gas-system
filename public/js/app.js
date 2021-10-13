@@ -2096,8 +2096,8 @@ var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().mixin((_swal$mixi
   toast: true,
   position: 'bottom-start',
   showConfirmButton: false,
-  timer: 3000
-}, _defineProperty(_swal$mixin, "timer", 3000), _defineProperty(_swal$mixin, "timerProgressBar", true), _defineProperty(_swal$mixin, "didOpen", function didOpen(toast) {
+  timer: 2000
+}, _defineProperty(_swal$mixin, "timer", 2000), _defineProperty(_swal$mixin, "timerProgressBar", true), _defineProperty(_swal$mixin, "didOpen", function didOpen(toast) {
   toast.addEventListener('mouseenter', (sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().stopTimer));
   toast.addEventListener('mouseleave', (sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().resumeTimer));
 }), _swal$mixin));
@@ -2203,6 +2203,19 @@ var routes = [{
   name: 'branch.index',
   component: function component() {
     return __webpack_require__.e(/*! import() */ "resources_js_components_Branch_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Branch/Index.vue */ "./resources/js/components/Branch/Index.vue"));
+  }
+}, // customer components
+{
+  path: '/admin/customers/create',
+  name: 'customers.create',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_components_Customers_Create_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Customers/Create.vue */ "./resources/js/components/Customers/Create.vue"));
+  }
+}, {
+  path: '/admin/customers/index',
+  name: 'customers.index',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_components_Customers_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Customers/Index.vue */ "./resources/js/components/Customers/Index.vue"));
   }
 }, // inventory components
 {
@@ -57865,7 +57878,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Dashboard_Dashboard_vue":1,"resources_js_components_Products_Create_vue":1,"resources_js_components_Products_Index_vue":1,"resources_js_components_Branch_Create_vue":1,"resources_js_components_Branch_Index_vue":1,"resources_js_components_Inventory_AddInventory_vue":1,"resources_js_components_Inventory_Index_vue":1,"resources_js_components_Brands_Create_vue":1,"resources_js_components_Brands_Index_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Dashboard_Dashboard_vue":1,"resources_js_components_Products_Create_vue":1,"resources_js_components_Products_Index_vue":1,"resources_js_components_Branch_Create_vue":1,"resources_js_components_Branch_Index_vue":1,"resources_js_components_Customers_Create_vue":1,"resources_js_components_Customers_Index_vue":1,"resources_js_components_Inventory_AddInventory_vue":1,"resources_js_components_Inventory_Index_vue":1,"resources_js_components_Brands_Create_vue":1,"resources_js_components_Brands_Index_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

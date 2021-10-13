@@ -43,7 +43,7 @@ class RecieptController extends Controller
     public function store(Request $request,CheckoutRepositoryInterface $checkoutRepository)
     {
         // try{
-        // return $request;
+         //return $request;
         $sales = $checkoutRepository->saveTransaction($request);
         return response()->json([
             'success' => 'Transaction processed succesfully'

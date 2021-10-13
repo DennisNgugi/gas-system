@@ -31,7 +31,7 @@
                                     <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" v-model="checkout.gas_type" value="1"  id="flexRadioDefault1">
+                                            <input class="form-check-input" type="radio" v-model="checkout.gas_type" value="C"  id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 Complete
                                             </label>
@@ -41,7 +41,7 @@
                                     <div class="col-md-6">
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" v-model="checkout.gas_type" value="0"  id="flexRadioDefault2" checked>
+                                            <input class="form-check-input" type="radio" v-model="checkout.gas_type" value="E"  id="flexRadioDefault2" checked>
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Refill
                                             </label>
@@ -63,7 +63,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-check">
-                                                <input class="form-check-input" v-model="checkout.sale_type" value="0" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                                <input class="form-check-input" v-model="checkout.sale_type" value="W" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
                                                 <label class="form-check-label" for="flexRadioDefault3">
                                                     Wholesale
                                                 </label>
@@ -73,7 +73,7 @@
                                         <div class="col-md-6">
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" v-model="checkout.sale_type" value="1" name="flexRadioDefault" id="flexRadioDefault4" checked>
+                                                <input class="form-check-input" type="radio" v-model="checkout.sale_type" value="R" name="flexRadioDefault" id="flexRadioDefault4" checked>
                                                 <label class="form-check-label" for="flexRadioDefault4">
                                                     Retail
                                                 </label>
@@ -95,29 +95,21 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"> <b><i>Outlight cylinder</i></b></span>
                                 </div>
-                                <select class="form-control"  style="height: 50px;">
-                                    <option value="">Select cylinder</option>
-                                    <option value="cash">CASH</option>
-                                    <option value="mpesa">M-PESA</option>
-                                    <option value="others">OTHERS</option>
-                                </select>
+                                <v-select v-model="checkout.product_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id" @input="getProductIndex" @keypress="errors.clear('product_id')"/>
+
                             </div>
 
 
                         </div>
 
-                        <div v-if="checkout.gas_type === '0'" class="col-md-6">
+                        <div v-if="checkout.gas_type === 'E'" class="col-md-6">
                             <label for=""><b>Exchanged Cylinder</b> </label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"> <b><i>Exchanged Cylinder</i></b></span>
                                 </div>
-                                <select class="form-control"  style="height: 50px;">
-                                    <option value="">Select cylinder</option>
-                                    <option value="cash">CASH</option>
-                                    <option value="mpesa">M-PESA</option>
-                                    <option value="others">OTHERS</option>
-                                </select>
+                                <v-select v-model="checkout.product_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id" @keypress="errors.clear('product_id')"/>
+
                             </div>
 
 
@@ -144,7 +136,7 @@
                         </div>
 
 
-                        <div v-if="checkout.sale_type === '0'" class="col-md-6">
+                        <div v-if="checkout.sale_type === 'W'" class="col-md-6">
                             <label for=""><b>Customer Name</b> </label>
                             <div class="input-group mb-3">
 <!--                                <div class="input-group-prepend">-->
@@ -224,7 +216,9 @@
                     </div>
                 </div>
 
-
+                <div class="d-flex" style="height: 600px;">
+                    <div class="vr"></div>
+                </div>
 
                 <!-- Right split screen -->
                 <div class="col-md-5 ml-3 mt-0">
@@ -234,11 +228,12 @@
 
                             <div class="card bg-white">
                                 <div class="overflow-auto" style="max-height:600px;">
-                                    <table class="table table-bordered table-condensed table-striped">
+                                    <table v-if="cart.length > 0" class="table table-bordered table-condensed table-striped">
                                         <thead class="thead-light">
                                         <tr>
                                             <th width="5%" scope="col">#</th>
                                             <th width="41%" scope="col">Item</th>
+                                            <th width="5%" scope="col">Sale</th>
                                             <th width="14%" scope="col">Qty</th>
                                             <th width="10%" scope="col">Price</th>
                                             <th width="17%" scope="col">Total</th>
@@ -249,7 +244,8 @@
                                         <tbody>
                                         <tr v-for="(item, index) in cart" :key="index">
                                             <td scope="row" v-text="index+1"></td>
-                                            <td>{{item.product.brands.brand_name}} - {{item.product.unit}} Kg.</td>
+                                            <td>{{item.product.product_name}} [{{item.detail.gas_type}}]</td>
+                                            <td>{{item.detail.sale_type}}</td>
 
                                     <td>
                                         <button class="btn btn-info btn-sm" @click.prevent="decrement(item,index)"><span><i class="bi bi-dash"></i></span></button>
@@ -257,7 +253,7 @@
                                         {{item.quantity}}
                                         <button class="btn btn-info btn-sm" @click.prevent="increment(item)"><span><i class="bi bi-plus"></i></span></button>
                                     </td>
-                                            <td>{{item.product.retail_price}}</td>
+                                            <td>{{item.detail.price}}</td>
                                             <td v-text="cartLineTotal(item)"></td>
                                             <td>
                                                 <button class="btn btn-danger" @click.prevent="$store.commit('removeFromCart', index)">
@@ -270,8 +266,40 @@
 
 
                                     </table>
+                                    <div class="messageVide" v-else>Empty List <span>(Select Product)</span></div>
                                 </div>
                             </div>
+
+
+                            <div class="card-footer">
+
+                                <div class="media">
+                                    <div class="media-body">
+                                        <div class="row row-sm">
+
+                                            <div class="table-responsive col-sm-12 totalTab">
+                                                <table class="table">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="active" width="40%">Grand Total</td>
+                                                        <td class="whiteBg" width="60%"><span id="Subtot">{{ cartTotalAfterTax}} </span> KSH
+                                                            <span class="float-right"><b id="ItemsNum"><span>{{cartQuantity}}</span> items</b></span>
+                                                        </td>
+                                                    </tr>
+                                                    <!--
+                                                                  <tr>
+                                                                      <td class="active">Grand total</td>
+                                                                      <td class="whiteBg light-blue text-bold"><span id="total">{{ cartTotal }}</span> KSH</td>
+                                                                  </tr> -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div><!-- row -->
+
+                                    </div>
+                                </div><!-- media-body -->
+                            </div><!-- media -->
 
 
                         </div>
@@ -361,8 +389,8 @@
 
                         </div> -->
                         <div class="col-md-6">
-                            <button type="button" v-if="$store.state.cart == 0" disabled @click.prevent="proceedWithPayment" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
-                            <button type="button" v-else class="btn btn-success btn-block btn-lg" @click.prevent="proceedWithPayment"><i class="bi bi-cash"></i> Payment</button>
+                            <button type="button" v-if="$store.state.cart == 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
+                            <button type="button" v-else class="btn btn-success btn-block btn-lg" @click.prevent="saveTransaction"><i class="bi bi-cash"></i> Payment</button>
                         </div>
                     </div>
                 <!--Buttons-->
@@ -492,6 +520,7 @@ export default {
         return {
 
             checkout: {
+                product_id:'',
                 sale_type:'',
                 gas_type:'',
                 payment_mode: '',
@@ -508,16 +537,8 @@ export default {
 
 
             },
-
-
-            // product result after search
             alert: new SweetAlert(),
-            showModal: false,
             search: '',
-            isMpesa:false,
-
-
-            //timer:1200,
 
         }
     },
@@ -536,49 +557,71 @@ export default {
     // },
     mounted() {
         this.$store.dispatch("fetchProduct")
-        this.OnMpesaSelect()
+
+
     },
     methods: {
         // this function trigers the barcode scanner and responds to it
         // the debounce function helps it to wait for atleast 1 second in
         // order to send a single request to the DB instead of 3
-        OnMpesaSelect(){
-            if(this.reciept.payment_mode === 'mpesa'){
-                this.isMpesa = true
-            }else{
-                this.isMpesa = false
+
+
+    getProductIndex(value){
+        let productIndex = this.$store.state.products.findIndex(item => item.id === value);
+        if (productIndex != -1) {
+            let gas_type = this.checkout.gas_type
+            let sale_type = this.checkout.sale_type
+            if (gas_type !="" && sale_type!="") {
+                let price = "";
+                switch( true ) {
+                    case (gas_type === 'C' && sale_type==='W'):
+                        price = this.$store.state.products[productIndex].price.complete.wholesale_price;
+                        break;
+                    case (gas_type === 'C' && sale_type==='R'):
+                        price = this.$store.state.products[productIndex].price.complete.retail_price;
+                        break;
+                    case (gas_type === 'E' && sale_type==='W'):
+                        price = this.$store.state.products[productIndex].price.refill.wholesale_price;
+                        break;
+                    case (gas_type === 'E' && sale_type==='R'):
+                        price = this.$store.state.products[productIndex].price.refill.retail_price;
+                        break;
+                    default:
+                        price = "Invalid";
+                }
+                let detail = {
+                    gas_type: gas_type,
+                    sale_type: sale_type,
+                    price:price
+                }
+                this.addToCart(this.$store.state.products[productIndex],detail)
             }
-        },
-
-        // method for emptying input fields
-        reset() {
-            //  this.reciept.customer_name = ""
-            this.reciept.payment_mode = ""
-            this.reciept.total_amount = ""
-            this.reciept.total_quantity = ""
-            this.reciept.amount_paid = ""
-            this.reciept.balance = ""
-            this.reciept.sub_total = ""
 
 
-            // empty the data object
-            Object.assign(this.$data, this.$options.data())
-        },
+        }
 
-        proceedWithPayment() {
-            this.showModal = true;
-            // if (this.$store.state.cart != 0) {
-            //     //this.alert.ask("Finalize transaction")
-            //     this.saveTransaction()
-            // } else {
-            //     this.alert.message("Cart is empty. Please add item")
-            // }
-        },
-        closeCheckoutModal() {
-            this.showModal = false
-            this.reset()
-            this.$store.dispatch('clearCart', [])
 
+    },
+
+        determinePrice(gas_type,sale_type){
+            var price = "";
+            switch( true ) {
+                case (gas_type === 'O' && sale_type==='W'):
+                    price = "OW";
+                    break;
+                case (gas_type === 'O' && sale_type==='R'):
+                    price = "OR";
+                    break;
+                case (gas_type === 'E' && sale_type==='W'):
+                    price = "EW";
+                    break;
+                case (gas_type === 'E' && sale_type==='R'):
+                    price = "ER";
+                    break;
+                default:
+                    price = "Empty";
+            }
+            return price;
         },
         // cart functionality
         getCartItem: function(product) {
@@ -590,16 +633,17 @@ export default {
 
             return null;
         },
-        addToCart: function(product) {
+        addToCart: function(product,detail) {
             var cartItem = this.getCartItem(product);
-            if (cartItem != null) {
-                cartItem.quantity++;
-            } else {
+            // if (cartItem != null) {
+            //     cartItem.quantity++;
+            // } else {
                 this.cart.push({
                     product: product,
+                    detail:detail,
                     quantity: 1,
                 });
-            }
+            //}
             //product.quantity--;
         },
         increment: function(item){
@@ -617,6 +661,25 @@ export default {
 
         },
 
+        // method for emptying input fields
+        reset() {
+            //  this.reciept.customer_name = ""
+
+            this.reciept.total_amount = ""
+            this.reciept.total_quantity = ""
+            this.reciept.amount_paid = ""
+            this.reciept.balance = ""
+            this.reciept.sub_total = ""
+
+
+            // empty the data object
+            Object.assign(this.$data, this.$options.data())
+        },
+
+
+
+
+
 
         saveTransaction() {
 
@@ -631,19 +694,18 @@ export default {
                 cart,
             }).
             then((response) => {
-                //close Modal
-                this.closeCheckoutModal()
+
                 // display success message from backend
                 this.alert.successLarge(response.data.success)
 
                 // clear the cart
-                this.$store.dispatch('clearCart', [])
+                //this.$store.dispatch('clearCart', [])
 
                 // get products
                 this.getProducts
 
                 //reload
-                window.location.reload(false);
+                //window.location.reload(false);
 
             }).catch((error) => {
                 // display the error
@@ -658,7 +720,7 @@ export default {
 
         },
         cartLineTotal(item) {
-            let price = item.product.retail_price * item.quantity;
+            let price = item.detail.price * item.quantity;
             return price;
         }
     },
@@ -682,7 +744,7 @@ export default {
             return quantity;
         },
         cartTotalAfterTax() {
-            let price = this.cart.reduce((acc, item) => acc + (item.product.retail_price * item.quantity), 0);
+            let price = this.cart.reduce((acc, item) => acc + (item.detail.price * item.quantity), 0);
             this.checkout.total_amount = price;
             return price;
         },
@@ -825,5 +887,6 @@ table#cart tfoot td .btn{display:block;}
 input[type='number']{
     width: 80px;
 }
+
 
 </style>

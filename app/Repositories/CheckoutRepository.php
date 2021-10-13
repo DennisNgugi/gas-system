@@ -33,9 +33,12 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
                 $reciept->total_amount = $checkoutDetails['total_amount'];
                 $reciept->amount_paid = $checkoutDetails['amount_paid'];
                 $reciept->balance = $checkoutDetails['balance'];
+                if ($reciept->balance<0){
+                    $reciept->payment_status = false;
+                }
                 $reciept->payment_mode = $checkoutDetails['payment_mode'];
-                $reciept->gas_status = $checkoutDetails['gas_status'];
-                $reciept->sale_type = $checkoutDetails['sale_type'];
+                $reciept->phone_number = $checkoutDetails['phone_number'];
+//                $reciept->message_time = $cartDetails['message_time'];
                 $reciept->remarks = $checkoutDetails['remarks'];
 
                 $reciept->save();
@@ -45,9 +48,10 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
                     $sales->reciept_id = $reciept->id;
                     $sales->product_id = $cart['product']['id'];
                     $sales->quantity = $cart['quantity'];
-                    $sales->price = $cart['product']['retail_price'];
-                    $sales->total = $cart['product']['retail_price'] * $cart['quantity'];
-
+                    $sales->price = $cart['detail']['price'];
+                    $sales->total = $cart['detail']['price'] * $cart['quantity'];
+                    $sales->sale_type = $cart['detail']['sale_type'];
+                    $sales->gas_type = $cart['detail']['gas_type'];
                     $sales->save();
 
                 }
@@ -60,7 +64,7 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
 
     public function generateRecieptCode()
     {
-        return Str::random(5).time();
+        return time();
     }
 
 

@@ -25,10 +25,10 @@ class ProductRequest extends FormRequest
     {
         return [
             // 'product_code' => 'unique:products',
-            'brand_id' => 'required', // for update purpose
-            'retail_price'=> 'required|numeric',
-            'wholesale_price'=> 'numeric',
-            'unit' => 'required',
+//            'brand_id' => 'required', // for update purpose
+//            'retail_price'=> 'required|numeric',
+//            'wholesale_price'=> 'numeric',
+//            'unit' => 'required',
           //  'category_id' => 'required|exists:categories,id'
         ];
     }

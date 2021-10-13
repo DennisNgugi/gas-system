@@ -16,7 +16,7 @@ export const routes =  [
               name: 'products.index',
               component: () => import('../components/Products/Index.vue'),
           },
-          
+
           // branch components
           {
             path: '/admin/branch/create',
@@ -28,6 +28,17 @@ export const routes =  [
             name: 'branch.index',
             component: () => import('../components/Branch/Index.vue'),
         },
+    // customer components
+    {
+        path: '/admin/customers/create',
+        name: 'customers.create',
+        component: () => import('../components/Customers/Create.vue'),
+    },
+    {
+        path: '/admin/customers/index',
+        name: 'customers.index',
+        component: () => import('../components/Customers/Index.vue'),
+    },
         // inventory components
         {
             path: '/admin/inventory/add',
