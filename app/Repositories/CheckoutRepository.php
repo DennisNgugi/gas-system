@@ -41,9 +41,9 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
                 $reciept->total_amount = $total_amount;
                 $reciept->amount_paid = $checkoutDetails['amount_paid'];
                 $reciept->balance = $balance;
-//                if ($balance<0){
-//                    $reciept->payment_status = false;
-//                }
+                if ($balance<0){
+                    $reciept->payment_status = false;
+                }
                 $reciept->payment_mode = $checkoutDetails['payment_mode'];
                 $reciept->phone_number = $checkoutDetails['phone_number'];
 //                $reciept->message_time = $cartDetails['message_time'];
@@ -55,6 +55,7 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
                     $sales = new Sale;
                     $sales->reciept_id = $reciept->id;
                     $sales->product_id = $cart['product']['id'];
+                    $sales->exchanged_product_id = $cart['detail']['exchanged'];
                     $sales->quantity = $cart['quantity'];
                     $sales->price = $cart['detail']['price'];
                     $sales->total = $cart['detail']['price'] * $cart['quantity'];

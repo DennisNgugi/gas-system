@@ -2493,6 +2493,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       checkout: {
         product_id: '',
+        exchanged_id: '',
         sale_type: '',
         gas_type: '',
         payment_mode: '',
@@ -2540,11 +2541,13 @@ __webpack_require__.r(__webpack_exports__);
         var sale_type = this.checkout.sale_type;
         var price = this.$store.state.products[productIndex].price;
         var product = this.$store.state.products[productIndex];
+        var exchanged_gas = this.checkout.exchanged_id;
         var new_price = this.determinePrice(gas_type, sale_type, price);
         var detail = {
           gas_type: gas_type,
           sale_type: sale_type,
-          price: new_price
+          price: new_price,
+          exchanged: exchanged_gas
         };
         this.addToCart(product, detail);
         this.checkout.product_id = '';
@@ -2615,12 +2618,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     // method for emptying input fields
     reset: function reset() {
-      //  this.reciept.customer_name = ""
-      this.reciept.total_amount = "";
-      this.reciept.total_quantity = "";
-      this.reciept.amount_paid = "";
-      this.reciept.balance = "";
-      this.reciept.sub_total = ""; // empty the data object
+      this.checkout.amount_paid = "";
+      this.checkout.sub_total = "";
+      this.checkout.product_id = "";
+      this.checkout.exchanged_id = "";
+      this.checkout.gas_type = "";
+      this.checkout.sub_total = "";
+      this.checkout.amount_paid = "";
+      this.checkout.remarks = "";
+      this.checkout.message_time = "";
+      this.checkout.discount = "";
+      this.checkout.customer_id = "";
+      this.checkout.sale_type = "";
+      this.checkout.payment_mode = ""; // empty the data object
 
       Object.assign(this.$data, this.$options.data());
     },
@@ -2649,8 +2659,12 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         // display success message from backend
         _this2.alert.successLarge(response.data.success); // clear the cart
-        //this.$store.dispatch('clearCart', [])
-        // get products
+
+
+        _this2.$store.dispatch('clearCart', []); // reset
+
+
+        _this2.reset(); // get products
 
 
         _this2.getProducts; //reload
@@ -7519,7 +7533,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*Modal style*/\n.table-striped > tbody > tr:nth-child(2n+1) > td[data-v-37301906], .table-striped > tbody > tr:nth-child(2n+1) > th[data-v-37301906] {\n    background-color: #cadae3;\n}\n.table>tbody>tr>td[data-v-37301906], .table>tfoot>tr>td[data-v-37301906]{\n    vertical-align: middle;\n}\n@media screen and (max-width: 600px) {\ntable#cart tbody td .form-control[data-v-37301906]{\n        width:20%;\n        display: inline !important;\n}\n.actions .btn[data-v-37301906]{\n        width:36%;\n        margin:1.5em 0;\n}\n.actions .btn-info[data-v-37301906]{\n        float:left;\n}\n.actions .btn-danger[data-v-37301906]{\n        float:right;\n}\ntable#cart thead[data-v-37301906] { display: none;\n}\ntable#cart tbody td[data-v-37301906] { display: block; padding: .6rem; min-width:320px;}\ntable#cart tbody tr td[data-v-37301906]:first-child { background: #333; color: #fff;\n}\ntable#cart tbody td[data-v-37301906]:before {\n        content: attr(data-th); font-weight: bold;\n        display: inline-block; width: 8rem;\n}\n}\ntable#cart tfoot td[data-v-37301906]{display:block;\n}\ntable#cart tfoot td .btn[data-v-37301906]{display:block;}\n.messageVide[data-v-37301906] {\n    font-size: 25px;\n    width: 100%;\n    background-color: #c2dae8;\n    padding: 1.5em 0;\n    border-radius: 5px;\n    font-weight: lighter;\n    display: inline-block;\n    text-align: center;\n}\n.modal-mask[data-v-37301906] {\n\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n}\n.modal-lg[data-v-37301906]{\n    width: 750px;\n}\n.modal-header[data-v-37301906] {\n    background-color: #34373d;\n}\n.modal-title[data-v-37301906] {\n    color: #fff;\n}\n.close[data-v-37301906] {\n    color: #fff;\n}\n.modal-wrapper[data-v-37301906] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-body[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\n/*Modal style*/\n#footer[data-v-37301906] {\n    position: fixed;\n    left: 0;\n    bottom: 0;\n    /* width: 100%;*/\n    text-align: left;\n}\n#itempay[data-v-37301906]{\n    font-size:25px;\n}\n#paybal[data-v-37301906]{\n    font-size: 25px;\n}\n#total_paying[data-v-37301906]{\n    font-size:60px;\n    color: green;\n}\n#item_count[data-v-37301906]{\n    font-size:40px;\n    color: green;\n}\n#card-details[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\n#product-details[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\ninput[type='number'][data-v-37301906]{\n    width: 80px;\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*Modal style*/\n.table-striped > tbody > tr:nth-child(2n+1) > td[data-v-37301906], .table-striped > tbody > tr:nth-child(2n+1) > th[data-v-37301906] {\n    background-color: #cadae3;\n}\n.table>tbody>tr>td[data-v-37301906], .table>tfoot>tr>td[data-v-37301906]{\n    vertical-align: middle;\n}\n@media screen and (max-width: 600px) {\ntable#cart tbody td .form-control[data-v-37301906]{\n        width:20%;\n        display: inline !important;\n}\n.actions .btn[data-v-37301906]{\n        width:36%;\n        margin:1.5em 0;\n}\n.actions .btn-info[data-v-37301906]{\n        float:left;\n}\n.actions .btn-danger[data-v-37301906]{\n        float:right;\n}\ntable#cart thead[data-v-37301906] { display: none;\n}\ntable#cart tbody td[data-v-37301906] { display: block; padding: .6rem; min-width:320px;}\ntable#cart tbody tr td[data-v-37301906]:first-child { background: #333; color: #fff;\n}\ntable#cart tbody td[data-v-37301906]:before {\n        content: attr(data-th); font-weight: bold;\n        display: inline-block; width: 8rem;\n}\n}\ntable#cart tfoot td[data-v-37301906]{display:block;\n}\ntable#cart tfoot td .btn[data-v-37301906]{display:block;}\n.messageVide[data-v-37301906] {\n    font-size: 25px;\n    width: 100%;\n    background-color: #c2dae8;\n    padding: 1.5em 0;\n    border-radius: 5px;\n    font-weight: lighter;\n    display: inline-block;\n    text-align: center;\n}\n.modal-mask[data-v-37301906] {\n\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n}\n.modal-lg[data-v-37301906]{\n    width: 750px;\n}\n.modal-header[data-v-37301906] {\n    background-color: #34373d;\n}\n.modal-title[data-v-37301906] {\n    color: #fff;\n}\n.close[data-v-37301906] {\n    color: #fff;\n}\n.modal-wrapper[data-v-37301906] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-body[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\n/*Modal style*/\n#footer[data-v-37301906] {\n    position: fixed;\n    left: 0;\n    bottom: 0;\n    /* width: 100%;*/\n    text-align: left;\n}\n#itempay[data-v-37301906]{\n    font-size:25px;\n}\n#paybal[data-v-37301906]{\n    font-size: 25px;\n}\n#total_paying[data-v-37301906]{\n    font-size:60px;\n    color: green;\n}\n#item_count[data-v-37301906]{\n    font-size:40px;\n    color: green;\n}\n#card-details[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\n#product-details[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\ninput[type='number'][data-v-37301906]{\n    width: 80px;\n}\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42364,11 +42378,11 @@ var render = function() {
                             }
                           },
                           model: {
-                            value: _vm.checkout.product_id,
+                            value: _vm.checkout.exchanged_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.checkout, "product_id", $$v)
+                              _vm.$set(_vm.checkout, "exchanged_id", $$v)
                             },
-                            expression: "checkout.product_id"
+                            expression: "checkout.exchanged_id"
                           }
                         })
                       ],

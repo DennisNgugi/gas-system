@@ -108,7 +108,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"> <b><i>Exchanged Cylinder</i></b></span>
                                 </div>
-                                <v-select v-model="checkout.product_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id" @keypress="errors.clear('product_id')"/>
+                                <v-select v-model="checkout.exchanged_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id" @keypress="errors.clear('product_id')"/>
 
                             </div>
 
@@ -427,6 +427,7 @@ export default {
 
             checkout: {
                 product_id: '',
+                exchanged_id:'',
                 sale_type: '',
                 gas_type: '',
                 payment_mode: '',
@@ -482,13 +483,15 @@ export default {
                 let sale_type = this.checkout.sale_type
                 let price = this.$store.state.products[productIndex].price
                 let product = this.$store.state.products[productIndex]
+                let exchanged_gas = this.checkout.exchanged_id
 
                 let new_price = this.determinePrice(gas_type,sale_type,price);
 
                 let detail = {
                     gas_type: gas_type,
                     sale_type: sale_type,
-                    price:new_price
+                    price:new_price,
+                    exchanged:exchanged_gas
                 }
 
                 this.addToCart(product, detail)
@@ -562,13 +565,19 @@ export default {
 
     // method for emptying input fields
     reset() {
-        //  this.reciept.customer_name = ""
-
-        this.reciept.total_amount = ""
-        this.reciept.total_quantity = ""
-        this.reciept.amount_paid = ""
-        this.reciept.balance = ""
-        this.reciept.sub_total = ""
+        this.checkout.amount_paid = ""
+        this.checkout.sub_total = ""
+        this.checkout.product_id = ""
+        this.checkout.exchanged_id=""
+        this.checkout.gas_type=""
+        this.checkout.sub_total=""
+        this.checkout.amount_paid=""
+        this.checkout.remarks=""
+        this.checkout.message_time=""
+        this.checkout.discount=""
+        this.checkout.customer_id=""
+        this.checkout.sale_type=""
+        this.checkout.payment_mode=""
 
 
         // empty the data object
@@ -609,7 +618,10 @@ export default {
             this.alert.successLarge(response.data.success)
 
             // clear the cart
-            //this.$store.dispatch('clearCart', [])
+            this.$store.dispatch('clearCart', [])
+
+            // reset
+            this.reset()
 
             // get products
             this.getProducts
