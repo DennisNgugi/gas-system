@@ -9,6 +9,12 @@ class Reciept extends Model
 {
     use HasFactory;
 
-
     protected $guarded = [];
+
+    public function sales(){
+        return $this->hasMany(Sale::class,'reciept_id');
+    }
+    public function customers(){
+        return $this->belongsTo(Customer::class,'customer_id');
+    }
 }

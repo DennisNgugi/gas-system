@@ -42,7 +42,7 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(ProductRequest $request,ProductRepositoryInterface $productRepository)
     {
@@ -70,22 +70,28 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Product $product)
+    public function show($id,ProductRepositoryInterface $productRepository)
     {
-        //
+        $product = $productRepository->productDetail($id);
+        return response()->json([
+            'productDetail' => $product
+        ],200);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit(Product $product)
+    public function edit($id,ProductRepositoryInterface $productRepository)
     {
-        //
+        $product = $productRepository->findIndex($id);
+        return response()->json([
+            'product' => $product
+        ],200);
     }
 
     /**
@@ -93,11 +99,20 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request,ProductRepositoryInterface $productRepository,$id)
     {
-        //
+       // try{
+            $product = $productRepository->update($request->all(),$id);
+            return response()->json([
+                "success" => "Product updated Successfully"
+            ],200);
+//        }catch(\Exception $exception){
+//            return response()->json([
+//                "errors" => "Product has failed to update!"
+//            ],500);
+//        }
     }
 
     /**

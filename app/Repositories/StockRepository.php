@@ -17,22 +17,26 @@ class StockRepository extends BaseRepository implements StockRepositoryInterface
 
     public function incrementStock($item)
     {
+        $itemIndex = parent::findIndex($item['product']['id']);
 
     }
 
     public function decrementStock($item)
     {
         // get item id
-        $itemIndex = $this->product->findOrFail($item['product']['id']);
+        $itemIndex = parent::findIndex($item['product']['id']);
         // check whether complete or refill
         if ($item['detail']['gas_type'] === 'C'){
-            $newOutlightQuantity = $this->checkQuantity($item)['outlight'] - $item['quantity'];
+            // method 1
+            $newOutlightQuantity = $itemIndex->quantity['outlight'] - $item['quantity'];
             $itemIndex->update(['quantity->outlight'=> $newOutlightQuantity]);
+
+
         }elseif($item['detail']['gas_type'] === 'E'){
-            $newOutlightQuantity = $this->checkQuantity($item)['outlight'] - $item['quantity'];
-            $itemIndex->update(['quantity->outlight'=> $newOutlightQuantity]);
-            $newEmptyQuantity = $this->checkQuantity($item)['empty'] + $item['quantity'];
-            $itemIndex->update(['quantity->empty'=> $newEmptyQuantity]);
+            $newOutlightQuantity = $itemIndex->quantity['outlight'] - $item['quantity'];
+            $newEmptyQuantity = $itemIndex->quantity['empty'] + $item['quantity'];
+            $itemIndex->update(['quantity->outlight'=> $newOutlightQuantity,
+                'quantity->empty'=> $newEmptyQuantity]);
         }
 
     }

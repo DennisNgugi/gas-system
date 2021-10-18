@@ -1,10 +1,10 @@
 
 export const routes =  [
-    {
-        path: '/admin/dashboard',
-        name:'dashboard',
-        component: () => import('../components/Dashboard/Dashboard.vue'),
-    },
+            {
+                path: '/admin/dashboard',
+                name:'dashboard',
+                component: () => import('../components/Dashboard/Dashboard.vue'),
+            },
     // product components
           {
               path: '/admin/products/create',
@@ -16,6 +16,16 @@ export const routes =  [
               name: 'products.index',
               component: () => import('../components/Products/Index.vue'),
           },
+            {
+                path: '/admin/products/edit/:id',
+                name: 'products.edit',
+                component: () => import('../components/Products/Edit.vue'),
+            },
+            {
+                path: '/admin/products/view/:id',
+                name: 'products.view',
+                component: () => import('../components/Products/View.vue'),
+            },
 
           // branch components
           {
@@ -42,13 +52,13 @@ export const routes =  [
         // inventory components
         {
             path: '/admin/inventory/add',
-            name: 'inventory.create',
-            component: () => import('../components/Inventory/AddInventory.vue'),
+            name: 'transfer.create',
+            component: () => import('../components/Transfer/MakeTransfer.vue'),
         },
         {
             path: '/admin/inventory/index',
-            name: 'inventory.index',
-            component: () => import('../components/Inventory/Index.vue'),
+            name: 'transfer.index',
+            component: () => import('../components/Transfer/Index.vue'),
         },
         {
             path: '/admin/brand/create',

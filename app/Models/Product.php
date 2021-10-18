@@ -13,12 +13,15 @@ class Product extends Model
 
     protected $casts = [
         'price' => 'json',
-        'quantity'=>'array',
+        'quantity'=>'json',
         'stock'=>'json'
     ];
 
     public function brands(){
         return $this->belongsTo(Brand::class,'brand_id');
+    }
+    public function sales(){
+        return $this->hasMany(Sale::class,'product_id');
     }
 
 }

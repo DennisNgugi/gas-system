@@ -10,7 +10,7 @@ Vue.use(axios);
 Vue.use(VueRouter);
 
 import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
+Vue.component('vue-select', vSelect)
 import 'vue-select/dist/vue-select.css';
 
 
@@ -32,6 +32,8 @@ const toast = swal.mixin({
 });
 window.toast = toast;
 
+import Vuetify  from "../plugins/vuetify";
+
 import {routes} from './router'
 import storeData from "./store/index"
 
@@ -42,6 +44,7 @@ const router = new VueRouter({
 })
 new Vue({
     el: '#app',
+    vuetify:Vuetify,
     router,
     store,
 });

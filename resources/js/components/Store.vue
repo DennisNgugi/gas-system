@@ -95,7 +95,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"> <b><i>Outlight cylinder</i></b></span>
                                 </div>
-                                <v-select v-model="checkout.product_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id"  @keypress="errors.clear('product_id')"/>
+                                <vue-select v-model="checkout.product_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id"  @keypress="errors.clear('product_id')"/>
 
                             </div>
 
@@ -108,7 +108,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"> <b><i>Exchanged Cylinder</i></b></span>
                                 </div>
-                                <v-select v-model="checkout.exchanged_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id" @keypress="errors.clear('product_id')"/>
+                                <vue-select v-model="checkout.exchanged_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id" @keypress="errors.clear('product_id')"/>
 
                             </div>
 
@@ -130,7 +130,7 @@
                         <div v-if="checkout.sale_type === 'W'" class="col-md-6">
                             <label for=""><b>Customer Name</b> </label>
                             <div class="input-group mb-3">
-                                <v-select v-model="checkout.customer_id" label="customer_name" class="form-control" :options="getCustomers" :reduce="customer => customer.id" @keypress="errors.clear('customer_id')"/>
+                                <vue-select v-model="checkout.customer_id" label="customer_name" class="form-control" :options="getCustomers" :reduce="customer => customer.id" @keypress="errors.clear('customer_id')"/>
 
                             </div>
 
@@ -311,79 +311,8 @@
 
 
                         </div>
-<!--                        <div class="row">-->
-<!--                            <div class="col-md-6" id="footer">-->
-<!--                                <table class="table table-bordered table-striped" style="margin-bottom: 0;">-->
-<!--                                    <tbody>-->
-<!--                                    <tr>-->
-<!--                                        <td width="30%">Total Paying</td>-->
-<!--                                        <td class="text-right" id="total_paying"><span>{{ cartTotal  }}</span></td>-->
-<!--                                        &lt;!&ndash; <td width="25%">Total Payable</td>-->
-<!--                                          <td width="25%" class="text-right"><span id="twt">{{ cartTotal  }}</span></td> &ndash;&gt;-->
-<!--                                    </tr>-->
-<!--                                    <tr>-->
-<!--                                        <td width="30%">Total Items</td>-->
-<!--                                        <td width="70%" class="text-right" id="item_count"><span>{{ cartQuantity }}</span></td>-->
-<!--                                        &lt;!&ndash; <td width="25%">Total Payable</td>-->
-<!--                                        <td width="25%" class="text-right"><span id="twt">{{ cartTotal  }}</span></td> &ndash;&gt;-->
-<!--                                    </tr>-->
 
-<!--                                    </tbody>-->
-<!--                                </table>-->
-<!--                            </div>-->
-
-<!--                        </div>-->
                     </div>
-
-
-
-
-
-<!--                    <div class="row my-2">-->
-<!--                        <div class="col-md-12">-->
-<!--                            <label for=""><b>Payment</b> </label>-->
-<!--                            <div class="input-group mb-3">-->
-<!--                                <div class="input-group-prepend">-->
-<!--                                    <span class="input-group-text" id="basic-addon1"> <b><i>Payment mode</i></b></span>-->
-<!--                                </div>-->
-<!--                                <select class="form-control" v-model="reciept.payment_mode" @change="OnMpesaSelect" style="height: 50px;">-->
-<!--                                    <option value="">Select payment</option>-->
-<!--                                    <option value="cash">CASH</option>-->
-<!--                                    <option value="mpesa">M-PESA</option>-->
-<!--                                    <option value="others">OTHERS</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-
-
-<!--                        </div>-->
-<!--                        <div v-if="isMpesa" class="col-md-12">-->
-<!--                            <label for=""><b>M-PESA Code</b></label>-->
-<!--                            <div class="input-group mb-3">-->
-<!--                                <div class="input-group-prepend">-->
-<!--                                    <span class="input-group-text" id="basic-addon1"><b><i>Mpesa Code.</i></b></span>-->
-<!--                                </div>-->
-<!--                                <input type="text" class="form-control" placeholder="Mpesa code" v-model="reciept.mpesa_code" aria-label="amount" style="height: 50px;">-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
-<!--                    </div>-->
-
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-12">-->
-<!--                            <label for=""><b>Amount paid</b></label>-->
-<!--                            <div class="input-group mb-3">-->
-<!--                                <div class="input-group-prepend">-->
-<!--                                    <span class="input-group-text" id="basic-addon1"><b><i>Ksh.</i></b></span>-->
-<!--                                </div>-->
-<!--                                <input type="number" class="form-control" placeholder="Amount" v-model="reciept.amount_paid" aria-label="amount" style="height: 50px;">-->
-<!--                            </div>-->
-
-<!--                        </div>-->
-
-<!--                    </div>-->
-
-
 
 
                     <!-- Buttons -->
@@ -391,13 +320,10 @@
                         <div class="col-md-6">
                             <button type="button" class="btn btn-danger btn-block btn-lg" @click="cancel"><i class="bi bi-x-circle"></i> Cancel</button>
                         </div>
-                        <!-- <div class="col-md-4">
-                            <button type="button" v-if="this.hold" class="btn btn-warning btn-block btn-lg" id="bg-orange" @click="holdCartItems" disabled><i class="bi bi-pause-fill"></i> Hold</button>
-                            <button type="button" v-else class="btn btn-warning btn-block btn-lg" id="bg-orange" @click="holdCartItems"><i class="bi bi-pause-fill"></i> Hold</button>
 
-                        </div> -->
                         <div class="col-md-6">
                             <button type="button" v-if="$store.state.cart == 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
+                            <button type="button" v-else-if="checkout.payment_mode.length === 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
                             <button type="button" v-else class="btn btn-success btn-block btn-lg" @click.prevent="saveTransaction"><i class="bi bi-cash"></i> Payment</button>
                         </div>
                     </div>

@@ -10,7 +10,7 @@ Vue.use(axios);
 Vue.use(VueRouter);
 
 import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
+Vue.component('vue-select', vSelect)
 import 'vue-select/dist/vue-select.css';
 
 

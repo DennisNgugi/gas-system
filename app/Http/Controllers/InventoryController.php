@@ -69,7 +69,7 @@ class InventoryController extends Controller
 //            'stock_out' => $request->stock_out
 //        ];
 //         $inventoryRepository->create($inventory);
-         return response()->json(['success' => 'Inventory Added Succesfully'],200);
+         return response()->json(['success' => 'Transfer Added Succesfully'],200);
     }
 
     /**

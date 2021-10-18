@@ -1,10 +1,10 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_components_Products_Create_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_components_Products_Edit_vue"],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Create.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Create.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Edit.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Edit.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -170,25 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      product_name: '',
-      brand_id: '',
-      unit: '',
-      price: {
-        complete: {
-          retail_price: '',
-          wholesale_price: ''
-        },
-        refill: {
-          retail_price: '',
-          wholesale_price: ''
-        }
-      },
-      quantity: {
-        outlight: '',
-        empty: '',
-        normal: ''
-      },
-      edit: false,
+      product: {},
       errors: new _errors_errors__WEBPACK_IMPORTED_MODULE_0__["default"](),
       alert: new _alerts_alert__WEBPACK_IMPORTED_MODULE_1__["default"]()
     };
@@ -201,21 +183,29 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getBrands;
     }
   },
+  created: function created() {
+    var _this = this;
+
+    var url = "/product/edit/".concat(this.$route.params.id);
+    axios.get(url).then(function (response) {
+      //  console.log(response.data);
+      _this.product = response.data.product;
+    });
+  },
   methods: {
     save: function save() {
-      var _this = this;
+      var _this2 = this;
 
-      if (this.edit === false) {
-        axios.post('/product', this.$data).then(function (response) {
-          // display success message from backend
-          _this.alert.successLarge(response.data.success); // empty the data object
+      axios.post("/product/update/".concat(this.$route.params.id), this.product).then(function (response) {
+        // display success message from backend
+        _this2.alert.successLarge(response.data.success);
 
-
-          Object.assign(_this.$data, _this.$options.data());
-        })["catch"](function (error) {
-          _this.errors.record(error.response.data.errors);
+        _this2.$router.push({
+          name: 'products.index'
         });
-      }
+      })["catch"](function (error) {
+        _this2.errors.record(error.response.data.errors);
+      });
     }
   }
 });
@@ -376,41 +366,41 @@ var Errors = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "./resources/js/components/Products/Create.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/Products/Create.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/Products/Edit.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/Products/Edit.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Create.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Edit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Edit.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/Products/Create.vue?vue&type=template&id=5a3ba50c&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/Products/Create.vue?vue&type=template&id=5a3ba50c& ***!
-  \************************************************************************************/
+/***/ "./resources/js/components/Products/Edit.vue?vue&type=template&id=aa5c8dcc&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/Products/Edit.vue?vue&type=template&id=aa5c8dcc& ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5a3ba50c___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5a3ba50c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_template_id_aa5c8dcc___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_template_id_aa5c8dcc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5a3ba50c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=template&id=5a3ba50c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Create.vue?vue&type=template&id=5a3ba50c&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_template_id_aa5c8dcc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Edit.vue?vue&type=template&id=aa5c8dcc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Edit.vue?vue&type=template&id=aa5c8dcc&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Create.vue?vue&type=template&id=5a3ba50c&":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Create.vue?vue&type=template&id=5a3ba50c& ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Edit.vue?vue&type=template&id=aa5c8dcc&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Products/Edit.vue?vue&type=template&id=aa5c8dcc& ***!
+  \*************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -451,8 +441,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.product_name,
-                        expression: "product_name"
+                        value: _vm.product.product_name,
+                        expression: "product.product_name"
                       }
                     ],
                     staticClass: "form-control",
@@ -460,16 +450,20 @@ var render = function() {
                       type: "text",
                       "aria-describedby": "sizing-addon1"
                     },
-                    domProps: { value: _vm.product_name },
+                    domProps: { value: _vm.product.product_name },
                     on: {
                       keydown: function($event) {
-                        return _vm.errors.clear("product_name")
+                        return _vm.errors.clear("product.product_name")
                       },
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.product_name = $event.target.value
+                        _vm.$set(
+                          _vm.product,
+                          "product_name",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -479,7 +473,7 @@ var render = function() {
                   staticClass: "help is-danger",
                   staticStyle: { color: "red" },
                   domProps: {
-                    textContent: _vm._s(_vm.errors.get("product_name"))
+                    textContent: _vm._s(_vm.errors.get("product.product_name"))
                   }
                 })
               ])
@@ -505,15 +499,15 @@ var render = function() {
                     },
                     on: {
                       keypress: function($event) {
-                        return _vm.errors.clear("brand_id")
+                        return _vm.errors.clear("product.brand_id")
                       }
                     },
                     model: {
-                      value: _vm.brand_id,
+                      value: _vm.product.brand_id,
                       callback: function($$v) {
-                        _vm.brand_id = $$v
+                        _vm.$set(_vm.product, "brand_id", $$v)
                       },
-                      expression: "brand_id"
+                      expression: "product.brand_id"
                     }
                   })
                 ],
@@ -523,7 +517,9 @@ var render = function() {
               _c("span", {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
-                domProps: { textContent: _vm._s(_vm.errors.get("brand_id")) }
+                domProps: {
+                  textContent: _vm._s(_vm.errors.get("product.brand_id"))
+                }
               })
             ]),
             _vm._v(" "),
@@ -540,14 +536,14 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.unit,
-                        expression: "unit"
+                        value: _vm.product.unit,
+                        expression: "product.unit"
                       }
                     ],
                     staticClass: "form-control",
                     on: {
                       keypress: function($event) {
-                        return _vm.errors.clear("unit")
+                        return _vm.errors.clear("product.unit")
                       },
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -558,9 +554,13 @@ var render = function() {
                             var val = "_value" in o ? o._value : o.value
                             return val
                           })
-                        _vm.unit = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
+                        _vm.$set(
+                          _vm.product,
+                          "unit",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
                       }
                     }
                   },
@@ -585,7 +585,9 @@ var render = function() {
               _c("span", {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
-                domProps: { textContent: _vm._s(_vm.errors.get("unit")) }
+                domProps: {
+                  textContent: _vm._s(_vm.errors.get("product.unit"))
+                }
               })
             ])
           ]),
@@ -606,24 +608,26 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.price.complete.retail_price,
-                      expression: "price.complete.retail_price",
+                      value: _vm.product.price.complete.retail_price,
+                      expression: "product.price.complete.retail_price",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.price.complete.retail_price },
+                  domProps: { value: _vm.product.price.complete.retail_price },
                   on: {
                     keydown: function($event) {
-                      return _vm.errors.clear("price.complete.retail_price")
+                      return _vm.errors.clear(
+                        "product.price.complete.retail_price"
+                      )
                     },
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
                       _vm.$set(
-                        _vm.price.complete,
+                        _vm.product.price.complete,
                         "retail_price",
                         _vm._n($event.target.value)
                       )
@@ -645,24 +649,28 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.price.complete.wholesale_price,
-                      expression: "price.complete.wholesale_price",
+                      value: _vm.product.price.complete.wholesale_price,
+                      expression: "product.price.complete.wholesale_price",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.price.complete.wholesale_price },
+                  domProps: {
+                    value: _vm.product.price.complete.wholesale_price
+                  },
                   on: {
                     keydown: function($event) {
-                      return _vm.errors.clear("price.complete.wholesale_price")
+                      return _vm.errors.clear(
+                        "product.price.complete.wholesale_price"
+                      )
                     },
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
                       _vm.$set(
-                        _vm.price.complete,
+                        _vm.product.price.complete,
                         "wholesale_price",
                         _vm._n($event.target.value)
                       )
@@ -680,7 +688,7 @@ var render = function() {
               staticStyle: { color: "red" },
               domProps: {
                 textContent: _vm._s(
-                  _vm.errors.get("price.complete.wholesale_price")
+                  _vm.errors.get("product.price.complete.wholesale_price")
                 )
               }
             })
@@ -702,14 +710,14 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.price.refill.retail_price,
-                      expression: "price.refill.retail_price",
+                      value: _vm.product.price.refill.retail_price,
+                      expression: "product.price.refill.retail_price",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.price.refill.retail_price },
+                  domProps: { value: _vm.product.price.refill.retail_price },
                   on: {
                     keydown: function($event) {
                       return _vm.errors.clear("price.refill.retail_price")
@@ -719,7 +727,7 @@ var render = function() {
                         return
                       }
                       _vm.$set(
-                        _vm.price.refill,
+                        _vm.product.price.refill,
                         "retail_price",
                         _vm._n($event.target.value)
                       )
@@ -741,24 +749,26 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.price.refill.wholesale_price,
-                      expression: "price.refill.wholesale_price",
+                      value: _vm.product.price.refill.wholesale_price,
+                      expression: "product.price.refill.wholesale_price",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.price.refill.wholesale_price },
+                  domProps: { value: _vm.product.price.refill.wholesale_price },
                   on: {
                     keydown: function($event) {
-                      return _vm.errors.clear("price.refill.wholesale_price")
+                      return _vm.errors.clear(
+                        "product.price.refill.wholesale_price"
+                      )
                     },
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
                       _vm.$set(
-                        _vm.price.refill,
+                        _vm.product.price.refill,
                         "wholesale_price",
                         _vm._n($event.target.value)
                       )
@@ -776,7 +786,7 @@ var render = function() {
               staticStyle: { color: "red" },
               domProps: {
                 textContent: _vm._s(
-                  _vm.errors.get("price.refill.wholesale_price")
+                  _vm.errors.get("product.price.refill.wholesale_price")
                 )
               }
             })
@@ -796,24 +806,24 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.quantity.outlight,
-                      expression: "quantity.outlight",
+                      value: _vm.product.quantity.outlight,
+                      expression: "product.quantity.outlight",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.quantity.outlight },
+                  domProps: { value: _vm.product.quantity.outlight },
                   on: {
                     keydown: function($event) {
-                      return _vm.errors.clear("quantity.outlight")
+                      return _vm.errors.clear("product.quantity.outlight")
                     },
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
                       _vm.$set(
-                        _vm.quantity,
+                        _vm.product.quantity,
                         "outlight",
                         _vm._n($event.target.value)
                       )
@@ -829,7 +839,9 @@ var render = function() {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
                 domProps: {
-                  textContent: _vm._s(_vm.errors.get("quantity.outlight"))
+                  textContent: _vm._s(
+                    _vm.errors.get("product.quantity.outlight")
+                  )
                 }
               })
             ]),
@@ -843,24 +855,24 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.quantity.empty,
-                      expression: "quantity.empty",
+                      value: _vm.product.quantity.empty,
+                      expression: "product.quantity.empty",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.quantity.empty },
+                  domProps: { value: _vm.product.quantity.empty },
                   on: {
                     keydown: function($event) {
-                      return _vm.errors.clear("quantity.empty")
+                      return _vm.errors.clear("product.quantity.empty")
                     },
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
                       _vm.$set(
-                        _vm.quantity,
+                        _vm.product.quantity,
                         "empty",
                         _vm._n($event.target.value)
                       )
@@ -876,7 +888,7 @@ var render = function() {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
                 domProps: {
-                  textContent: _vm._s(_vm.errors.get("quantity.empty"))
+                  textContent: _vm._s(_vm.errors.get("product.quantity.empty"))
                 }
               })
             ]),
@@ -890,24 +902,24 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.quantity.normal,
-                      expression: "quantity.normal",
+                      value: _vm.product.quantity.normal,
+                      expression: "product.quantity.normal",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.quantity.normal },
+                  domProps: { value: _vm.product.quantity.normal },
                   on: {
                     keydown: function($event) {
-                      return _vm.errors.clear("quantity.normal")
+                      return _vm.errors.clear("product.quantity.normal")
                     },
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
                       _vm.$set(
-                        _vm.quantity,
+                        _vm.product.quantity,
                         "normal",
                         _vm._n($event.target.value)
                       )
@@ -923,7 +935,7 @@ var render = function() {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
                 domProps: {
-                  textContent: _vm._s(_vm.errors.get("quantity.normal"))
+                  textContent: _vm._s(_vm.errors.get("product.quantity.normal"))
                 }
               })
             ])
@@ -1133,18 +1145,18 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./resources/js/components/Products/Create.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/Products/Create.vue ***!
-  \*****************************************************/
+/***/ "./resources/js/components/Products/Edit.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/Products/Edit.vue ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Create_vue_vue_type_template_id_5a3ba50c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Create.vue?vue&type=template&id=5a3ba50c& */ "./resources/js/components/Products/Create.vue?vue&type=template&id=5a3ba50c&");
-/* harmony import */ var _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Create.vue?vue&type=script&lang=js& */ "./resources/js/components/Products/Create.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Edit_vue_vue_type_template_id_aa5c8dcc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Edit.vue?vue&type=template&id=aa5c8dcc& */ "./resources/js/components/Products/Edit.vue?vue&type=template&id=aa5c8dcc&");
+/* harmony import */ var _Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Edit.vue?vue&type=script&lang=js& */ "./resources/js/components/Products/Edit.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1154,9 +1166,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Create_vue_vue_type_template_id_5a3ba50c___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Create_vue_vue_type_template_id_5a3ba50c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Edit_vue_vue_type_template_id_aa5c8dcc___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Edit_vue_vue_type_template_id_aa5c8dcc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -1166,7 +1178,7 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/Products/Create.vue"
+component.options.__file = "resources/js/components/Products/Edit.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ })

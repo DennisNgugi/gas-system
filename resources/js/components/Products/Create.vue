@@ -28,7 +28,7 @@
                         <div class="col-lg-4">
                              <label class="col-form-label col-lg-4">Category name</label>
                                 <div class="input-group input-group-lg">
-                                <v-select v-model="brand_id" label="brand_name" class="form-control" :options="getBrands" :reduce="brand => brand.id" @keypress="errors.clear('brand_id')"/>
+                                <vue-select v-model="brand_id" label="brand_name" class="form-control" :options="getBrands" :reduce="brand => brand.id" @keypress="errors.clear('brand_id')"/>
 
                             </div>
                             <span class="help is-danger" style="color:red;" v-text="errors.get('brand_id')"></span>
