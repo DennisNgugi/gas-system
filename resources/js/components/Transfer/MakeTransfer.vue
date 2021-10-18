@@ -8,29 +8,11 @@
         </div>
         <div class="card-body">
                  <form action="" method="post" @submit.prevent="save">
-                     <div class="form-group row">
-                         <div class="col-lg-6">
-                             <label class="col-form-label col-lg-4">From Branch</label>
-                             <div class="input-group input-group-lg">
-                                 <vue-select v-model="from_branch_id" label="branch_name" class="form-control" :options="getBranches" :reduce="branch => branch.id" @keypress="errors.clear('from_branch_id')"/>
 
-                             </div>
-                             <span class="help is-danger" style="color:red;" v-text="errors.get('from_branch_id')"></span>
-                         </div>
-
-                         <div class="col-lg-6">
-                             <label class="col-form-label col-lg-4">To Branch</label>
-                             <div class="input-group input-group-lg">
-                                 <vue-select v-model="to_branch_id" label="branch_name" class="form-control" :options="getBranches" :reduce="branch => branch.id" @keypress="errors.clear('to_branch_id')"/>
-
-                             </div>
-                             <span class="help is-danger" style="color:red;" v-text="errors.get('to_branch_id')"></span>
-                         </div>
-                     </div>
 
                     <div class="form-group row">
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                              <label class="col-form-label col-lg-4">Product name</label>
                                 <div class="input-group input-group-lg">
                                 <vue-select v-model="product_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id" @keypress="errors.clear('product_id')"/>
@@ -43,20 +25,51 @@
 
                     </div>
 
+                     <div class="form-group row">
+                         <div class="col-lg-6">
+                             <label class="col-form-label col-lg-4">Stock Type</label>
+                             <div class="input-group input-group-lg">
+                                 <select v-model="stock_type" class="form-control">
+                                     <option value="">Select Stock type</option>
+                                     <option value="in">Stock In</option>
+                                     <option value="out">Stock Out</option>
+                                 </select>
+                             </div>
+                             <span class="help is-danger" style="color:red;" v-text="errors.get('quantity')"></span>
+
+                         </div>
+                     </div>
                     <div class="form-group row">
 
-                        <div class="col-lg-6">
+                        <div v-if="stock_type === 'in'" class="col-lg-6">
                             <label class="col-form-label col-lg-4">Quantity</label>
                             <div class="input-group input-group-lg">
 
-                                <input type="text" class="form-control" v-model="quantity" aria-describedby="sizing-addon1" @keydown="errors.clear('quantity')" >
+                                <input type="text" class="form-control" v-model.number="stock_in" placeholder="Stock in" aria-describedby="sizing-addon1" @keydown="errors.clear('stock_in')" >
                             </div>
-                            <span class="help is-danger" style="color:red;" v-text="errors.get('quantity')"></span>
+                            <span class="help is-danger" style="color:red;" v-text="errors.get('stock_in')"></span>
+
+                        </div>
+
+                        <div v-if="stock_type === 'out'" class="col-lg-6">
+                            <label class="col-form-label col-lg-4">Quantity</label>
+                            <div class="input-group input-group-lg">
+
+                                <input type="text" class="form-control" v-model.number="stock_out" placeholder="Stock out" aria-describedby="sizing-addon1" @keydown="errors.clear('stock_out')" >
+                            </div>
+                            <span class="help is-danger" style="color:red;" v-text="errors.get('stock_out')"></span>
 
                         </div>
 
 
                     </div>
+
+                     <div class="form-group row">
+                         <label class="col-form-label col-lg-4">Remarks</label>
+                         <div class="input-group input-group-lg">
+                             <textarea v-model="remarks" class="form-control" cols="5"></textarea>
+                         </div>
+                     </div>
 
 
                     <button class="btn btn-primary" type="submit">Save</button>
@@ -80,9 +93,10 @@ export default {
 
 
             product_id: '',
-            from_branch_id:'',
-            to_branch_id:'',
-            quantity: '',
+            stock_type: '',
+            stock_out:'',
+            stock_in:'',
+            remarks:'',
             errors: new Errors(),
             alert: new SweetAlert(),
         }

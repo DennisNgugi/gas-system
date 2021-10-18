@@ -23,5 +23,9 @@ class Product extends Model
     public function sales(){
         return $this->hasMany(Sale::class,'product_id');
     }
+    public function transfers(){
+        return $this->hasMany(Transfer::class,'product_id');
+    }
+
 
 }

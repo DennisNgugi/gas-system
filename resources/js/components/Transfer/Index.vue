@@ -43,22 +43,20 @@
                             <tr>
                                 <th>#</th>
                                 <th>Branch name</th>
-                                <th>Brand name</th>
-
+                                <th>Product Name</th>
+                                <th>Stock in</th>
+                                <th>Stock out</th>
+                                <th>Remarks</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(inventory, index) in filteredData" :key="inventory.id">
+                            <tr v-for="(transfer, index) in filteredData" :key="transfer.id">
                                 <td>{{index + 1}}</td>
-                                 <td size="4">{{inventory.branch_name}}</td>
-                                <td>
-                                    <ol>
-                                    <li v-for="brandy in inventory.brands">{{brandy.brand_name}} - {{brandy.pivot.quantity}}</li>
-                                    </ol>
-                                    <!-- <router-link :to=" { name: 'categories.create'} " exact v-on:click.native="emitEditValue(category)" class="btn btn-primary btn-sm">Edit</router-link> -->
-                                    <!-- <button class="btn btn-danger btn-sm" @click="disable(category.id)">Delete</button> -->
-                                </td>
-
+                                 <td></td>
+                                <td>{{transfer.products.product_name}}</td>
+                                <td>{{transfer.stock_in}}</td>
+                                <td>{{transfer.stock_out}}</td>
+                                <td>{{transfer.remarks}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,12 +74,11 @@
 export default {
     data() {
         return {
-            edit: true,
             search: '',
         }
     },
     mounted() {
-        this.$store.dispatch("fetchInventory")
+        this.$store.dispatch("fetchTransfer")
     },
     // components: {
     //     SearchComponent
@@ -93,7 +90,7 @@ export default {
             //     item.category_name.toLowerCase().includes(
             //         this.search.toLowerCase()
             //     ))
-            return this.$store.getters.getInventory
+            return this.$store.getters.getTransfers
         },
 
     },

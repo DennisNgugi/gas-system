@@ -85,15 +85,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       product_id: '',
-      from_branch_id: '',
-      to_branch_id: '',
-      quantity: '',
+      stock_type: '',
+      stock_out: '',
+      stock_in: '',
+      remarks: '',
       errors: new _errors_errors__WEBPACK_IMPORTED_MODULE_0__["default"](),
       alert: new _alerts_alert__WEBPACK_IMPORTED_MODULE_1__["default"]()
     };
@@ -346,97 +360,7 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "form-group row" }, [
-            _c("div", { staticClass: "col-lg-6" }, [
-              _c("label", { staticClass: "col-form-label col-lg-4" }, [
-                _vm._v("From Branch")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "input-group input-group-lg" },
-                [
-                  _c("vue-select", {
-                    staticClass: "form-control",
-                    attrs: {
-                      label: "branch_name",
-                      options: _vm.getBranches,
-                      reduce: function(branch) {
-                        return branch.id
-                      }
-                    },
-                    on: {
-                      keypress: function($event) {
-                        return _vm.errors.clear("from_branch_id")
-                      }
-                    },
-                    model: {
-                      value: _vm.from_branch_id,
-                      callback: function($$v) {
-                        _vm.from_branch_id = $$v
-                      },
-                      expression: "from_branch_id"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("span", {
-                staticClass: "help is-danger",
-                staticStyle: { color: "red" },
-                domProps: {
-                  textContent: _vm._s(_vm.errors.get("from_branch_id"))
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-6" }, [
-              _c("label", { staticClass: "col-form-label col-lg-4" }, [
-                _vm._v("To Branch")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "input-group input-group-lg" },
-                [
-                  _c("vue-select", {
-                    staticClass: "form-control",
-                    attrs: {
-                      label: "branch_name",
-                      options: _vm.getBranches,
-                      reduce: function(branch) {
-                        return branch.id
-                      }
-                    },
-                    on: {
-                      keypress: function($event) {
-                        return _vm.errors.clear("to_branch_id")
-                      }
-                    },
-                    model: {
-                      value: _vm.to_branch_id,
-                      callback: function($$v) {
-                        _vm.to_branch_id = $$v
-                      },
-                      expression: "to_branch_id"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("span", {
-                staticClass: "help is-danger",
-                staticStyle: { color: "red" },
-                domProps: {
-                  textContent: _vm._s(_vm.errors.get("to_branch_id"))
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c("div", { staticClass: "col-lg-6" }, [
+            _c("div", { staticClass: "col-lg-12" }, [
               _c("label", { staticClass: "col-form-label col-lg-4" }, [
                 _vm._v("Product name")
               ]),
@@ -482,40 +406,192 @@ var render = function() {
           _c("div", { staticClass: "form-group row" }, [
             _c("div", { staticClass: "col-lg-6" }, [
               _c("label", { staticClass: "col-form-label col-lg-4" }, [
-                _vm._v("Quantity")
+                _vm._v("Stock Type")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "input-group input-group-lg" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.quantity,
-                      expression: "quantity"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.quantity },
-                  on: {
-                    keydown: function($event) {
-                      return _vm.errors.clear("quantity")
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.stock_type,
+                        expression: "stock_type"
                       }
-                      _vm.quantity = $event.target.value
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.stock_type = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
                     }
-                  }
-                })
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("Select Stock type")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "in" } }, [
+                      _vm._v("Stock In")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "out" } }, [
+                      _vm._v("Stock Out")
+                    ])
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("span", {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
                 domProps: { textContent: _vm._s(_vm.errors.get("quantity")) }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _vm.stock_type === "in"
+              ? _c("div", { staticClass: "col-lg-6" }, [
+                  _c("label", { staticClass: "col-form-label col-lg-4" }, [
+                    _vm._v("Quantity")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group input-group-lg" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.stock_in,
+                          expression: "stock_in",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Stock in",
+                        "aria-describedby": "sizing-addon1"
+                      },
+                      domProps: { value: _vm.stock_in },
+                      on: {
+                        keydown: function($event) {
+                          return _vm.errors.clear("stock_in")
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.stock_in = _vm._n($event.target.value)
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "help is-danger",
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.errors.get("stock_in"))
+                    }
+                  })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.stock_type === "out"
+              ? _c("div", { staticClass: "col-lg-6" }, [
+                  _c("label", { staticClass: "col-form-label col-lg-4" }, [
+                    _vm._v("Quantity")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group input-group-lg" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.stock_out,
+                          expression: "stock_out",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Stock out",
+                        "aria-describedby": "sizing-addon1"
+                      },
+                      domProps: { value: _vm.stock_out },
+                      on: {
+                        keydown: function($event) {
+                          return _vm.errors.clear("stock_out")
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.stock_out = _vm._n($event.target.value)
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "help is-danger",
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.errors.get("stock_out"))
+                    }
+                  })
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c("label", { staticClass: "col-form-label col-lg-4" }, [
+              _vm._v("Remarks")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group input-group-lg" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.remarks,
+                    expression: "remarks"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { cols: "5" },
+                domProps: { value: _vm.remarks },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.remarks = $event.target.value
+                  }
+                }
               })
             ])
           ]),

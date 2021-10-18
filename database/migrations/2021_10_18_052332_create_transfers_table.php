@@ -15,12 +15,12 @@ class CreateTransfersTable extends Migration
     {
         Schema::create('transfers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('from_branch_id');
-            $table->unsignedBigInteger('to_branch_id');
             $table->unsignedBigInteger('product_id');
-            $table->integer('quantity')->default(0);
+            $table->unsignedBigInteger('branch_id')->nullable();
+            $table->string('stock_type');
             $table->integer('stock_in')->nullable();
             $table->integer('stock_out')->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

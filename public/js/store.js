@@ -2886,7 +2886,7 @@ __webpack_require__.r(__webpack_exports__);
     brands: [],
     branches: [],
     customers: [],
-    inventory: []
+    transfers: []
   },
   getters: {
     getProducts: function getProducts(state) {
@@ -2901,8 +2901,8 @@ __webpack_require__.r(__webpack_exports__);
     getCustomers: function getCustomers(state) {
       return state.customers;
     },
-    getInventory: function getInventory(state) {
-      return state.inventory;
+    getTransfers: function getTransfers(state) {
+      return state.transfers;
     }
   },
   mutations: {
@@ -2918,8 +2918,8 @@ __webpack_require__.r(__webpack_exports__);
     updateCustomers: function updateCustomers(state, data) {
       return state.customers = data;
     },
-    updateInventory: function updateInventory(state, data) {
-      return state.inventory = data;
+    updateTransfer: function updateTransfer(state, data) {
+      return state.transfers = data;
     },
     removeFromCart: function removeFromCart(state, index) {
       state.cart.splice(index, 1);
@@ -2957,9 +2957,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    fetchInventory: function fetchInventory(context) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/inventory').then(function (response) {
-        context.commit("updateInventory", response.data.inventory);
+    fetchTransfer: function fetchTransfer(context) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/transfer').then(function (response) {
+        context.commit("updateTransfer", response.data.transfers);
       })["catch"](function (error) {
         console.log(error);
       });

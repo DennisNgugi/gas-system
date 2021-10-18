@@ -79,8 +79,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 // import SearchComponent from '../Search/SearchComponent.vue';
 // import {
 //     EventBus
@@ -88,12 +86,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      edit: true,
       search: ''
     };
   },
   mounted: function mounted() {
-    this.$store.dispatch("fetchInventory");
+    this.$store.dispatch("fetchTransfer");
   },
   // components: {
   //     SearchComponent
@@ -104,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
       //     item.category_name.toLowerCase().includes(
       //         this.search.toLowerCase()
       //     ))
-      return this.$store.getters.getInventory;
+      return this.$store.getters.getTransfers;
     }
   },
   // created() {
@@ -210,29 +207,21 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.filteredData, function(inventory, index) {
-                    return _c("tr", { key: inventory.id }, [
+                  _vm._l(_vm.filteredData, function(transfer, index) {
+                    return _c("tr", { key: transfer.id }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
-                      _c("td", { attrs: { size: "4" } }, [
-                        _vm._v(_vm._s(inventory.branch_name))
-                      ]),
+                      _c("td"),
                       _vm._v(" "),
                       _c("td", [
-                        _c(
-                          "ol",
-                          _vm._l(inventory.brands, function(brandy) {
-                            return _c("li", [
-                              _vm._v(
-                                _vm._s(brandy.brand_name) +
-                                  " - " +
-                                  _vm._s(brandy.pivot.quantity)
-                              )
-                            ])
-                          }),
-                          0
-                        )
-                      ])
+                        _vm._v(_vm._s(transfer.products.product_name))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(transfer.stock_in))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(transfer.stock_out))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(transfer.remarks))])
                     ])
                   }),
                   0
@@ -264,7 +253,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Branch name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Brand name")])
+        _c("th", [_vm._v("Product Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Stock in")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Stock out")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Remarks")])
       ])
     ])
   }

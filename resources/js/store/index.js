@@ -8,7 +8,7 @@ export default {
         brands: [],
         branches:[],
         customers:[],
-        inventory:[],
+        transfers:[],
     },
 
     getters:{
@@ -24,8 +24,8 @@ export default {
         getCustomers(state) {
             return state.customers
         },
-        getInventory(state) {
-            return state.inventory
+        getTransfers(state) {
+            return state.transfers
         },
     },
     mutations:{
@@ -41,8 +41,8 @@ export default {
         updateCustomers(state, data) {
             return state.customers = data
         },
-        updateInventory(state, data) {
-            return state.inventory = data
+        updateTransfer(state, data) {
+            return state.transfers = data
         },
         removeFromCart(state, index) {
             state.cart.splice(index, 1);
@@ -84,10 +84,10 @@ export default {
                 console.log(error)
             })
         },
-        fetchInventory(context) {
-            axios.get('/inventory').then((response) => {
+        fetchTransfer(context) {
+            axios.get('/transfer').then((response) => {
 
-                context.commit("updateInventory", response.data.inventory)
+                context.commit("updateTransfer", response.data.transfers)
             }).catch((error) => {
                 console.log(error)
             })

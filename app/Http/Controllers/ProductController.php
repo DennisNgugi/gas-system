@@ -18,11 +18,11 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(ProductRepositoryInterface $productRepository)
     {
-        $products = $productRepository->withRelation(['brands'])->makeHidden(['created_at','updated_at']);
+        $products = $productRepository->withRelation(['brands:id,brand_name']);
         return response()->json([
             'products' => $products
         ],200);

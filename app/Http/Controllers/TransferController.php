@@ -10,20 +10,21 @@ use Illuminate\Http\Request;
 class TransferController extends Controller
 {
     private $transferRepository;
-    private $stockRepository;
 
-    public function __construct(TransferRepositoryInterface $transferRepository,StockRepositoryInterface $stockRepository){
+    public function __construct(TransferRepositoryInterface $transferRepository){
         $this->transferRepository = $transferRepository;
-        $this->stockRepository = $stockRepository;
     }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(TransferRepositoryInterface $transferRepository)
     {
-        //
+        $transfers = $transferRepository->withRelation(['products:id,product_name','branches:id,branch_name'])->makeHidden(['updated_at']);
+        return response()->json([
+            'transfers' => $transfers
+        ],200);
     }
 
     /**
@@ -45,13 +46,17 @@ class TransferController extends Controller
     public function store(Request $request,TransferRepositoryInterface $transferRepository)
     {
         $transfers = [
-            'to_branch_id' => $request->to_branch_id,
-            'from_branch_id' => $request->from_branch_id,
+            'branch_id' => $request->branch_id,
+            'stock_in' => $request->stock_in,
+            'stock_type' => $request->stock_type,
             'product_id' => $request->product_id,
-            'quantity' => $request->quantity
+            'stock_out' => $request->stock_out
         ];
         $product = $transferRepository->create($transfers);
-        $transferRepository->transfer($transfers);
+//        if($product){
+//            $transferRepository->transfer($transfers);
+//        }
+
         return response()->json(['success' => 'Transfer Completed Succesfully'],200);
     }
 
