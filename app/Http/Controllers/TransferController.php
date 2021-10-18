@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\StockRepositoryInterface;
 use App\Interfaces\TransferRepositoryInterface;
 use App\Models\Transfer;
 use Illuminate\Http\Request;
@@ -9,9 +10,11 @@ use Illuminate\Http\Request;
 class TransferController extends Controller
 {
     private $transferRepository;
+    private $stockRepository;
 
-    public function __construct(TransferRepositoryInterface $transferRepository){
+    public function __construct(TransferRepositoryInterface $transferRepository,StockRepositoryInterface $stockRepository){
         $this->transferRepository = $transferRepository;
+        $this->stockRepository = $stockRepository;
     }
     /**
      * Display a listing of the resource.
@@ -48,6 +51,7 @@ class TransferController extends Controller
             'quantity' => $request->quantity
         ];
         $product = $transferRepository->create($transfers);
+        $transferRepository->transfer($transfers);
         return response()->json(['success' => 'Transfer Completed Succesfully'],200);
     }
 
