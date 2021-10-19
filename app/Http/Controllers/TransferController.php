@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransferRequest;
 use App\Interfaces\StockRepositoryInterface;
 use App\Interfaces\TransferRepositoryInterface;
 use App\Models\Transfer;
@@ -21,7 +22,9 @@ class TransferController extends Controller
      */
     public function index(TransferRepositoryInterface $transferRepository)
     {
-        $transfers = $transferRepository->withRelation(['products:id,product_name','branches:id,branch_name'])->makeHidden(['updated_at']);
+        $transfers = $transferRepository->withRelation(['products:id,product_name','branches:id,branch_name'])->makeHidden(['updated_at'])->groupBy(function($item) {
+            return $item->created_at->format('Y-m-d');
+        });
         return response()->json([
             'transfers' => $transfers
         ],200);
@@ -43,14 +46,15 @@ class TransferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request,TransferRepositoryInterface $transferRepository)
+    public function store(TransferRequest $request,TransferRepositoryInterface $transferRepository)
     {
         $transfers = [
             'branch_id' => $request->branch_id,
             'stock_in' => $request->stock_in,
             'stock_type' => $request->stock_type,
             'product_id' => $request->product_id,
-            'stock_out' => $request->stock_out
+            'stock_out' => $request->stock_out,
+            'remarks' => $request->remarks
         ];
             $transferRepository->create($transfers);
 

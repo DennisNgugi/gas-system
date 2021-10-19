@@ -17,6 +17,11 @@ class Product extends Model
         'stock'=>'json'
     ];
 
+    public function setProductNameAttribute($value)
+    {
+        $this->attributes['product_name'] = ucfirst($value);
+    }
+
     public function brands(){
         return $this->belongsTo(Brand::class,'brand_id');
     }

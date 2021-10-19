@@ -79,6 +79,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import SearchComponent from '../Search/SearchComponent.vue';
 // import {
 //     EventBus
@@ -205,28 +218,31 @@ var render = function() {
               [
                 _vm._m(1),
                 _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.filteredData, function(transfer, index) {
-                    return _c("tr", { key: transfer.id }, [
-                      _c("td", [_vm._v(_vm._s(index + 1))]),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(transfer.products.product_name))
+                _vm._l(_vm.filteredData, function(transfer, index) {
+                  return _c(
+                    "tbody",
+                    [
+                      _c("tr", [
+                        _c("td", { attrs: { colspan: "3" } }, [
+                          _vm._v(_vm._s(index))
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(transfer.stock_in))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(transfer.stock_out))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(transfer.remarks))])
-                    ])
-                  }),
-                  0
-                )
-              ]
+                      _vm._l(transfer, function(t) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(t.products.product_name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(t.stock_in))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(t.stock_out))])
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                })
+              ],
+              2
             )
           ])
         ])
@@ -247,20 +263,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Branch name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Product Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Stock in")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Stock out")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Remarks")])
-      ])
+    return _c("tr", [
+      _c("th", [_vm._v("Date")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Product name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Branch name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Stock In")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Stock out")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Total")])
     ])
   }
 ]

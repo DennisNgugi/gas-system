@@ -17,11 +17,14 @@ class RecieptController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        $reciepts = Reciept::with('sales','customers:id,customer_name','sales.products:id,product_name','users:id,name')->paginate(10);
+        return response()->json([
+            'reciepts' => $reciepts
+        ]);
     }
 
     /**

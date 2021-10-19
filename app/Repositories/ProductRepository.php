@@ -16,6 +16,9 @@ class ProductRepository  extends BaseRepository implements ProductRepositoryInte
         $this->model = $model;
     }
 
+    public function productCount(){
+        return $this->model->loadCount();
+    }
     public function productDetail($id)
     {
         // TODO: Implement productDetail() method.

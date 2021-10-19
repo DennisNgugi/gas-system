@@ -71,4 +71,11 @@ export const routes =  [
             component: () => import('../components/Brands/Index.vue'),
         },
 
+    // sales
+    {
+        path: '/admin/reciept/index',
+        name: 'reciepts.index',
+        component: () => import('../components/Sales/Sales.vue'),
+    },
+
       ]

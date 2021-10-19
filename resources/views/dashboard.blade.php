@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gas | Blank Page</title>
+  <title>Saka Gas | Dashboard</title>
   <link rel="stylesheet" href="/css/app.css">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -281,7 +281,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                Inventory
+                Stock
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -289,13 +289,13 @@
             <li class="nav-item">
                 <router-link to="/admin/inventory/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Inventory</p>
+                  <p>Manage Stock</p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/admin/inventory/index" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Inventory List</p>
+                  <p>Stock In/Out</p>
                 </router-link>
               </li>
 

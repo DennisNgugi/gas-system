@@ -15,7 +15,7 @@ class TransferRepository extends BaseRepository implements TransferRepositoryInt
     {
         parent::__construct($model);
         $this->model = $model;
-        
+
     }
 
     public function transfer($product)

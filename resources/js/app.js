@@ -31,7 +31,12 @@ const toast = swal.mixin({
   }
 });
 window.toast = toast;
+Vue.component('InfiniteLoading', require('vue-infinite-loading'));
+var numeral = require("numeral");
 
+Vue.filter("formatNumber", function (value) {
+    return numeral(value).format("0,0.00"); // displaying other groupings/separators is possible, look at the docs
+});
 import Vuetify  from "../plugins/vuetify";
 
 import {routes} from './router'

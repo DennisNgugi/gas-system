@@ -38,26 +38,39 @@
 
 
 <!--                    </table>-->
-                    <table class="table table-responsive-md table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Branch name</th>
-                                <th>Product Name</th>
-                                <th>Stock in</th>
-                                <th>Stock out</th>
-                                <th>Remarks</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(transfer, index) in filteredData" :key="transfer.id">
-                                <td>{{index + 1}}</td>
-                                 <td></td>
-                                <td>{{transfer.products.product_name}}</td>
-                                <td>{{transfer.stock_in}}</td>
-                                <td>{{transfer.stock_out}}</td>
-                                <td>{{transfer.remarks}}</td>
-                            </tr>
+                    <table class="table table-responsive-md table-bordered">  <tr>
+                        <th>Date</th>
+                        <th>Product name</th>
+                        <th>Branch name</th>
+                        <th>Stock In</th>
+                        <th>Stock out</th>
+                        <th>Total</th>
+                    </tr>
+                        <tbody v-for="(transfer, index) in filteredData">
+                        <tr>
+                            <!-- this cell will occupy 3 columns -->
+                            <td colspan=3>{{ index }}</td>
+                        </tr>
+                        <tr v-for="t in transfer">
+                            <td>{{t.products.product_name}}</td>
+<!--                            <td v-if="t.branches.branch_name !=''">{{ t.branches.branch_name }}</td>-->
+                            <td>{{t.stock_in}}</td>
+                            <td>{{t.stock_out}}</td>
+                        </tr>
+
+
+
+<!--                            <tr v-for="(transfer, index) in filteredData" :key="transfer.id">-->
+
+<!--                                 <td></td>-->
+<!--                                <td>{{index}}</td>-->
+<!--&lt;!&ndash;                                <td>{{transfer.products.product_name}}</td>&ndash;&gt;-->
+<!--                                <td v-for="t in transfer">{{t}}</td>-->
+<!--&lt;!&ndash;                                <td>{{transfer.stock_out}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td>{{transfer.remarks}}</td>&ndash;&gt;-->
+
+<!--                            </tr>-->
+
                         </tbody>
                     </table>
                 </div>
