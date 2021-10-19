@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\TransferRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,4 +18,16 @@ class Transfer extends Model
     public function branches(){
         return $this->belongsTo(Branch::class,'branch_id');
     }
+    // Notify every user after update has been done
+//     public static function boot()
+//     {
+//         parent::boot();
+//         static::creating(function ($model) {
+//           $transfer =  new TransferRepository($model);
+//           $transfer->transfer($model);
+//
+//         });
+//     }
+
+
 }

@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\StockRepositoryInterface;
 use App\Interfaces\TransferRepositoryInterface;
 use App\Models\Branch;
+use App\Models\Product;
 use App\Models\Transfer;
 
 class TransferRepository extends BaseRepository implements TransferRepositoryInterface
@@ -13,22 +15,36 @@ class TransferRepository extends BaseRepository implements TransferRepositoryInt
     {
         parent::__construct($model);
         $this->model = $model;
-
-
+        
     }
 
     public function transfer($product)
     {
 
-        // if from HQ to another branch
-        // find from_branch_id
-        // reduce quantity
+        if($product['stock_type'] === 'in'){
+            return $this->incrementStock($product);
+        }else{
+           return $this->decrementStock($product);
+        }
 
-
-
-        //if from branch to HQ
-        // find to_branch_id
-
-        $branch = parent::findIndex($product->to_branch_id);
     }
+
+    public function incrementStock($item)
+    {
+
+       $product = Product::findOrFail($item['product_id']);
+        $newOutlightQuantity = $product['quantity']['outlight'] + $item['stock_in'];
+        $newEmptyQuantity = $product['quantity']['empty'] - $item['stock_in'];
+        $product->update(['quantity->outlight'=> $newOutlightQuantity,'quantity->empty' => $newEmptyQuantity]);
+    }
+
+    public function decrementStock($item)
+    {
+        $product = Product::findOrFail($item['product_id']);
+        $newOutlightQuantity = $product['quantity']['outlight'] - $item['stock_out'];
+        $newEmptyQuantity = $product['quantity']['empty'] + $item['stock_out'];
+        $product->update(['quantity->outlight'=> $newOutlightQuantity,'quantity->empty' => $newEmptyQuantity]);
+    }
+
+
 }

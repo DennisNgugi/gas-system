@@ -52,10 +52,10 @@ class TransferController extends Controller
             'product_id' => $request->product_id,
             'stock_out' => $request->stock_out
         ];
-        $product = $transferRepository->create($transfers);
-//        if($product){
-//            $transferRepository->transfer($transfers);
-//        }
+            $transferRepository->create($transfers);
+
+            $transferRepository->transfer($transfers);
+
 
         return response()->json(['success' => 'Transfer Completed Succesfully'],200);
     }

@@ -8,5 +8,5 @@ interface StockRepositoryInterface
 
     public function decrementStock($item);
 
-    public function checkQuantity($item);
+     public function checkQuantity($item);
 }

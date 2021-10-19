@@ -19,19 +19,20 @@ class ProductRepository  extends BaseRepository implements ProductRepositoryInte
     public function productDetail($id)
     {
         // TODO: Implement productDetail() method.
-       // $product_detail = $this->model->where('id',$id)->with('sales')->get();
-
+        $product_detail = $this->model->where('id',$id)->with('sales','transfers')->get()->groupBy(function ($data){
+            return $data['sales'][0]['sale_type'];
+      });
+//
 //        $product_detail = $this->model->where('id',$id)->with([
 //            'sales' => function($query)
 //            {
-//                 $query->select( 'product_id',DB::raw("(sum(quantity)) as total_quantity"),DB::raw("(DATE_FORMAT(created_at, '%d-%m-%Y')) as my_date"))
-//                    ;
+//                 $query->select( 'product_id','sale_type','gas_type');
 //
 //            }
-//        ])->get()->groupBy('created_at');
-        $product_detail = Sale::select('gas_type','sale_type','quantity',DB::raw('DATE(created_at) as created_at'))
-            ->orderBy('created_at')->where('product_id',$id)
-            ->get()->groupBy('created_at');
+    //   ])->get()->groupBy('created_at');
+//        $product_detail = Sale::select('gas_type','sale_type','quantity',DB::raw('DATE(created_at) as created_at'))
+//            ->orderBy('created_at')->where('product_id',$id)
+//            ->get()->groupBy('created_at');
 
 //       $product_detail = DB::table('sales')
 //            ->join('products','products.id','=','sales.product_id')
