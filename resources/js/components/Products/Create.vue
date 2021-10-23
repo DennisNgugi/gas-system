@@ -40,11 +40,10 @@
                             <div class="input-group input-group-lg">
                                     <select v-model="unit" class="form-control" @keypress="errors.clear('unit')">
                                     <option value="">Select Unit size</option>
-                                    <option value="3">3 Kg</option>
-                                    <option value="6">6 Kg</option>
-                                    <option value="13">13 Kg</option>
-                                    <option value="50">50 Kg</option>
-                                    <option value="0">N/A</option>
+                                    <option value="kg">Kilogrammes</option>
+                                    <option value="g">Grammes</option>
+                                    <option value="m">Metres</option>
+                                    <option value="s">Single</option>
 
                                 </select>
                             </div>
@@ -130,9 +129,9 @@
                                  <label class="col-form-label col-lg-4">Qty</label>
                              </div>
                              <div class="col-md-5">
-                                 <input type="text" class="form-control" v-model.number="quantity.normal" aria-describedby="sizing-addon1" @keydown="errors.clear('quantity.normal')" >
+                                 <input type="text" class="form-control" v-model.number="quantity.others" aria-describedby="sizing-addon1" @keydown="errors.clear('quantity.others')" >
                              </div>
-                             <span class="help is-danger" style="color:red;" v-text="errors.get('quantity.normal')"></span>
+                             <span class="help is-danger" style="color:red;" v-text="errors.get('quantity.others')"></span>
                          </div>
 
 
@@ -174,7 +173,7 @@ export default {
             quantity:{
                 outlight:'',
                 empty:'',
-                normal:''
+                others:''
             },
             edit: false,
             errors: new Errors(),

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Repositories\TransferRepository;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,13 @@ class Transfer extends Model
     }
     public function branches(){
         return $this->belongsTo(Branch::class,'branch_id');
+    }
+    public function getTotalStockIn() {
+        return $this->transfers->sum('stock_in');
+    }
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->toFormattedDateString();
     }
     // Notify every user after update has been done
 //     public static function boot()

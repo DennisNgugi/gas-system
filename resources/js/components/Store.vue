@@ -25,11 +25,11 @@
                         <div class="col-sm-6">
                             <div class="card border-primary">
                                 <div class="card-header">
-                                    <h3>Gas sale</h3>
+                                    <h3>Sale</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" v-model="checkout.gas_type" value="C"  id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
@@ -38,15 +38,24 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" v-model="checkout.gas_type" value="E"  id="flexRadioDefault2" checked>
+                                            <input class="form-check-input" type="radio" v-model="checkout.gas_type" value="R"  id="flexRadioDefault2" >
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Refill
                                             </label>
                                         </div>
                                     </div>
+                                        <div class="col-md-4">
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" v-model="checkout.gas_type" value="O"  id="flexRadioDefault7">
+                                                <label class="form-check-label" for="flexRadioDefault7">
+                                                    Others
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -56,14 +65,14 @@
                         <div class="col-sm-6">
                             <div class="card border-primary">
                                 <div class="card-header">
-                                    <h3>Sale Type</h3>
+                                    <h3>Category</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
 
                                         <div class="col-md-6">
                                             <div class="form-check">
-                                                <input class="form-check-input" v-model="checkout.sale_type" value="W" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                                <input class="form-check-input" v-model="checkout.sale_type" value="WHL" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
                                                 <label class="form-check-label" for="flexRadioDefault3">
                                                     Wholesale
                                                 </label>
@@ -73,7 +82,7 @@
                                         <div class="col-md-6">
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" v-model="checkout.sale_type" value="R" name="flexRadioDefault" id="flexRadioDefault4" checked>
+                                                <input class="form-check-input" type="radio" v-model="checkout.sale_type" value="RET" name="flexRadioDefault" id="flexRadioDefault4" checked>
                                                 <label class="form-check-label" for="flexRadioDefault4">
                                                     Retail
                                                 </label>
@@ -99,10 +108,9 @@
 
                             </div>
 
-
                         </div>
 
-                        <div v-if="checkout.gas_type === 'E'" class="col-md-6">
+                        <div v-if="checkout.gas_type === 'R'" class="col-md-6">
                             <label for=""><b>Exchanged Cylinder</b> </label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -116,7 +124,7 @@
                         </div>
 
                     </div>
-                    <div class="row mt-2">
+                    <div v-if="checkout.gas_type !=='' && checkout.sale_type!==''" class="row mt-2">
                         <div class="col-md-2">
                         <button class="form-control btn btn-info btn-sm" @click.prevent="triggerAddToCart">Add To Cart</button>
                         </div>
@@ -127,7 +135,7 @@
                     <div class="row mt-3">
 
 
-                        <div v-if="checkout.sale_type === 'W'" class="col-md-6">
+                        <div v-if="checkout.sale_type === 'WHL'" class="col-md-6">
                             <label for=""><b>Customer Name</b> </label>
                             <div class="input-group mb-3">
                                 <vue-select v-model="checkout.customer_id" label="customer_name" class="form-control" :options="getCustomers" :reduce="customer => customer.id" @keypress="errors.clear('customer_id')"/>
@@ -150,7 +158,7 @@
                             <label for=""><b>Remarks</b> </label>
                             <div class="input-group mb-3">
 
-                                <textarea v-model="checkout.remarks" class="form-control" id=""  rows="5"></textarea>
+                                <textarea v-model="checkout.remarks" class="form-control"  rows="5"></textarea>
                             </div>
 
 
@@ -182,6 +190,7 @@
                                             <th width="5%" scope="col">#</th>
                                             <th width="41%" scope="col">Item</th>
                                             <th width="5%" scope="col">Sale</th>
+                                            <th width="5%" scope="col">Picked</th>
                                             <th width="14%" scope="col">Qty</th>
                                             <th width="10%" scope="col">Price</th>
                                             <th width="17%" scope="col">Total</th>
@@ -194,6 +203,11 @@
                                             <td scope="row" v-text="index+1"></td>
                                             <td>{{item.product.product_name}} [{{item.detail.gas_type}}]</td>
                                             <td>{{item.detail.sale_type}}</td>
+                                            <td style="text-align:center;">
+
+                                                    <input class="form-check-input" type="checkbox"  id="flexCheckChecked" checked>
+
+                                            </td>
 
                                     <td>
                                         <button class="btn btn-info btn-sm" @click.prevent="decrement(item,index)"><span><i class="bi bi-dash"></i></span></button>
@@ -276,14 +290,14 @@
                                                 </div>
                                                     <hr>
                                                 <div class="row mt-3">
-                                                    <div v-if="checkout.payment_mode == '1' || checkout.payment_mode == '2' || checkout.payment_mode == '3' || checkout.payment_mode == '4'" class="col-md-4">
+                                                    <div v-if="checkout.payment_mode !== '0'" class="col-md-4">
                                                         <label for=""><b>Phone number</b> </label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" v-model="checkout.phone_number">
                                                         </div>
 
                                                     </div>
-                                                    <div v-if="checkout.payment_mode == '1' || checkout.payment_mode == '2' || checkout.payment_mode == '3' || checkout.payment_mode == '4'" class="col-md-4">
+                                                    <div v-if="checkout.payment_mode !== '0'" class="col-md-4">
                                                         <label for=""><b>Time</b> </label>
                                                         <div class="input-group mb-3">
                                                             <input type="time" class="form-control" v-model="checkout.message_time">
@@ -299,7 +313,15 @@
                                                     </div>
                                                 </div>
 
-
+<!--                                                <div class="row">-->
+<!--                                                    <div class="form-check form-switch">-->
+<!--                                                        <label class="switch">-->
+<!--                                                            Print Reciept-->
+<!--                                                            <input type="checkbox">-->
+<!--                                                            <span class="slider round"></span>-->
+<!--                                                        </label>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
                                                 </div>
                                             </div>
 
@@ -322,7 +344,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <button type="button" v-if="$store.state.cart == 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
+                            <button type="button" v-if="$store.state.cart === 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
                             <button type="button" v-else-if="checkout.payment_mode.length === 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
                             <button type="button" v-else class="btn btn-success btn-block btn-lg" @click.prevent="saveTransaction"><i class="bi bi-cash"></i> Payment</button>
                         </div>
@@ -366,9 +388,8 @@ export default {
                 gas_status: '',
                 amount_paid: '',
                 balance: '',
-
-
             },
+
             alert: new SweetAlert(),
             search: '',
 
@@ -394,9 +415,6 @@ export default {
 
     },
     methods: {
-        // this function trigers the barcode scanner and responds to it
-        // the debounce function helps it to wait for atleast 1 second in
-        // order to send a single request to the DB instead of 3
 
 
         triggerAddToCart() {
@@ -434,17 +452,23 @@ export default {
         let final_price = "";
         switch (true) {
 
-            case (gas_type === 'C' && sale_type === 'W'):
+            case (gas_type === 'C' && sale_type === 'WHL'):
                 final_price = price.complete.wholesale_price;
                 break;
-            case (gas_type === 'C' && sale_type === 'R'):
+            case (gas_type === 'C' && sale_type === 'RET'):
                 final_price = price.complete.retail_price;
                 break;
-            case (gas_type === 'E' && sale_type === 'W'):
+            case (gas_type === 'R' && sale_type === 'WHL'):
                 final_price = price.refill.wholesale_price;
                 break;
-            case (gas_type === 'E' && sale_type === 'R'):
+            case (gas_type === 'R' && sale_type === 'RET'):
                 final_price = price.refill.retail_price;
+                break;
+            case (gas_type === 'O' && sale_type === 'WHL'):
+                final_price = price.complete.wholesale_price;
+                break;
+            case (gas_type === 'O' && sale_type === 'RET'):
+                final_price = price.complete.retail_price;
                 break;
             default:
                 final_price = "Invalid";
@@ -745,5 +769,67 @@ input[type='number']{
     width: 80px;
 }
 
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
 
 </style>

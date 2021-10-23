@@ -6,7 +6,9 @@ use App\Http\Requests\TransferRequest;
 use App\Interfaces\StockRepositoryInterface;
 use App\Interfaces\TransferRepositoryInterface;
 use App\Models\Transfer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransferController extends Controller
 {
@@ -22,8 +24,17 @@ class TransferController extends Controller
      */
     public function index(TransferRepositoryInterface $transferRepository)
     {
-        $transfers = $transferRepository->withRelation(['products:id,product_name','branches:id,branch_name'])->makeHidden(['updated_at'])->groupBy(function($item) {
-            return $item->created_at->format('Y-m-d');
+//        $transfers = $transferRepository->withRelation(['products:id,product_name','branches:id,branch_name'])->makeHidden(['updated_at'])->groupBy(function($item) {
+//              return $item["products"]['product_name'];
+//        });
+        $transfers = Transfer::with(['products' => function ($query) {
+            $query->select('id', 'product_name');
+        },
+            'branches' => function ($query) {
+                $query->select('id', 'branch_name');
+            },
+        ])->get()->groupBy(function ($item) {
+            return Carbon::parse($item->created_at)->toFormattedDateString()." - ".$item['products']['product_name'];
         });
         return response()->json([
             'transfers' => $transfers

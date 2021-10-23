@@ -2407,6 +2407,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import {
 //     EventBus
 // } from '../events/event-bus';
@@ -2452,9 +2474,6 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.dispatch("fetchCustomer");
   },
   methods: {
-    // this function trigers the barcode scanner and responds to it
-    // the debounce function helps it to wait for atleast 1 second in
-    // order to send a single request to the DB instead of 3
     triggerAddToCart: function triggerAddToCart() {
       var _this = this;
 
@@ -2485,20 +2504,28 @@ __webpack_require__.r(__webpack_exports__);
       var final_price = "";
 
       switch (true) {
-        case gas_type === 'C' && sale_type === 'W':
+        case gas_type === 'C' && sale_type === 'WHL':
           final_price = price.complete.wholesale_price;
           break;
 
-        case gas_type === 'C' && sale_type === 'R':
+        case gas_type === 'C' && sale_type === 'RET':
           final_price = price.complete.retail_price;
           break;
 
-        case gas_type === 'E' && sale_type === 'W':
+        case gas_type === 'R' && sale_type === 'WHL':
           final_price = price.refill.wholesale_price;
           break;
 
-        case gas_type === 'E' && sale_type === 'R':
+        case gas_type === 'R' && sale_type === 'RET':
           final_price = price.refill.retail_price;
+          break;
+
+        case gas_type === 'O' && sale_type === 'WHL':
+          final_price = price.complete.wholesale_price;
+          break;
+
+        case gas_type === 'O' && sale_type === 'RET':
+          final_price = price.complete.retail_price;
           break;
 
         default:
@@ -7459,7 +7486,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*Modal style*/\n.table-striped > tbody > tr:nth-child(2n+1) > td[data-v-37301906], .table-striped > tbody > tr:nth-child(2n+1) > th[data-v-37301906] {\n    background-color: #cadae3;\n}\n.table>tbody>tr>td[data-v-37301906], .table>tfoot>tr>td[data-v-37301906]{\n    vertical-align: middle;\n}\n@media screen and (max-width: 600px) {\ntable#cart tbody td .form-control[data-v-37301906]{\n        width:20%;\n        display: inline !important;\n}\n.actions .btn[data-v-37301906]{\n        width:36%;\n        margin:1.5em 0;\n}\n.actions .btn-info[data-v-37301906]{\n        float:left;\n}\n.actions .btn-danger[data-v-37301906]{\n        float:right;\n}\ntable#cart thead[data-v-37301906] { display: none;\n}\ntable#cart tbody td[data-v-37301906] { display: block; padding: .6rem; min-width:320px;}\ntable#cart tbody tr td[data-v-37301906]:first-child { background: #333; color: #fff;\n}\ntable#cart tbody td[data-v-37301906]:before {\n        content: attr(data-th); font-weight: bold;\n        display: inline-block; width: 8rem;\n}\n}\ntable#cart tfoot td[data-v-37301906]{display:block;\n}\ntable#cart tfoot td .btn[data-v-37301906]{display:block;}\n.messageVide[data-v-37301906] {\n    font-size: 25px;\n    width: 100%;\n    background-color: #c2dae8;\n    padding: 1.5em 0;\n    border-radius: 5px;\n    font-weight: lighter;\n    display: inline-block;\n    text-align: center;\n}\n.modal-mask[data-v-37301906] {\n\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n}\n.modal-lg[data-v-37301906]{\n    width: 750px;\n}\n.modal-header[data-v-37301906] {\n    background-color: #34373d;\n}\n.modal-title[data-v-37301906] {\n    color: #fff;\n}\n.close[data-v-37301906] {\n    color: #fff;\n}\n.modal-wrapper[data-v-37301906] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-body[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\n/*Modal style*/\n#footer[data-v-37301906] {\n    position: fixed;\n    left: 0;\n    bottom: 0;\n    /* width: 100%;*/\n    text-align: left;\n}\n#itempay[data-v-37301906]{\n    font-size:25px;\n}\n#paybal[data-v-37301906]{\n    font-size: 25px;\n}\n#total_paying[data-v-37301906]{\n    font-size:60px;\n    color: green;\n}\n#item_count[data-v-37301906]{\n    font-size:40px;\n    color: green;\n}\n#card-details[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\n#product-details[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\ninput[type='number'][data-v-37301906]{\n    width: 80px;\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*Modal style*/\n.table-striped > tbody > tr:nth-child(2n+1) > td[data-v-37301906], .table-striped > tbody > tr:nth-child(2n+1) > th[data-v-37301906] {\n    background-color: #cadae3;\n}\n.table>tbody>tr>td[data-v-37301906], .table>tfoot>tr>td[data-v-37301906]{\n    vertical-align: middle;\n}\n@media screen and (max-width: 600px) {\ntable#cart tbody td .form-control[data-v-37301906]{\n        width:20%;\n        display: inline !important;\n}\n.actions .btn[data-v-37301906]{\n        width:36%;\n        margin:1.5em 0;\n}\n.actions .btn-info[data-v-37301906]{\n        float:left;\n}\n.actions .btn-danger[data-v-37301906]{\n        float:right;\n}\ntable#cart thead[data-v-37301906] { display: none;\n}\ntable#cart tbody td[data-v-37301906] { display: block; padding: .6rem; min-width:320px;}\ntable#cart tbody tr td[data-v-37301906]:first-child { background: #333; color: #fff;\n}\ntable#cart tbody td[data-v-37301906]:before {\n        content: attr(data-th); font-weight: bold;\n        display: inline-block; width: 8rem;\n}\n}\ntable#cart tfoot td[data-v-37301906]{display:block;\n}\ntable#cart tfoot td .btn[data-v-37301906]{display:block;}\n.messageVide[data-v-37301906] {\n    font-size: 25px;\n    width: 100%;\n    background-color: #c2dae8;\n    padding: 1.5em 0;\n    border-radius: 5px;\n    font-weight: lighter;\n    display: inline-block;\n    text-align: center;\n}\n.modal-mask[data-v-37301906] {\n\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n}\n.modal-lg[data-v-37301906]{\n    width: 750px;\n}\n.modal-header[data-v-37301906] {\n    background-color: #34373d;\n}\n.modal-title[data-v-37301906] {\n    color: #fff;\n}\n.close[data-v-37301906] {\n    color: #fff;\n}\n.modal-wrapper[data-v-37301906] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-body[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\n/*Modal style*/\n#footer[data-v-37301906] {\n    position: fixed;\n    left: 0;\n    bottom: 0;\n    /* width: 100%;*/\n    text-align: left;\n}\n#itempay[data-v-37301906]{\n    font-size:25px;\n}\n#paybal[data-v-37301906]{\n    font-size: 25px;\n}\n#total_paying[data-v-37301906]{\n    font-size:60px;\n    color: green;\n}\n#item_count[data-v-37301906]{\n    font-size:40px;\n    color: green;\n}\n#card-details[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\n#product-details[data-v-37301906] {\n    max-height: calc(100vh - 210px);\n    overflow-y: auto;\n}\ninput[type='number'][data-v-37301906]{\n    width: 80px;\n}\n\n/* The switch - the box around the slider */\n.switch[data-v-37301906] {\n    position: relative;\n    display: inline-block;\n    width: 60px;\n    height: 34px;\n}\n\n/* Hide default HTML checkbox */\n.switch input[data-v-37301906] {\n    opacity: 0;\n    width: 0;\n    height: 0;\n}\n\n/* The slider */\n.slider[data-v-37301906] {\n    position: absolute;\n    cursor: pointer;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background-color: #ccc;\n    transition: .4s;\n}\n.slider[data-v-37301906]:before {\n    position: absolute;\n    content: \"\";\n    height: 26px;\n    width: 26px;\n    left: 4px;\n    bottom: 4px;\n    background-color: white;\n    transition: .4s;\n}\ninput:checked + .slider[data-v-37301906] {\n    background-color: #2196F3;\n}\ninput:focus + .slider[data-v-37301906] {\n    box-shadow: 0 0 1px #2196F3;\n}\ninput:checked + .slider[data-v-37301906]:before {\n    transform: translateX(26px);\n}\n\n/* Rounded sliders */\n.slider.round[data-v-37301906] {\n    border-radius: 34px;\n}\n.slider.round[data-v-37301906]:before {\n    border-radius: 50%;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42013,7 +42040,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-check" }, [
                         _c("input", {
                           directives: [
@@ -42055,7 +42082,7 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-md-4" }, [
                       _c("div", { staticClass: "form-check" }, [
                         _c("input", {
                           directives: [
@@ -42069,16 +42096,15 @@ var render = function() {
                           staticClass: "form-check-input",
                           attrs: {
                             type: "radio",
-                            value: "E",
-                            id: "flexRadioDefault2",
-                            checked: ""
+                            value: "R",
+                            id: "flexRadioDefault2"
                           },
                           domProps: {
-                            checked: _vm._q(_vm.checkout.gas_type, "E")
+                            checked: _vm._q(_vm.checkout.gas_type, "R")
                           },
                           on: {
                             change: function($event) {
-                              return _vm.$set(_vm.checkout, "gas_type", "E")
+                              return _vm.$set(_vm.checkout, "gas_type", "R")
                             }
                           }
                         }),
@@ -42092,6 +42118,48 @@ var render = function() {
                           [
                             _vm._v(
                               "\n                                                Refill\n                                            "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _c("div", { staticClass: "form-check" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.checkout.gas_type,
+                              expression: "checkout.gas_type"
+                            }
+                          ],
+                          staticClass: "form-check-input",
+                          attrs: {
+                            type: "radio",
+                            value: "O",
+                            id: "flexRadioDefault7"
+                          },
+                          domProps: {
+                            checked: _vm._q(_vm.checkout.gas_type, "O")
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(_vm.checkout, "gas_type", "O")
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-check-label",
+                            attrs: { for: "flexRadioDefault7" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                                    Others\n                                                "
                             )
                           ]
                         )
@@ -42121,17 +42189,17 @@ var render = function() {
                           ],
                           staticClass: "form-check-input",
                           attrs: {
-                            value: "W",
+                            value: "WHL",
                             type: "radio",
                             name: "flexRadioDefault",
                             id: "flexRadioDefault3"
                           },
                           domProps: {
-                            checked: _vm._q(_vm.checkout.sale_type, "W")
+                            checked: _vm._q(_vm.checkout.sale_type, "WHL")
                           },
                           on: {
                             change: function($event) {
-                              return _vm.$set(_vm.checkout, "sale_type", "W")
+                              return _vm.$set(_vm.checkout, "sale_type", "WHL")
                             }
                           }
                         }),
@@ -42165,17 +42233,17 @@ var render = function() {
                           staticClass: "form-check-input",
                           attrs: {
                             type: "radio",
-                            value: "R",
+                            value: "RET",
                             name: "flexRadioDefault",
                             id: "flexRadioDefault4",
                             checked: ""
                           },
                           domProps: {
-                            checked: _vm._q(_vm.checkout.sale_type, "R")
+                            checked: _vm._q(_vm.checkout.sale_type, "RET")
                           },
                           on: {
                             change: function($event) {
-                              return _vm.$set(_vm.checkout, "sale_type", "R")
+                              return _vm.$set(_vm.checkout, "sale_type", "RET")
                             }
                           }
                         }),
@@ -42238,7 +42306,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm.checkout.gas_type === "E"
+              _vm.checkout.gas_type === "R"
                 ? _c("div", { staticClass: "col-md-6" }, [
                     _vm._m(4),
                     _vm._v(" "),
@@ -42277,29 +42345,31 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "row mt-2" }, [
-              _c("div", { staticClass: "col-md-2" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "form-control btn btn-info btn-sm",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.triggerAddToCart.apply(null, arguments)
-                      }
-                    }
-                  },
-                  [_vm._v("Add To Cart")]
-                )
-              ])
-            ])
+            _vm.checkout.gas_type !== "" && _vm.checkout.sale_type !== ""
+              ? _c("div", { staticClass: "row mt-2" }, [
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "form-control btn btn-info btn-sm",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.triggerAddToCart.apply(null, arguments)
+                          }
+                        }
+                      },
+                      [_vm._v("Add To Cart")]
+                    )
+                  ])
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
           _c("div", { staticClass: "row mt-3" }, [
-            _vm.checkout.sale_type === "W"
+            _vm.checkout.sale_type === "WHL"
               ? _c("div", { staticClass: "col-md-6" }, [
                   _vm._m(6),
                   _vm._v(" "),
@@ -42351,7 +42421,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { id: "", rows: "5" },
+                  attrs: { rows: "5" },
                   domProps: { value: _vm.checkout.remarks },
                   on: {
                     input: function($event) {
@@ -42412,6 +42482,8 @@ var render = function() {
                                     _vm._v(_vm._s(item.detail.sale_type))
                                   ]),
                                   _vm._v(" "),
+                                  _vm._m(10, true),
+                                  _vm._v(" "),
                                   _c("td", [
                                     _c(
                                       "button",
@@ -42424,7 +42496,7 @@ var render = function() {
                                           }
                                         }
                                       },
-                                      [_vm._m(10, true)]
+                                      [_vm._m(11, true)]
                                     ),
                                     _vm._v(
                                       "\n\n                                        " +
@@ -42442,7 +42514,7 @@ var render = function() {
                                           }
                                         }
                                       },
-                                      [_vm._m(11, true)]
+                                      [_vm._m(12, true)]
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -42471,7 +42543,7 @@ var render = function() {
                                           }
                                         }
                                       },
-                                      [_vm._m(12, true)]
+                                      [_vm._m(13, true)]
                                     )
                                   ])
                                 ])
@@ -42596,7 +42668,7 @@ var render = function() {
                             ? _c("div", [
                                 _c("div", { staticClass: "row mt-3" }, [
                                   _c("div", { staticClass: "col-md-6" }, [
-                                    _vm._m(13),
+                                    _vm._m(14),
                                     _vm._v(" "),
                                     _c(
                                       "div",
@@ -42686,7 +42758,7 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "col-md-6" }, [
-                                    _vm._m(14),
+                                    _vm._m(15),
                                     _vm._v(" "),
                                     _c(
                                       "div",
@@ -42727,12 +42799,9 @@ var render = function() {
                                 _c("hr"),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row mt-3" }, [
-                                  _vm.checkout.payment_mode == "1" ||
-                                  _vm.checkout.payment_mode == "2" ||
-                                  _vm.checkout.payment_mode == "3" ||
-                                  _vm.checkout.payment_mode == "4"
+                                  _vm.checkout.payment_mode !== "0"
                                     ? _c("div", { staticClass: "col-md-4" }, [
-                                        _vm._m(15),
+                                        _vm._m(16),
                                         _vm._v(" "),
                                         _c(
                                           "div",
@@ -42772,12 +42841,9 @@ var render = function() {
                                       ])
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm.checkout.payment_mode == "1" ||
-                                  _vm.checkout.payment_mode == "2" ||
-                                  _vm.checkout.payment_mode == "3" ||
-                                  _vm.checkout.payment_mode == "4"
+                                  _vm.checkout.payment_mode !== "0"
                                     ? _c("div", { staticClass: "col-md-4" }, [
-                                        _vm._m(16),
+                                        _vm._m(17),
                                         _vm._v(" "),
                                         _c(
                                           "div",
@@ -42818,7 +42884,7 @@ var render = function() {
                                     : _vm._e(),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "col-md-4" }, [
-                                    _vm._m(17),
+                                    _vm._m(18),
                                     _vm._v(" "),
                                     _c(
                                       "div",
@@ -42880,7 +42946,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
-              _vm.$store.state.cart == 0
+              _vm.$store.state.cart === 0
                 ? _c(
                     "button",
                     {
@@ -42937,7 +43003,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h3", [_vm._v("Gas sale")])
+      _c("h3", [_vm._v("Sale")])
     ])
   },
   function() {
@@ -42945,7 +43011,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h3", [_vm._v("Sale Type")])
+      _c("h3", [_vm._v("Category")])
     ])
   },
   function() {
@@ -43024,6 +43090,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { width: "5%", scope: "col" } }, [_vm._v("Sale")]),
         _vm._v(" "),
+        _c("th", { attrs: { width: "5%", scope: "col" } }, [_vm._v("Picked")]),
+        _vm._v(" "),
         _c("th", { attrs: { width: "14%", scope: "col" } }, [_vm._v("Qty")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "10%", scope: "col" } }, [_vm._v("Price")]),
@@ -43032,6 +43100,17 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { width: "6%", scope: "col" } }, [_vm._v("Action")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticStyle: { "text-align": "center" } }, [
+      _c("input", {
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", id: "flexCheckChecked", checked: "" }
+      })
     ])
   },
   function() {

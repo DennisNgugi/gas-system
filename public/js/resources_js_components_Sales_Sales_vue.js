@@ -146,7 +146,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -430,23 +429,17 @@ var render = function() {
                         "td",
                         [
                           _c(
-                            "button",
+                            "router-link",
                             {
                               staticClass: "btn btn-info btn-sm",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.recieptDetail(reciept.sales)
+                              attrs: {
+                                to: {
+                                  name: "reciepts.view",
+                                  params: { id: reciept.id }
                                 }
                               }
                             },
                             [_vm._v("View")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            { staticClass: "btn btn-primary btn-sm" },
-                            [_vm._v("Edit")]
                           ),
                           _vm._v(" "),
                           _c(
@@ -471,7 +464,7 @@ var render = function() {
                   _c(
                     "infinite-loading",
                     {
-                      attrs: { spinner: "bubbles" },
+                      attrs: { spinner: "spiral" },
                       on: {
                         distance: function($event) {
                           1

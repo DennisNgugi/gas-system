@@ -122,7 +122,12 @@ __webpack_require__.r(__webpack_exports__);
   //         this.search = value
   //     })
   // },
-  methods: {// This event bus is created to transfer the value of edit = true to the create component
+  methods: {
+    getTotalStockInQuantity: function getTotalStockInQuantity(item) {
+      return item;
+    },
+    getTotalStockOutQuantity: function getTotalStockOutQuantity(item) {// console.log(item)
+    } // This event bus is created to transfer the value of edit = true to the create component
     // emitEditValue(category) {
     //     EventBus.$emit('edit', this.edit, category)
     // },
@@ -154,6 +159,7 @@ __webpack_require__.r(__webpack_exports__);
     //       swal("Failed","There was something wrong","warning");
     //     })
     // }
+
   }
 });
 
@@ -230,11 +236,21 @@ var render = function() {
                       _vm._v(" "),
                       _vm._l(transfer, function(t) {
                         return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(t.products.product_name))]),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(
+                                _vm.getTotalStockInQuantity(t.stock_in)
+                              )
+                            }
+                          }),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(t.stock_in))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(t.stock_out))])
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(
+                                _vm.getTotalStockOutQuantity(t.stock_out)
+                              )
+                            }
+                          })
                         ])
                       })
                     ],
@@ -266,7 +282,7 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", [_vm._v("Date")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Product name")]),
+      _c("th", [_vm._v("Quantity")]),
       _vm._v(" "),
       _c("th", [_vm._v("Branch name")]),
       _vm._v(" "),

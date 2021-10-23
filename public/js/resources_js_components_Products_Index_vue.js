@@ -11,6 +11,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-infinite-loading */ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js");
+/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -72,17 +74,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      search: '',
+      products: [],
+      page: 1,
+      bottom: false
+    };
   },
-  mounted: function mounted() {
-    this.$store.dispatch("fetchProduct");
+  mounted: function mounted() {//this.$store.dispatch("fetchProduct")
+  },
+  methods: {
+    infiniteHandler: function infiniteHandler($state) {
+      setTimeout(function () {
+        var _this = this;
+
+        axios.get('/product?page=' + this.page).then(function (response) {
+          if (response.data.products.data.length > 0) {
+            // let lastPage = response.data.reciepts.last_page
+            response.data.products.data.forEach(function (product) {
+              _this.products.push(product);
+            });
+            $state.loaded();
+            _this.page += 1;
+          }
+        })["catch"](function (e) {
+          return console.log(e);
+        });
+      }.bind(this), 1000);
+    }
   },
   computed: {
-    getProducts: function getProducts() {
-      return this.$store.getters.getProducts;
+    filteredData: function filteredData() {
+      var _this2 = this;
+
+      return this.products.filter(function (item) {
+        return item.product_name.toLowerCase().includes(_this2.search.toLowerCase()) || item.created_at.toLowerCase().includes(_this2.search.toLowerCase());
+      });
     }
+  },
+  components: {
+    InfiniteLoading: (vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default())
   }
 });
 
@@ -136,108 +180,173 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "input-group mb-3" }, [
         _vm._m(0),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.search,
+              expression: "search"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            autofocus: "",
+            placeholder: "Search here .....",
+            "aria-describedby": "basic-addon1"
+          },
+          domProps: { value: _vm.search },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.search = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card" }, [
+        _vm._m(1),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
             _c("table", { staticClass: "table table-nowrap mb-0" }, [
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.getProducts, function(product, index) {
-                  return _c("tr", { key: product.id }, [
-                    _c("td", [_vm._v(_vm._s(index + 1))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(product.product_name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(product.brands.brand_name))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("b", [_vm._v("Complete")]),
-                      _vm._v(
-                        " => Retail: " +
-                          _vm._s(product.price.complete.retail_price) +
-                          "/= , Wholesale: " +
-                          _vm._s(product.price.complete.wholesale_price) +
-                          "/=\n                                        "
-                      ),
-                      _c("br"),
+                [
+                  _vm._l(_vm.filteredData, function(product, index) {
+                    return _c("tr", { key: product.id }, [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
-                      _c("b", [_vm._v("Refill")]),
-                      _vm._v(
-                        " => Retail: " +
-                          _vm._s(product.price.refill.retail_price) +
-                          "/= , Wholesale: " +
-                          _vm._s(product.price.refill.wholesale_price) +
-                          "/=\n                                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("b", [_vm._v("Outlight")]),
-                      _vm._v(
-                        " => " +
-                          _vm._s(product.quantity.outlight) +
-                          "\n                                        "
-                      ),
-                      _c("br"),
+                      _c("td", [_vm._v(_vm._s(product.product_name))]),
                       _vm._v(" "),
-                      _c("b", [_vm._v("Empty")]),
-                      _vm._v(
-                        " => " +
-                          _vm._s(product.quantity.empty) +
-                          "\n\n                                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n                                        " +
-                          _vm._s(
-                            product.quantity.empty + product.quantity.outlight
-                          ) +
-                          "\n                                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-primary btn-sm",
-                            attrs: {
-                              to: {
-                                name: "products.edit",
-                                params: { id: product.id }
-                              }
-                            }
-                          },
-                          [_vm._v("Edit")]
+                      _c("td", [_vm._v(_vm._s(product.brands.brand_name))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("b", [_vm._v("Complete")]),
+                        _vm._v(
+                          " => Retail: " +
+                            _vm._s(product.price.complete.retail_price) +
+                            "/= , Wholesale: " +
+                            _vm._s(product.price.complete.wholesale_price) +
+                            "/=\n                                        "
                         ),
+                        _c("br"),
                         _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-info btn-sm",
-                            attrs: {
-                              to: {
-                                name: "products.view",
-                                params: { id: product.id }
-                              }
-                            }
-                          },
-                          [_vm._v("View")]
+                        _c("b", [_vm._v("Refill")]),
+                        _vm._v(
+                          " => Retail: " +
+                            _vm._s(product.price.refill.retail_price) +
+                            "/= , Wholesale: " +
+                            _vm._s(product.price.refill.wholesale_price) +
+                            "/=\n                                    "
                         )
-                      ],
-                      1
-                    )
-                  ])
-                }),
-                0
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("b", [_vm._v("Outlight")]),
+                        _vm._v(
+                          " => " +
+                            _vm._s(product.quantity.outlight) +
+                            "\n                                        "
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("b", [_vm._v("Empty")]),
+                        _vm._v(
+                          " => " +
+                            _vm._s(product.quantity.empty) +
+                            "\n                                        "
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("b", [_vm._v("Qty")]),
+                        _vm._v(
+                          " => " +
+                            _vm._s(product.quantity.others) +
+                            "\n\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                        " +
+                            _vm._s(
+                              product.quantity.empty + product.quantity.outlight
+                            ) +
+                            "\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                to: {
+                                  name: "products.edit",
+                                  params: { id: product.id }
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "btn btn-info btn-sm",
+                              attrs: {
+                                to: {
+                                  name: "products.view",
+                                  params: { id: product.id }
+                                }
+                              }
+                            },
+                            [_vm._v("View")]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "infinite-loading",
+                    {
+                      attrs: { spinner: "spiral" },
+                      on: {
+                        distance: function($event) {
+                          1
+                        },
+                        infinite: _vm.infiniteHandler
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "text-red",
+                          attrs: { slot: "no-more" },
+                          slot: "no-more"
+                        },
+                        [_vm._v("No more products")]
+                      )
+                    ]
+                  )
+                ],
+                2
               )
             ])
           ])
@@ -247,6 +356,18 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c(
+        "span",
+        { staticClass: "input-group-text", attrs: { id: "basic-addon1" } },
+        [_vm._v("Search")]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

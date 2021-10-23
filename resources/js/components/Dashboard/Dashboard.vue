@@ -185,7 +185,7 @@ export default {
             let sum_outlight = 0;
             // let sum_empty = 0;
             // let sum_normal = 0;
-            return this.$store.getters.getProducts.forEach(function(item){
+             this.$store.getters.getProducts.forEach(function(item){
 
                 sum_outlight += item.quantity.outlight
                 // sum_empty += item.quantity.empty,

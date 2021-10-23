@@ -2271,6 +2271,12 @@ var routes = [{
   component: function component() {
     return __webpack_require__.e(/*! import() */ "resources_js_components_Sales_Sales_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sales/Sales.vue */ "./resources/js/components/Sales/Sales.vue"));
   }
+}, {
+  path: '/admin/reciept/view/:id',
+  name: 'reciepts.view',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_components_Sales_Show_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sales/Show.vue */ "./resources/js/components/Sales/Show.vue"));
+  }
 }];
 
 /***/ }),
@@ -61715,7 +61721,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Dashboard_Dashboard_vue":1,"resources_js_components_Products_Create_vue":1,"resources_js_components_Products_Index_vue":1,"resources_js_components_Products_Edit_vue":1,"resources_js_components_Products_View_vue":1,"resources_js_components_Branch_Create_vue":1,"resources_js_components_Branch_Index_vue":1,"resources_js_components_Customers_Create_vue":1,"resources_js_components_Customers_Index_vue":1,"resources_js_components_Transfer_MakeTransfer_vue":1,"resources_js_components_Transfer_Index_vue":1,"resources_js_components_Brands_Create_vue":1,"resources_js_components_Brands_Index_vue":1,"resources_js_components_Sales_Sales_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Dashboard_Dashboard_vue":1,"resources_js_components_Products_Create_vue":1,"resources_js_components_Products_Index_vue":1,"resources_js_components_Products_Edit_vue":1,"resources_js_components_Products_View_vue":1,"resources_js_components_Branch_Create_vue":1,"resources_js_components_Branch_Index_vue":1,"resources_js_components_Customers_Create_vue":1,"resources_js_components_Customers_Index_vue":1,"resources_js_components_Transfer_MakeTransfer_vue":1,"resources_js_components_Transfer_Index_vue":1,"resources_js_components_Brands_Create_vue":1,"resources_js_components_Brands_Index_vue":1,"resources_js_components_Sales_Sales_vue":1,"resources_js_components_Sales_Show_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

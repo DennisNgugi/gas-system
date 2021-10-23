@@ -41,7 +41,7 @@ class RecieptController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request,CheckoutRepositoryInterface $checkoutRepository)
     {
@@ -62,11 +62,14 @@ class RecieptController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Reciept  $reciept
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Reciept $reciept)
+    public function show($id,CheckoutRepositoryInterface $checkoutRepository)
     {
-        //
+        $reciept = $checkoutRepository->recieptDetail($id);
+        return response()->json([
+            'recieptDetail' => $reciept
+        ],200);
     }
 
     /**

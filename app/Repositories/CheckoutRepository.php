@@ -44,6 +44,7 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
                 if ($balance<0){
                     $reciept->payment_status = false;
                 }
+
                 $reciept->payment_mode = $checkoutDetails['payment_mode'];
                 $reciept->phone_number = $checkoutDetails['phone_number'];
 //                $reciept->message_time = $cartDetails['message_time'];
@@ -56,6 +57,7 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
                     $sales->reciept_id = $reciept->id;
                     $sales->product_id = $cart['product']['id'];
                     $sales->exchanged_product_id = $cart['detail']['exchanged'];
+                   // $sales->picked = $cart['p']
                     $sales->quantity = $cart['quantity'];
                     $sales->price = $cart['detail']['price'];
                     $sales->total = $cart['detail']['price'] * $cart['quantity'];
@@ -76,6 +78,13 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
     public function generateRecieptCode()
     {
         return time();
+    }
+
+    public function recieptDetail($id)
+    {
+        // TODO: Implement recieptDetail() method.
+        $reciept = Reciept::where('id',$id)->with('sales','sales.products:id,product_name')->first();
+        return $reciept;
     }
 
 

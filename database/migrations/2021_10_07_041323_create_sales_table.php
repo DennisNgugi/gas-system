@@ -23,6 +23,7 @@ class CreateSalesTable extends Migration
             $table->foreign('exchanged_product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('set null');
             $table->string('gas_type');
             $table->string('sale_type');
+            $table->boolean('picked')->default(true);
             $table->double('quantity');
             $table->double('price');
             $table->double('total');

@@ -40,7 +40,7 @@
 <!--                    </table>-->
                     <table class="table table-responsive-md table-bordered">  <tr>
                         <th>Date</th>
-                        <th>Product name</th>
+                        <th>Quantity</th>
                         <th>Branch name</th>
                         <th>Stock In</th>
                         <th>Stock out</th>
@@ -52,10 +52,10 @@
                             <td colspan=3>{{ index }}</td>
                         </tr>
                         <tr v-for="t in transfer">
-                            <td>{{t.products.product_name}}</td>
+                            <td v-text="getTotalStockInQuantity(t.stock_in)"></td>
 <!--                            <td v-if="t.branches.branch_name !=''">{{ t.branches.branch_name }}</td>-->
-                            <td>{{t.stock_in}}</td>
-                            <td>{{t.stock_out}}</td>
+                            <td v-text="getTotalStockOutQuantity(t.stock_out)"></td>
+
                         </tr>
 
 
@@ -106,6 +106,7 @@ export default {
             return this.$store.getters.getTransfers
         },
 
+
     },
     // created() {
     //     EventBus.$on('search', (value) => {
@@ -113,6 +114,12 @@ export default {
     //     })
     // },
     methods: {
+        getTotalStockInQuantity(item){
+           return item
+        },
+        getTotalStockOutQuantity(item){
+            // console.log(item)
+        },
         // This event bus is created to transfer the value of edit = true to the create component
         // emitEditValue(category) {
         //     EventBus.$emit('edit', this.edit, category)

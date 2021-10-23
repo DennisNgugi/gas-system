@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function index(ProductRepositoryInterface $productRepository)
     {
-        $products = $productRepository->withRelation(['brands:id,brand_name']);
+        $products = $productRepository->withRelationPaginated(['brands:id,brand_name']);
         return response()->json([
             'products' => $products
         ],200);
@@ -47,8 +47,9 @@ class ProductController extends Controller
     public function store(ProductRequest $request,ProductRepositoryInterface $productRepository)
     {
    // return $request;
+
         $products = [
-            'product_name' => $request->product_name." ".$request->unit. " Kg",
+            'product_name' => $request->product_name,
             'brand_id' => $request->brand_id,
             'unit' => $request->unit,
             'price' => $request->price,

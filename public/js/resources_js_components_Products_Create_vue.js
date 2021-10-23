@@ -164,7 +164,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -186,7 +185,7 @@ __webpack_require__.r(__webpack_exports__);
       quantity: {
         outlight: '',
         empty: '',
-        normal: ''
+        others: ''
       },
       edit: false,
       errors: new _errors_errors__WEBPACK_IMPORTED_MODULE_0__["default"](),
@@ -569,15 +568,17 @@ var render = function() {
                       _vm._v("Select Unit size")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [_vm._v("3 Kg")]),
+                    _c("option", { attrs: { value: "kg" } }, [
+                      _vm._v("Kilogrammes")
+                    ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "6" } }, [_vm._v("6 Kg")]),
+                    _c("option", { attrs: { value: "g" } }, [
+                      _vm._v("Grammes")
+                    ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "13" } }, [_vm._v("13 Kg")]),
+                    _c("option", { attrs: { value: "m" } }, [_vm._v("Metres")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "50" } }, [_vm._v("50 Kg")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "0" } }, [_vm._v("N/A")])
+                    _c("option", { attrs: { value: "s" } }, [_vm._v("Single")])
                   ]
                 )
               ]),
@@ -890,17 +891,17 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.quantity.normal,
-                      expression: "quantity.normal",
+                      value: _vm.quantity.others,
+                      expression: "quantity.others",
                       modifiers: { number: true }
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.quantity.normal },
+                  domProps: { value: _vm.quantity.others },
                   on: {
                     keydown: function($event) {
-                      return _vm.errors.clear("quantity.normal")
+                      return _vm.errors.clear("quantity.others")
                     },
                     input: function($event) {
                       if ($event.target.composing) {
@@ -908,7 +909,7 @@ var render = function() {
                       }
                       _vm.$set(
                         _vm.quantity,
-                        "normal",
+                        "others",
                         _vm._n($event.target.value)
                       )
                     },
@@ -923,7 +924,7 @@ var render = function() {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
                 domProps: {
-                  textContent: _vm._s(_vm.errors.get("quantity.normal"))
+                  textContent: _vm._s(_vm.errors.get("quantity.others"))
                 }
               })
             ])

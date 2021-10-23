@@ -44,15 +44,14 @@
                                 <td>{{reciept.created_at}}</td>
 
                                 <td>
-                                    <button class="btn btn-info btn-sm" @click.prevent="recieptDetail(reciept.sales)">View</button>
-                                    <router-link class="btn btn-primary btn-sm">Edit</router-link>
+                                    <router-link :to="{name: 'reciepts.view', params: { id: reciept.id }}"  class="btn btn-info btn-sm">View</router-link>
                                     <button class="btn btn-danger btn-sm" @click.prevent="disable(reciept.id)">Delete</button>
 
                                 </td>
 
 
                             </tr>
-                            <infinite-loading @distance="1" spinner="bubbles" @infinite="infiniteHandler">
+                            <infinite-loading @distance="1" spinner="spiral" @infinite="infiniteHandler">
                                 <div class="text-red" slot="no-more">No more reciepts</div>
                                 <div class="text-red" slot="no-results">No more reciepts</div>
                             </infinite-loading>

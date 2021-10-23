@@ -30,6 +30,7 @@ class Product extends Model
     }
     public function transfers(){
         return $this->hasMany(Transfer::class,'product_id');
+
     }
 
 

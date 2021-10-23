@@ -35,6 +35,7 @@ Route::resource('checkout',RecieptController::class);
 Route::resource('customer',CustomerController::class);
 Route::resource('transfer',TransferController::class);
 Route::resource('reciept',RecieptController::class);
+Route::get('/reciept/view/{id}',[RecieptController::class, 'show']);
 
 Route::get('/weekly_report',[ReportController::class,'currentWeekReport']);
 Route::get('/yearly_report',[ReportController::class,'currentYearReport']);

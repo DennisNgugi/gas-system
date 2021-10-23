@@ -2,6 +2,12 @@
     <template>
         <div class="row">
             <div class="col-md-12">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Search</span>
+                    </div>
+                    <input type="text" v-model="search"  class="form-control" autofocus placeholder="Search here ....."  aria-describedby="basic-addon1">
+                </div>
 
                 <div class="card">
                     <div class="card-header">
@@ -22,7 +28,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(product, index) in getProducts" :key="product.id">
+                                <tr v-for="(product, index) in filteredData" :key="product.id">
                                     <td>{{index + 1}}</td>
 
                                     <td>{{product.product_name}}</td>
@@ -36,6 +42,8 @@
                                         <b>Outlight</b> => {{product.quantity.outlight}}
                                         <br>
                                         <b>Empty</b> => {{product.quantity.empty}}
+                                        <br>
+                                        <b>Qty</b> => {{product.quantity.others}}
 
                                     </td>
                                     <td>
@@ -49,7 +57,9 @@
                                     </td>
 
                                 </tr>
-
+                                <infinite-loading @distance="1" spinner="spiral" @infinite="infiniteHandler">
+                                    <div class="text-red" slot="no-more">No more products</div>
+                                </infinite-loading>
                                 </tbody>
                             </table>
                         </div>
@@ -60,20 +70,56 @@
     </template>
 
     <script>
+    import InfiniteLoading from 'vue-infinite-loading';
     export default {
         data(){
           return{
-
+              search: '',
+              products:[],
+              page:1,
+              bottom:false,
           }
         },
         mounted() {
-            this.$store.dispatch("fetchProduct")
+            //this.$store.dispatch("fetchProduct")
+        },
+        methods:{
+            infiniteHandler($state){
+                setTimeout(function (){
+
+
+                    axios.get('/product?page='+this.page).then((response)=>{
+                        if(response.data.products.data.length > 0){
+                            // let lastPage = response.data.reciepts.last_page
+                            response.data.products.data.forEach(product => {
+                                this.products.push(product);
+                            });
+                            $state.loaded();
+                            this.page +=1;
+
+                        }
+
+                    }).catch(e => console.log(e));
+
+                }.bind(this),1000);
+            },
         },
         computed: {
-            getProducts() {
-                return this.$store.getters.getProducts
-            }
-        }
+            filteredData() {
+                return this.products.filter(item =>
+                    item.product_name.toLowerCase().includes(
+                        this.search.toLowerCase()
+                    ) ||
+                    item.created_at.toLowerCase().includes(
+                        this.search.toLowerCase()
+                    )
+                )
+            },
+        },
+        components: {
+            InfiniteLoading,
+        },
+
     }
     </script>
 

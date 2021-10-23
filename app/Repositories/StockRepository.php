@@ -32,11 +32,14 @@ class StockRepository extends BaseRepository implements StockRepositoryInterface
             $itemIndex->update(['quantity->outlight'=> $newOutlightQuantity]);
 
 
-        }elseif($item['detail']['gas_type'] === 'E'){
+        }elseif($item['detail']['gas_type'] === 'R'){
             $newOutlightQuantity = $itemIndex->quantity['outlight'] - $item['quantity'];
             $newEmptyQuantity = $itemIndex->quantity['empty'] + $item['quantity'];
             $itemIndex->update(['quantity->outlight'=> $newOutlightQuantity,
                 'quantity->empty'=> $newEmptyQuantity]);
+        }else{
+            $newOtherQuantity = $itemIndex->quantity['others'] - $item['quantity'];
+            $itemIndex->update(['quantity->others'=> $newOtherQuantity]);
         }
 
     }
