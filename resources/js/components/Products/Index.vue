@@ -53,6 +53,8 @@
                                         <router-link :to="{name: 'products.edit', params: { id: product.id }}"  class="btn btn-primary btn-sm">Edit</router-link>
 <!--                                        <button class="btn btn-danger btn-sm" @click.prevent="disable(product.id)">Delete</button>-->
                                           <router-link :to="{name: 'products.view', params: { id: product.id }}"  class="btn btn-info btn-sm">View</router-link>
+                                        <input type="submit" @click.prevent="disable(product.id)" class="btn btn-danger btn-sm" value="Delete">
+
 
                                     </td>
 
@@ -71,6 +73,7 @@
 
     <script>
     import InfiniteLoading from 'vue-infinite-loading';
+    import SweetAlert from "../../alerts/alert";
     export default {
         data(){
           return{
@@ -78,6 +81,7 @@
               products:[],
               page:1,
               bottom:false,
+              alert: new SweetAlert(),
           }
         },
         mounted() {
@@ -103,7 +107,36 @@
 
                 }.bind(this),1000);
             },
+            disable(id) {
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+
+                    if (result.value) {
+                        let uri = `/product/${id}`;
+                        axios.delete(uri).then(response => {
+                            this.products.splice(this.products.indexOf(id), 1);
+                            this.alert.successLarge(response.data.success)
+                            window.location.reload(false);
+                           // this.fetchData();
+                        });
+
+                    }
+                }).
+                catch(()=>{
+                    this.alert.error(response.data.error)
+                })
+
+
+            }
         },
+
         computed: {
             filteredData() {
                 return this.products.filter(item =>

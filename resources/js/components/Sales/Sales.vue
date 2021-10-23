@@ -1,13 +1,14 @@
 <template>
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Search</span>
-                    </div>
-                    <input type="text" v-model="search"  class="form-control" autofocus placeholder="Search here ....."  aria-describedby="basic-addon1">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Search</span>
                 </div>
+                <input type="text" v-model="search"  class="form-control" autofocus placeholder="Search here ....."  aria-describedby="basic-addon1">
+            </div>
+            <div class="card">
+
                 <div class="card-header">
                     <h4 class="card-title">Reciepts</h4>
                 </div>
@@ -40,12 +41,15 @@
                                 <td>{{reciept.total_amount| formatNumber}}</td>
                                 <td>{{reciept.amount_paid | formatNumber}}</td>
                                 <td>{{reciept.balance | formatNumber}}</td>
+                                <td v-text="paymentMode(reciept.payment_mode)">
+
+                                </td>
                                 <td>{{reciept.users.name}}</td>
                                 <td>{{reciept.created_at}}</td>
 
                                 <td>
                                     <router-link :to="{name: 'reciepts.view', params: { id: reciept.id }}"  class="btn btn-info btn-sm">View</router-link>
-                                    <button class="btn btn-danger btn-sm" @click.prevent="disable(reciept.id)">Delete</button>
+                                    <input type="submit" @click.prevent="disable(reciept.id)" class="btn btn-danger btn-sm" value="Delete">
 
                                 </td>
 
@@ -64,86 +68,23 @@
             </div>
 
 
-            <!-- Modal Display of Reciept Details -->
-            <div v-if="showModal">
-                <transition name="modal">
-                    <div class="modal-mask">
-                        <div class="modal-wrapper">
-                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="checkoutModalLongTitle">Sales</h5>
-                                        <button type="button" class="close" @click="closeModal()">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body overflow-auto" style="max-height:400px;">
-                                        <div class="container-fluid">
-                                            <div class="col-md-12">
-
-                                                <div class="table-responsive">
-                                                    <table class="table table-nowrap mb-0">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Product name</th>
-                                                            <th>Gas Type</th>
-                                                            <th>Sale Type</th>
-                                                            <th>Quantity</th>
-                                                            <th>Price</th>
-                                                            <th>Total</th>
-
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr v-for="(checkout, index) in sales" :key="checkout.id">
-
-                                                            <td>{{index + 1}}</td>
-                                                            <td>{{checkout.products.product_name}}</td>
-                                                            <td>{{checkout.gas_type}}</td>
-                                                            <td>{{checkout.sale_type}}</td>
-                                                            <td>{{checkout.quantity}}</td>
-                                                            <td>{{checkout.price | formatNumber}}</td>
-                                                            <td>{{checkout.total | formatNumber}}</td>
-
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </transition>
-            </div>
-
-            <!-- Modal Display of Reciept Details -->
         </div>
     </div>
 </template>
 <script>
 
 import InfiniteLoading from 'vue-infinite-loading';
+import SweetAlert from '../../alerts/alert'
+
 export default {
     data() {
         return {
             search: '',
             edit: true,
-            showModal: false,
-            sales: [],
             reciepts:[],
             page:1,
             bottom:false,
+            alert: new SweetAlert(),
         }
     },
     mounted() {
@@ -184,6 +125,29 @@ export default {
 
             }.bind(this),1000);
         },
+        paymentMode(payment){
+            let payment_mode = ''
+            switch (true) {
+                case (payment === '0'):
+                    payment_mode = 'CASH'
+                    break;
+                case (payment === '1'):
+                    payment_mode = 'M-PESA PAYBILL'
+                    break;
+                case (payment === '2'):
+                    payment_mode = 'M-PESA TILLNO'
+                    break;
+                case (payment === '3'):
+                    payment_mode = 'CASH + M-PESA TILLNO'
+                    break;
+                case (payment === '4'):
+                    payment_mode = 'CASH + M-PESA PAYBILL'
+                    break;
+                default:
+                    payment_mode = "Invalid";
+            }
+            return payment_mode
+        },
         disable(id) {
             swal.fire({
                 title: 'Are you sure?',
@@ -197,35 +161,22 @@ export default {
 
                 if (result.value) {
                     let uri = `/reciept/${id}`;
-                    axios.post(uri).then(response => {
-                        this.$store.state.reciepts.splice(this.$store.state.reciepts.indexOf(id), 1);
+                    axios.delete(uri).then(response => {
+                        this.reciepts.splice(this.reciepts.indexOf(id), 1);
+                        this.alert.successLarge(response.data.success)
                         window.location.reload(false);
                         //this.fetchData();
                     });
-                    swal.fire(
-                        'Deleted!',
-                        'Reciept has been deleted.',
-                        'success'
-                    )
+
                 }
             }).
             catch(()=>{
-                swal("Failed","There was something wrong","warning");
+                this.alert.error(response.data.error)
             })
 
 
         },
-        // populate the modal with checkout detail
-        recieptDetail(detail) {
 
-            this.showModal = true
-            this.sales = detail
-        },
-        closeModal() {
-            this.showModal = false
-            // empty the modal
-            this.sales.splice(0)
-        },
     },
 
     // created() {

@@ -13,6 +13,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-infinite-loading */ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js");
 /* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _alerts_alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../alerts/alert */ "./resources/js/alerts/alert.js");
+//
+//
 //
 //
 //
@@ -85,13 +88,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       search: '',
       products: [],
       page: 1,
-      bottom: false
+      bottom: false,
+      alert: new _alerts_alert__WEBPACK_IMPORTED_MODULE_1__["default"]()
     };
   },
   mounted: function mounted() {//this.$store.dispatch("fetchProduct")
@@ -114,14 +119,40 @@ __webpack_require__.r(__webpack_exports__);
           return console.log(e);
         });
       }.bind(this), 1000);
+    },
+    disable: function disable(id) {
+      var _this2 = this;
+
+      swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          var uri = "/product/".concat(id);
+          axios["delete"](uri).then(function (response) {
+            _this2.products.splice(_this2.products.indexOf(id), 1);
+
+            _this2.alert.successLarge(response.data.success);
+
+            window.location.reload(false); // this.fetchData();
+          });
+        }
+      })["catch"](function () {
+        _this2.alert.error(response.data.error);
+      });
     }
   },
   computed: {
     filteredData: function filteredData() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.products.filter(function (item) {
-        return item.product_name.toLowerCase().includes(_this2.search.toLowerCase()) || item.created_at.toLowerCase().includes(_this2.search.toLowerCase());
+        return item.product_name.toLowerCase().includes(_this3.search.toLowerCase()) || item.created_at.toLowerCase().includes(_this3.search.toLowerCase());
       });
     }
   },
@@ -129,6 +160,110 @@ __webpack_require__.r(__webpack_exports__);
     InfiniteLoading: (vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default())
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/alerts/alert.js":
+/*!**************************************!*\
+  !*** ./resources/js/alerts/alert.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SweetAlert)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var SweetAlert = /*#__PURE__*/function () {
+  function SweetAlert() {
+    _classCallCheck(this, SweetAlert);
+  }
+
+  _createClass(SweetAlert, [{
+    key: "successLarge",
+    value: function successLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  }, {
+    key: "successSmall",
+    value: function successSmall(message) {
+      toast.fire({
+        type: 'success',
+        title: message
+      });
+    }
+  }, {
+    key: "warning",
+    value: function warning() {
+      swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+        }
+      });
+    }
+  }, {
+    key: "ask",
+    value: function ask(message) {
+      swal.fire({
+        title: message,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, cancel it!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          swal.fire('Cancelled!', 'The order has been cancelled.', 'success');
+        }
+      });
+    }
+  }, {
+    key: "message",
+    value: function message(_message) {
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: _message
+      });
+    }
+  }, {
+    key: "error",
+    value: function error(message) {
+      toast.fire({
+        type: 'error',
+        title: message
+      }); // swal.fire({
+      //   icon: 'error',
+      //   title: 'Oops... Try again!',
+      //   text: message,
+      // })
+    }
+  }]);
+
+  return SweetAlert;
+}();
+
+
 
 /***/ }),
 
@@ -315,7 +450,18 @@ var render = function() {
                               }
                             },
                             [_vm._v("View")]
-                          )
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "btn btn-danger btn-sm",
+                            attrs: { type: "submit", value: "Delete" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.disable(product.id)
+                              }
+                            }
+                          })
                         ],
                         1
                       )

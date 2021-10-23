@@ -99,10 +99,17 @@ class RecieptController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Reciept  $reciept
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Reciept $reciept)
+    public function destroy($id)
     {
-        //
+        try {
+            $reciept = Reciept::findOrFail($id);
+            $reciept->delete($id);
+            return response()->json(['success','Reciept successfully deleted']);
+        }catch (\Exception $e){
+            return response()->json(['error','Failed to delete. Try again!']);
+        }
+
     }
 }

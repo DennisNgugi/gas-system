@@ -13,66 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-infinite-loading */ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js");
 /* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _alerts_alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../alerts/alert */ "./resources/js/alerts/alert.js");
 //
 //
 //
@@ -147,16 +88,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       search: '',
       edit: true,
-      showModal: false,
-      sales: [],
       reciepts: [],
       page: 1,
-      bottom: false
+      bottom: false,
+      alert: new _alerts_alert__WEBPACK_IMPORTED_MODULE_1__["default"]()
     };
   },
   mounted: function mounted() {//  this.$store.dispatch("fetchReciept")
@@ -189,6 +130,36 @@ __webpack_require__.r(__webpack_exports__);
         });
       }.bind(this), 1000);
     },
+    paymentMode: function paymentMode(payment) {
+      var payment_mode = '';
+
+      switch (true) {
+        case payment === '0':
+          payment_mode = 'CASH';
+          break;
+
+        case payment === '1':
+          payment_mode = 'M-PESA PAYBILL';
+          break;
+
+        case payment === '2':
+          payment_mode = 'M-PESA TILLNO';
+          break;
+
+        case payment === '3':
+          payment_mode = 'CASH + M-PESA TILLNO';
+          break;
+
+        case payment === '4':
+          payment_mode = 'CASH + M-PESA PAYBILL';
+          break;
+
+        default:
+          payment_mode = "Invalid";
+      }
+
+      return payment_mode;
+    },
     disable: function disable(id) {
       var _this3 = this;
 
@@ -203,26 +174,17 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var uri = "/reciept/".concat(id);
-          axios.post(uri).then(function (response) {
-            _this3.$store.state.reciepts.splice(_this3.$store.state.reciepts.indexOf(id), 1);
+          axios["delete"](uri).then(function (response) {
+            _this3.reciepts.splice(_this3.reciepts.indexOf(id), 1);
+
+            _this3.alert.successLarge(response.data.success);
 
             window.location.reload(false); //this.fetchData();
           });
-          swal.fire('Deleted!', 'Reciept has been deleted.', 'success');
         }
       })["catch"](function () {
-        swal("Failed", "There was something wrong", "warning");
+        _this3.alert.error(response.data.error);
       });
-    },
-    // populate the modal with checkout detail
-    recieptDetail: function recieptDetail(detail) {
-      this.showModal = true;
-      this.sales = detail;
-    },
-    closeModal: function closeModal() {
-      this.showModal = false; // empty the modal
-
-      this.sales.splice(0);
     }
   },
   // created() {
@@ -234,6 +196,110 @@ __webpack_require__.r(__webpack_exports__);
     InfiniteLoading: (vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default())
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/alerts/alert.js":
+/*!**************************************!*\
+  !*** ./resources/js/alerts/alert.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SweetAlert)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var SweetAlert = /*#__PURE__*/function () {
+  function SweetAlert() {
+    _classCallCheck(this, SweetAlert);
+  }
+
+  _createClass(SweetAlert, [{
+    key: "successLarge",
+    value: function successLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  }, {
+    key: "successSmall",
+    value: function successSmall(message) {
+      toast.fire({
+        type: 'success',
+        title: message
+      });
+    }
+  }, {
+    key: "warning",
+    value: function warning() {
+      swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+        }
+      });
+    }
+  }, {
+    key: "ask",
+    value: function ask(message) {
+      swal.fire({
+        title: message,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, cancel it!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          swal.fire('Cancelled!', 'The order has been cancelled.', 'success');
+        }
+      });
+    }
+  }, {
+    key: "message",
+    value: function message(_message) {
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: _message
+      });
+    }
+  }, {
+    key: "error",
+    value: function error(message) {
+      toast.fire({
+        type: 'error',
+        title: message
+      }); // swal.fire({
+      //   icon: 'error',
+      //   title: 'Oops... Try again!',
+      //   text: message,
+      // })
+    }
+  }]);
+
+  return SweetAlert;
+}();
+
+
 
 /***/ }),
 
@@ -349,38 +415,38 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "input-group mb-3" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.search,
-                expression: "search"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              autofocus: "",
-              placeholder: "Search here .....",
-              "aria-describedby": "basic-addon1"
-            },
-            domProps: { value: _vm.search },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.search = $event.target.value
-              }
-            }
-          })
-        ]),
+      _c("div", { staticClass: "input-group mb-3" }, [
+        _vm._m(0),
         _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.search,
+              expression: "search"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            autofocus: "",
+            placeholder: "Search here .....",
+            "aria-describedby": "basic-addon1"
+          },
+          domProps: { value: _vm.search },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.search = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card" }, [
         _vm._m(1),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
@@ -421,6 +487,14 @@ var render = function() {
                         _vm._v(_vm._s(_vm._f("formatNumber")(reciept.balance)))
                       ]),
                       _vm._v(" "),
+                      _c("td", {
+                        domProps: {
+                          textContent: _vm._s(
+                            _vm.paymentMode(reciept.payment_mode)
+                          )
+                        }
+                      }),
+                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(reciept.users.name))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(reciept.created_at))]),
@@ -442,19 +516,16 @@ var render = function() {
                             [_vm._v("View")]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger btn-sm",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.disable(reciept.id)
-                                }
+                          _c("input", {
+                            staticClass: "btn btn-danger btn-sm",
+                            attrs: { type: "submit", value: "Delete" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.disable(reciept.id)
                               }
-                            },
-                            [_vm._v("Delete")]
-                          )
+                            }
+                          })
                         ],
                         1
                       )
@@ -500,193 +571,7 @@ var render = function() {
             ])
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _vm.showModal
-        ? _c(
-            "div",
-            [
-              _c("transition", { attrs: { name: "modal" } }, [
-                _c("div", { staticClass: "modal-mask" }, [
-                  _c("div", { staticClass: "modal-wrapper" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "modal-dialog modal-lg modal-dialog-centered",
-                        attrs: { role: "document" }
-                      },
-                      [
-                        _c("div", { staticClass: "modal-content" }, [
-                          _c("div", { staticClass: "modal-header" }, [
-                            _c(
-                              "h5",
-                              {
-                                staticClass: "modal-title",
-                                attrs: { id: "checkoutModalLongTitle" }
-                              },
-                              [_vm._v("Sales")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "close",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.closeModal()
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  { attrs: { "aria-hidden": "true" } },
-                                  [_vm._v("×")]
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "modal-body overflow-auto",
-                              staticStyle: { "max-height": "400px" }
-                            },
-                            [
-                              _c("div", { staticClass: "container-fluid" }, [
-                                _c("div", { staticClass: "col-md-12" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "table-responsive" },
-                                    [
-                                      _c(
-                                        "table",
-                                        {
-                                          staticClass: "table table-nowrap mb-0"
-                                        },
-                                        [
-                                          _c("thead", [
-                                            _c("tr", [
-                                              _c("th", [_vm._v("#")]),
-                                              _vm._v(" "),
-                                              _c("th", [
-                                                _vm._v("Product name")
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("th", [_vm._v("Gas Type")]),
-                                              _vm._v(" "),
-                                              _c("th", [_vm._v("Sale Type")]),
-                                              _vm._v(" "),
-                                              _c("th", [_vm._v("Quantity")]),
-                                              _vm._v(" "),
-                                              _c("th", [_vm._v("Price")]),
-                                              _vm._v(" "),
-                                              _c("th", [_vm._v("Total")])
-                                            ])
-                                          ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "tbody",
-                                            _vm._l(_vm.sales, function(
-                                              checkout,
-                                              index
-                                            ) {
-                                              return _c(
-                                                "tr",
-                                                { key: checkout.id },
-                                                [
-                                                  _c("td", [
-                                                    _vm._v(_vm._s(index + 1))
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        checkout.products
-                                                          .product_name
-                                                      )
-                                                    )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v(
-                                                      _vm._s(checkout.gas_type)
-                                                    )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v(
-                                                      _vm._s(checkout.sale_type)
-                                                    )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v(
-                                                      _vm._s(checkout.quantity)
-                                                    )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        _vm._f("formatNumber")(
-                                                          checkout.price
-                                                        )
-                                                      )
-                                                    )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("td", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        _vm._f("formatNumber")(
-                                                          checkout.total
-                                                        )
-                                                      )
-                                                    )
-                                                  ])
-                                                ]
-                                              )
-                                            }),
-                                            0
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "modal-footer" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-secondary",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.closeModal()
-                                  }
-                                }
-                              },
-                              [_vm._v("Close")]
-                            )
-                          ])
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ],
-            1
-          )
-        : _vm._e()
+      ])
     ])
   ])
 }
