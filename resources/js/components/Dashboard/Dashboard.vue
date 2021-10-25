@@ -12,7 +12,7 @@
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <router-link to="/admin/product/index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></router-link>
+                <router-link to="/admin/products/index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></router-link>
             </div>
         </div>
         <!-- ./col -->
@@ -20,7 +20,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>{{ outlightQuantity }}</h3>
+                    <h3>{{ getOutlightProductQuantity }}</h3>
 
                     <p>Outlight cylinders</p>
                 </div>
@@ -34,7 +34,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>{{ emptyQuantity }}</h3>
+                    <h3>{{ getEmptyProductQuantity }}</h3>
                     <p>Empty cylinders</p>
                 </div>
                 <div class="icon">
@@ -47,7 +47,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>{{ normalQuantity }}</h3>
+                    <h3>{{ getNormalProductQuantity }}</h3>
 
                     <p>Normal items</p>
                 </div>
@@ -60,6 +60,40 @@
     </div>
 
     <div class="row">
+        <div class="col-md-6 d-flex">
+
+            <!-- Recent Orders -->
+            <div class="card card-table flex-fill">
+                <div class="card-header">
+                    <h4 class="card-title">Last Week</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center">
+                            <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Quantity</th>
+                                <th class="text-center">Total</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(day,index) in lastWeekRevenue" :key="index">
+                                <td class="text-nowrap">
+                                    <div class="font-weight-600">{{day.dayname}}</div>
+                                </td>
+                                <td class="text-nowrap">{{day.quantity}}</td>
+                                <td class="text-center">{{day.amount| formatNumber}}</td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
         <div class="col-md-6 d-flex">
 
             <!-- Recent Orders -->
@@ -111,7 +145,7 @@
                                 <th>Month</th>
                                 <th>Quantity</th>
                                 <th class="text-center">Total</th>
-                                <th>Vat Total</th>
+
 
                             </tr>
                             </thead>
@@ -144,6 +178,7 @@ export default {
         return {
             yearlyRevenue: [],
             weeklyRevenue: [],
+            lastWeekRevenue:[],
             normalQuantity:'',
             outlightQuantity:'',
             emptyQuantity:'',
@@ -171,6 +206,13 @@ export default {
                 console.log(error)
             })
         },
+        getLastWeekRevenue() {
+            axios.get('/last_week').then((response) => {
+                this.lastWeekRevenue = response.data.lastWeekRevenue
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
     },
     created() {
     },
@@ -181,24 +223,40 @@ export default {
             return this.$store.getters.getProducts.length
         },
 
-        getProductQuantity(){
+        getOutlightProductQuantity(){
             let sum_outlight = 0;
-            // let sum_empty = 0;
-            // let sum_normal = 0;
+
              this.$store.getters.getProducts.forEach(function(item){
 
                 sum_outlight += item.quantity.outlight
-                // sum_empty += item.quantity.empty,
-                // sum_normal += item.quantity.normal
 
-            });
+             });
             return sum_outlight
 
-            // this.normalQuantity = sum_normal
-            // this.outlightQuantity = sum_outlight
-            // this.emptyQuantity = sum_empty
+        },
+        getEmptyProductQuantity(){
+            let sum_empty = 0;
+
+            this.$store.getters.getProducts.forEach(function(item){
+
+                sum_empty += item.quantity.empty
+
+            });
+            return sum_empty
 
         },
+        getNormalProductQuantity(){
+            let sum_normal = 0;
+
+            this.$store.getters.getProducts.forEach(function(item){
+
+                sum_normal += item.quantity.normal
+
+            });
+            return sum_normal
+
+        },
+
     }
 }
 </script>

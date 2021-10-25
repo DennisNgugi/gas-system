@@ -50,10 +50,33 @@ export default {
         updateCart(state, cart) {
             state.cart = cart;
         },
+        paymentMode(payment){
+            let payment_mode = ''
+            switch (true) {
+                case (payment === '0'):
+                    payment_mode = 'CASH'
+                    break;
+                case (payment === '1'):
+                    payment_mode = 'M-PESA PAYBILL'
+                    break;
+                case (payment === '2'):
+                    payment_mode = 'M-PESA TILLNO'
+                    break;
+                case (payment === '3'):
+                    payment_mode = 'CASH + M-PESA TILLNO'
+                    break;
+                case (payment === '4'):
+                    payment_mode = 'CASH + M-PESA PAYBILL'
+                    break;
+                default:
+                    payment_mode = "Invalid";
+            }
+            return payment_mode
+        },
     },
     actions:{
         fetchProduct(context) {
-            axios.get('/product').then((response) => {
+            axios.get('/products').then((response) => {
 
                 context.commit("updateProducts", response.data.products)
             }).catch((error) => {
@@ -76,8 +99,9 @@ export default {
                 console.log(error)
             })
         },
+
         fetchCustomer(context) {
-            axios.get('/customer').then((response) => {
+            axios.get('/customers').then((response) => {
 
                 context.commit("updateCustomers", response.data.customers)
             }).catch((error) => {

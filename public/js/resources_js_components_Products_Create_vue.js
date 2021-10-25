@@ -164,6 +164,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -595,7 +597,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
             _c("label", { staticClass: "col-form-label col-lg-4" }, [
-              _vm._v("Complete Gas")
+              _vm._v("Complete")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "input-group input-group-lg" }, [
@@ -689,245 +691,270 @@ var render = function() {
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c("label", { staticClass: "col-form-label col-lg-4" }, [
-              _vm._v("Refill Gas")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group input-group-lg" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-5" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.price.refill.retail_price,
-                      expression: "price.refill.retail_price",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.price.refill.retail_price },
-                  on: {
-                    keydown: function($event) {
-                      return _vm.errors.clear("price.refill.retail_price")
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+          _vm.brand_id === 1
+            ? _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-form-label col-lg-4" }, [
+                  _vm._v("Refill")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group input-group-lg" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-5" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.price.refill.retail_price,
+                          expression: "price.refill.retail_price",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "aria-describedby": "sizing-addon1"
+                      },
+                      domProps: { value: _vm.price.refill.retail_price },
+                      on: {
+                        keydown: function($event) {
+                          return _vm.errors.clear("price.refill.retail_price")
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.price.refill,
+                            "retail_price",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
                       }
-                      _vm.$set(
-                        _vm.price.refill,
-                        "retail_price",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-5" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.price.refill.wholesale_price,
+                          expression: "price.refill.wholesale_price",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "aria-describedby": "sizing-addon1"
+                      },
+                      domProps: { value: _vm.price.refill.wholesale_price },
+                      on: {
+                        keydown: function($event) {
+                          return _vm.errors.clear(
+                            "price.refill.wholesale_price"
+                          )
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.price.refill,
+                            "wholesale_price",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("span", {
+                  staticClass: "help is-danger",
+                  staticStyle: { color: "red" },
+                  domProps: {
+                    textContent: _vm._s(
+                      _vm.errors.get("price.refill.wholesale_price")
+                    )
                   }
                 })
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-5" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.price.refill.wholesale_price,
-                      expression: "price.refill.wholesale_price",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.price.refill.wholesale_price },
-                  on: {
-                    keydown: function($event) {
-                      return _vm.errors.clear("price.refill.wholesale_price")
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.price.refill,
-                        "wholesale_price",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "help is-danger",
-              staticStyle: { color: "red" },
-              domProps: {
-                textContent: _vm._s(
-                  _vm.errors.get("price.refill.wholesale_price")
-                )
-              }
-            })
-          ]),
+            : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
             _c("label", { staticClass: "col-form-label col-lg-4" }, [
               _vm._v("Quantity")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
-              _vm._m(5),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-5" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.quantity.outlight,
-                      expression: "quantity.outlight",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.quantity.outlight },
-                  on: {
-                    keydown: function($event) {
-                      return _vm.errors.clear("quantity.outlight")
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+            _vm.brand_id === 1
+              ? _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-5" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.quantity.outlight,
+                          expression: "quantity.outlight",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "aria-describedby": "sizing-addon1"
+                      },
+                      domProps: { value: _vm.quantity.outlight },
+                      on: {
+                        keydown: function($event) {
+                          return _vm.errors.clear("quantity.outlight")
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.quantity,
+                            "outlight",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
                       }
-                      _vm.$set(
-                        _vm.quantity,
-                        "outlight",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "help is-danger",
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.errors.get("quantity.outlight"))
                     }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("span", {
-                staticClass: "help is-danger",
-                staticStyle: { color: "red" },
-                domProps: {
-                  textContent: _vm._s(_vm.errors.get("quantity.outlight"))
-                }
-              })
-            ]),
+                  })
+                ])
+              : _vm._e(),
             _vm._v(" "),
-            _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-5" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.quantity.empty,
-                      expression: "quantity.empty",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.quantity.empty },
-                  on: {
-                    keydown: function($event) {
-                      return _vm.errors.clear("quantity.empty")
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+            _vm.brand_id === 1
+              ? _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-5" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.quantity.empty,
+                          expression: "quantity.empty",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "aria-describedby": "sizing-addon1"
+                      },
+                      domProps: { value: _vm.quantity.empty },
+                      on: {
+                        keydown: function($event) {
+                          return _vm.errors.clear("quantity.empty")
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.quantity,
+                            "empty",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
                       }
-                      _vm.$set(
-                        _vm.quantity,
-                        "empty",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "help is-danger",
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.errors.get("quantity.empty"))
                     }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("span", {
-                staticClass: "help is-danger",
-                staticStyle: { color: "red" },
-                domProps: {
-                  textContent: _vm._s(_vm.errors.get("quantity.empty"))
-                }
-              })
-            ]),
+                  })
+                ])
+              : _vm._e(),
             _vm._v(" "),
-            _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
-              _vm._m(7),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-5" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.quantity.others,
-                      expression: "quantity.others",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", "aria-describedby": "sizing-addon1" },
-                  domProps: { value: _vm.quantity.others },
-                  on: {
-                    keydown: function($event) {
-                      return _vm.errors.clear("quantity.others")
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+            _vm.brand_id === 2
+              ? _c("div", { staticClass: "input-group input-group-lg mt-2" }, [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-5" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.quantity.others,
+                          expression: "quantity.others",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        "aria-describedby": "sizing-addon1"
+                      },
+                      domProps: { value: _vm.quantity.others },
+                      on: {
+                        keydown: function($event) {
+                          return _vm.errors.clear("quantity.others")
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.quantity,
+                            "others",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
                       }
-                      _vm.$set(
-                        _vm.quantity,
-                        "others",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "help is-danger",
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.errors.get("quantity.others"))
                     }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("span", {
-                staticClass: "help is-danger",
-                staticStyle: { color: "red" },
-                domProps: {
-                  textContent: _vm._s(_vm.errors.get("quantity.others"))
-                }
-              })
-            ])
+                  })
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c(

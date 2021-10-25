@@ -27,6 +27,14 @@ class ProductController extends Controller
             'products' => $products
         ],200);
     }
+    public function index2(ProductRepositoryInterface $productRepository)
+    {
+        $products = $productRepository->withRelation(['brands:id,brand_name']);
+        return response()->json([
+            'products' => $products
+        ],200);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -124,7 +132,12 @@ class ProductController extends Controller
      */
     public function destroy(ProductRepositoryInterface $productRepository,$id)
     {
-        $product = $productRepository->delete($id);
-        return response()->json(['success','Product has been deleted']);
+        try {
+            $product = $productRepository->delete($id);
+            return response()->json(['success','Product has been deleted']);
+        }catch (\Exception $e){
+            return response()->json(['error','Failed to delete.Try again!']);
+        }
+
     }
 }

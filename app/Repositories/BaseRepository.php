@@ -31,6 +31,9 @@ class BaseRepository implements BaseRepositoryInterface{
     public function all(){
         return $this->model->cursor();
     }
+    public function paginateAll(){
+        return $this->model->paginate(15);
+    }
 
      // remove record from the database
      public function delete($id)

@@ -49,6 +49,11 @@ export const routes =  [
         name: 'customers.index',
         component: () => import('../components/Customers/Index.vue'),
     },
+    {
+        path: '/admin/customers/view/:id',
+        name: 'customers.view',
+        component: () => import('../components/Customers/View.vue'),
+    },
         // inventory components
         {
             path: '/admin/inventory/add',

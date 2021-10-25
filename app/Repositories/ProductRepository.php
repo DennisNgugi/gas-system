@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Models\Sales;
 use App\Repositories\BaseRepository;
 use App\Interfaces\ProductRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ProductRepository  extends BaseRepository implements ProductRepositoryInterface {
@@ -20,9 +21,8 @@ class ProductRepository  extends BaseRepository implements ProductRepositoryInte
     public function productDetail($id)
     {
         // TODO: Implement productDetail() method.
-        $product_detail = $this->model->where('id',$id)->with('sales','transfers')->get()->groupBy(function ($data){
-            return $data['sales'][0]['sale_type'];
-      });
+        $product_detail = $this->model->with('sales','transfers')->find($id);
+
 //
 //        $product_detail = $this->model->where('id',$id)->with([
 //            'sales' => function($query)
@@ -42,7 +42,12 @@ class ProductRepository  extends BaseRepository implements ProductRepositoryInte
 //
 //            ->get()->groupBy(DB::raw('MONTHNAME(created_at) ASC'));
 
-        return $product_detail;
+        return $product_detail->transfers->groupBy(function($date) {
+            return Carbon::parse($date->created_at)->format('Y-m-d'); // grouping by years
+            //return Carbon::parse($date->created_at)->format('m'); // grouping by months
+        })->map(function ($row) {
+            return $row->sum('stock_in');
+        });
     }
 
 

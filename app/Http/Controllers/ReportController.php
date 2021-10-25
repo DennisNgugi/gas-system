@@ -31,6 +31,13 @@ class ReportController extends Controller
         ]);
     }
 
+    public function lastWeekReport(ReportRepositoryInterface $reportRepository){
+        $lastWeekReport = $reportRepository->lastWeekReport();
+        return response()->json([
+            'lastWeekReport' => $lastWeekReport
+        ]);
+    }
+
     /**
      * currentYearReport
      *

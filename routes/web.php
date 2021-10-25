@@ -26,6 +26,7 @@ Route::get('/', function () {
 });
 Route::resource('product',ProductController::class);
 Route::delete('/product/{id}',[ProductController::class, 'destroy']);
+Route::get('/products',[ProductController::class, 'index2']);
 Route::get('/product/edit/{id}',[ProductController::class, 'edit']);
 Route::post('/product/update/{id}',[ProductController::class, 'update']);
 Route::get('/product/view/{id}',[ProductController::class, 'show']);
@@ -34,11 +35,15 @@ Route::resource('inventory',InventoryController::class);
 Route::resource('brand',BrandController::class);
 Route::resource('checkout',RecieptController::class);
 Route::resource('customer',CustomerController::class);
+Route::get('/customers',[CustomerController::class, 'index2']);
+Route::get('/customer/view/{id}',[CustomerController::class, 'show']);
+Route::delete('/customer/{id}',[CustomerController::class, 'destroy']);
 Route::resource('transfer',TransferController::class);
 Route::resource('reciept',RecieptController::class);
 Route::get('/reciept/view/{id}',[RecieptController::class, 'show']);
 Route::delete('/reciept/{id}',[RecieptController::class, 'destroy']);
 Route::get('/weekly_report',[ReportController::class,'currentWeekReport']);
+Route::get('/last_week',[ReportController::class,'lastWeekReport']);
 Route::get('/yearly_report',[ReportController::class,'currentYearReport']);
 Route::get('/admin/{any}', function () {
     return view('dashboard');

@@ -137,9 +137,10 @@ __webpack_require__.r(__webpack_exports__);
           axios["delete"](uri).then(function (response) {
             _this2.products.splice(_this2.products.indexOf(id), 1);
 
-            _this2.alert.successLarge(response.data.success);
+            window.location.reload(false);
 
-            window.location.reload(false); // this.fetchData();
+            _this2.alert.successLarge(response.data.success); // this.fetchData();
+
           });
         }
       })["catch"](function () {

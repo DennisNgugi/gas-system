@@ -126,29 +126,12 @@
                     </div>
                     <div v-if="checkout.gas_type !=='' && checkout.sale_type!==''" class="row mt-2">
                         <div class="col-md-2">
-                        <button class="form-control btn btn-info btn-sm" @click.prevent="triggerAddToCart">Add To Cart</button>
+                        <button class="form-control btn btn-info btn-sm" @click.prevent="triggerAddToCart"><i class="fas fa-cart-plus"></i> Add To Cart</button>
                         </div>
                     </div>
                     </div>
                     <hr>
 
-                    <div class="row mt-3">
-
-
-                        <div v-if="checkout.sale_type === 'WHL'" class="col-md-6">
-                            <label for=""><b>Customer Name</b> </label>
-                            <div class="input-group mb-3">
-                                <vue-select v-model="checkout.customer_id" label="customer_name" class="form-control" :options="getCustomers" :reduce="customer => customer.id" @keypress="errors.clear('customer_id')"/>
-
-                            </div>
-
-
-                        </div>
-
-
-
-
-                    </div>
 
 
 
@@ -188,10 +171,10 @@
                                         <thead class="thead-light">
                                         <tr>
                                             <th width="5%" scope="col">#</th>
-                                            <th width="41%" scope="col">Item</th>
+                                            <th width="35%" scope="col">Item</th>
                                             <th width="5%" scope="col">Sale</th>
                                             <th width="5%" scope="col">Picked</th>
-                                            <th width="14%" scope="col">Qty</th>
+                                            <th width="20%" scope="col">Qty</th>
                                             <th width="10%" scope="col">Price</th>
                                             <th width="17%" scope="col">Total</th>
                                             <th width="6%" scope="col">Action</th>
@@ -210,16 +193,16 @@
                                             </td>
 
                                     <td>
-                                        <button class="btn btn-info btn-sm" @click.prevent="decrement(item,index)"><span><i class="bi bi-dash"></i></span></button>
+                                        <button class="btn btn-info btn-sm" @click.prevent="decrement(item,index)"><span><i class="fas fa-minus"></i></span></button>
 
                                         {{item.quantity}}
-                                        <button class="btn btn-info btn-sm" @click.prevent="increment(item)"><span><i class="bi bi-plus"></i></span></button>
+                                        <button class="btn btn-info btn-sm" @click.prevent="increment(item)"><span><i class="fas fa-plus"></i></i></span></button>
                                     </td>
                                             <td>{{item.detail.price}}</td>
                                             <td v-text="cartLineTotal(item)"></td>
                                             <td>
                                                 <button class="btn btn-danger" @click.prevent="$store.commit('removeFromCart', index)">
-                                                    <span><i class="bi bi-trash"></i></span>
+                                                    <span><i class="far fa-trash-alt"></i></span>
                                                 </button>
                                             </td>
                                         </tr>
@@ -266,21 +249,37 @@
                                                 </table>
                                                 <hr>
                                                 <div v-if="cart.length > 0">
-                                                <div class="row mt-3">
-                                                    <div class="col-md-6">
-                                                        <label for=""><b>Payment Mode</b> </label>
-                                                        <div class="input-group mb-3">
-                                                            <select class="form-control" v-model="checkout.payment_mode"  style="height: 50px;">
-                                                                <option value="">Select Payment Mode</option>
-                                                                <option value="0">CASH ONLY</option>
-                                                                <option value="1">M-PESA PAYBILL</option>
-                                                                <option value="2">M-PESA TILLNO</option>
-                                                                <option value="3">CASH + M-PESA TILLNO</option>
-                                                                <option value="4">CASH + M-PESA PAYBILL</option>
-                                                            </select>
+
+                                                    <div class="row mt-3">
+
+                                                        <div class="col-md-6">
+                                                            <label for=""><b>Customer Name (optional)</b> </label>
+                                                            <div class="input-group mb-3">
+                                                                <vue-select v-model="checkout.customer_id" label="customer_name" class="form-control" :options="getCustomers" :reduce="customer => customer.id" @keypress="errors.clear('customer_id')"/>
+
+                                                            </div>
+
+
                                                         </div>
+                                                        <div class="col-md-6">
+                                                            <label for=""><b>Payment Mode</b> </label>
+                                                            <div class="input-group mb-3">
+                                                                <select class="form-control" v-model="checkout.payment_mode"  style="height: 50px;">
+                                                                    <option value="">Select Payment Mode</option>
+                                                                    <option value="0">CASH ONLY</option>
+                                                                    <option value="1">M-PESA PAYBILL</option>
+                                                                    <option value="2">M-PESA TILLNO</option>
+                                                                    <option value="3">CASH + M-PESA TILLNO</option>
+                                                                    <option value="4">CASH + M-PESA PAYBILL</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+
                                                     </div>
-                                                    <div class="col-md-6">
+                                                <div class="row mt-3">
+
+                                                    <div class="col-md-12">
                                                         <label for=""><b>Amount Paid</b> </label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" v-model="checkout.amount_paid">
@@ -290,14 +289,14 @@
                                                 </div>
                                                     <hr>
                                                 <div class="row mt-3">
-                                                    <div v-if="checkout.payment_mode !== '0'" class="col-md-4">
+                                                    <div v-if="checkout.payment_mode !== '0' && checkout.payment_mode !== ''" class="col-md-4">
                                                         <label for=""><b>Phone number</b> </label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" v-model="checkout.phone_number">
                                                         </div>
 
                                                     </div>
-                                                    <div v-if="checkout.payment_mode !== '0'" class="col-md-4">
+                                                    <div v-if="checkout.payment_mode !== '0' && checkout.payment_mode !== '' " class="col-md-4">
                                                         <label for=""><b>Time</b> </label>
                                                         <div class="input-group mb-3">
                                                             <input type="time" class="form-control" v-model="checkout.message_time">
@@ -340,13 +339,14 @@
                     <!-- Buttons -->
                     <div class="row mt-3">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-danger btn-block btn-lg" @click="cancel"><i class="bi bi-x-circle"></i> Cancel</button>
+                            <button type="button" class="btn btn-danger btn-block btn-lg" @click="cancel"><i class="far fa-times-circle"></i> Cancel</button>
                         </div>
 
                         <div class="col-md-6">
-                            <button type="button" v-if="$store.state.cart === 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
-                            <button type="button" v-else-if="checkout.payment_mode.length === 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="bi bi-cash"></i> Payment</button>
-                            <button type="button" v-else class="btn btn-success btn-block btn-lg" @click.prevent="saveTransaction"><i class="bi bi-cash"></i> Payment</button>
+                            <button type="button" v-if="$store.state.cart === 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="fas fa-money-bill-wave"></i> Payment</button>
+                            <button type="button" v-else-if="checkout.payment_mode.length === 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="fas fa-money-bill-wave"></i> Payment</button>
+                            <button type="button" v-else-if="checkout.amount_paid.length === 0" disabled @click.prevent="saveTransaction" class="btn btn-warning btn-block btn-lg"><i class="fas fa-money-bill-wave"></i> Payment</button>
+                            <button type="button" v-else class="btn btn-success btn-block btn-lg" @click.prevent="saveTransaction"><i class="fas fa-money-bill-wave"></i> Payment</button>
                         </div>
                     </div>
                 <!--Buttons-->

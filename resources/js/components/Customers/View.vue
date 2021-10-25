@@ -19,7 +19,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Reciept code</th>
-                                <th>Customer name</th>
                                 <th>Total quantity</th>
                                 <th>Total amount</th>
                                 <th>Amount recieved</th>
@@ -35,13 +34,11 @@
 
                                 <td>{{index + 1}}</td>
                                 <td>{{reciept.reciept_code}}</td>
-                                <td v-if="reciept.customers != null">{{reciept.customers.customer_name}}</td>
-                                <td v-else>Walk in</td>
                                 <td>{{reciept.total_quantity}}</td>
                                 <td>{{reciept.total_amount| formatNumber}}</td>
                                 <td>{{reciept.amount_paid | formatNumber}}</td>
                                 <td>{{reciept.balance | formatNumber}}</td>
-                                <td v-text="$store.commit(paymentMode(reciept.payment_mode))">
+                                <td v-text="paymentMode(reciept.payment_mode)">
 
                                 </td>
                                 <td>{{reciept.users.name}}</td>
@@ -110,10 +107,10 @@ export default {
             setTimeout(function (){
 
 
-                axios.get('/reciept?page='+this.page).then((response)=>{
+                axios.get(`/customer/view/${this.$route.params.id}?page=`+this.page).then((response)=>{
                     if(response.data.reciepts.data.length > 0){
                         // let lastPage = response.data.reciepts.last_page
-                        response.data.reciepts.data.forEach(reciept => {
+                        response.data.reciepts.data[0].reciepts.forEach(reciept => {
                             this.reciepts.push(reciept);
                         });
                         $state.loaded();
@@ -125,7 +122,29 @@ export default {
 
             }.bind(this),1000);
         },
-
+        paymentMode(payment){
+            let payment_mode = ''
+            switch (true) {
+                case (payment === '0'):
+                    payment_mode = 'CASH'
+                    break;
+                case (payment === '1'):
+                    payment_mode = 'M-PESA PAYBILL'
+                    break;
+                case (payment === '2'):
+                    payment_mode = 'M-PESA TILLNO'
+                    break;
+                case (payment === '3'):
+                    payment_mode = 'CASH + M-PESA TILLNO'
+                    break;
+                case (payment === '4'):
+                    payment_mode = 'CASH + M-PESA PAYBILL'
+                    break;
+                default:
+                    payment_mode = "Invalid";
+            }
+            return payment_mode
+        },
         disable(id) {
             swal.fire({
                 title: 'Are you sure?',

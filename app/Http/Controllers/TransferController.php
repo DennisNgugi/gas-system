@@ -44,11 +44,14 @@ class TransferController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function getTransfersByProductId($id,TransferRepositoryInterface $transferRepository)
     {
-        //
+        $transfers = $transferRepository->getTransfersByProductId($id);
+        return response()->json([
+            'transfers' => $transfers
+        ],200);
     }
 
     /**

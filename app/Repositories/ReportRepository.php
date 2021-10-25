@@ -26,6 +26,16 @@ class ReportRepository extends BaseRepository implements ReportRepositoryInterfa
             ->groupBy('dayname')
             ->get();
     }
+
+    public function lastWeekReport(){
+
+
+        return $this->model->select(DB::raw("SUM(total) as amount,SUM(quantity) as quantity"),DB::raw("DAYNAME(created_at) as dayname"))
+            ->whereBetween('created_at',
+                [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]
+            )
+            ->get();
+    }
     /**
      * currentMonthReport
      *

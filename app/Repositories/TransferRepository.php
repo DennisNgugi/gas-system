@@ -46,5 +46,10 @@ class TransferRepository extends BaseRepository implements TransferRepositoryInt
         $product->update(['quantity->outlight'=> $newOutlightQuantity,'quantity->empty' => $newEmptyQuantity]);
     }
 
+    public function getTransfersByProductId($id)
+    {
+        return $this->model->where('product_id',$id)->get();
+    }
+
 
 }

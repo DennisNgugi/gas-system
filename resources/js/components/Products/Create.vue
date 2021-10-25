@@ -54,7 +54,7 @@
                     <div class="form-group row">
 
 
-                            <label class="col-form-label col-lg-4">Complete Gas</label>
+                            <label class="col-form-label col-lg-4">Complete</label>
                             <div class="input-group input-group-lg">
                                 <div class="col-md-4">
                                     <label class="col-form-label col-lg-4">Retail Price</label>
@@ -75,12 +75,12 @@
                     </div>
                      <hr>
 
-                     <div class="form-group row">
+                     <div v-if="brand_id === 1" class="form-group row">
 
 
-                         <label class="col-form-label col-lg-4">Refill Gas</label>
+                         <label class="col-form-label col-lg-4">Refill</label>
 
-                         <div class="input-group input-group-lg">
+                         <div  class="input-group input-group-lg">
                              <div class="col-md-4">
                                  <label class="col-form-label col-lg-4">Retail Price</label>
                              </div>
@@ -104,7 +104,8 @@
 
                          <label class="col-form-label col-lg-4">Quantity</label>
 
-                         <div class="input-group input-group-lg mt-2">
+
+                         <div v-if="brand_id === 1" class="input-group input-group-lg mt-2">
                              <div class="col-md-4">
                                  <label class="col-form-label col-lg-4">Outlight</label>
                              </div>
@@ -114,7 +115,7 @@
                              <span class="help is-danger" style="color:red;" v-text="errors.get('quantity.outlight')"></span>
                          </div>
 
-                         <div class="input-group input-group-lg mt-2">
+                         <div v-if="brand_id === 1" class="input-group input-group-lg mt-2">
                              <div class="col-md-4">
                                  <label class="col-form-label col-lg-4">Empty</label>
                              </div>
@@ -124,7 +125,8 @@
                              <span class="help is-danger" style="color:red;" v-text="errors.get('quantity.empty')"></span>
                          </div>
 
-                         <div class="input-group input-group-lg mt-2">
+
+                         <div v-if="brand_id === 2" class="input-group input-group-lg mt-2">
                              <div class="col-md-4">
                                  <label class="col-form-label col-lg-4">Qty</label>
                              </div>

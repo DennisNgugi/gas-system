@@ -122,8 +122,10 @@
                         let uri = `/product/${id}`;
                         axios.delete(uri).then(response => {
                             this.products.splice(this.products.indexOf(id), 1);
-                            this.alert.successLarge(response.data.success)
+
                             window.location.reload(false);
+
+                            this.alert.successLarge(response.data.success)
                            // this.fetchData();
                         });
 

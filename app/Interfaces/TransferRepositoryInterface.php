@@ -7,4 +7,5 @@ interface TransferRepositoryInterface
     public function transfer($product);
     public function incrementStock($item);
     public function decrementStock($item);
+    public function getTransfersByProductId($id);
 }

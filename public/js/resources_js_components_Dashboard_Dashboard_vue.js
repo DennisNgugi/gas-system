@@ -151,11 +151,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       yearlyRevenue: [],
       weeklyRevenue: [],
+      lastWeekRevenue: [],
       normalQuantity: '',
       outlightQuantity: '',
       emptyQuantity: ''
@@ -184,6 +219,15 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    getLastWeekRevenue: function getLastWeekRevenue() {
+      var _this3 = this;
+
+      axios.get('/last_week').then(function (response) {
+        _this3.lastWeekRevenue = response.data.lastWeekRevenue;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   created: function created() {},
@@ -191,17 +235,26 @@ __webpack_require__.r(__webpack_exports__);
     getTotalProducts: function getTotalProducts() {
       return this.$store.getters.getProducts.length;
     },
-    getProductQuantity: function getProductQuantity() {
-      var sum_outlight = 0; // let sum_empty = 0;
-      // let sum_normal = 0;
-
+    getOutlightProductQuantity: function getOutlightProductQuantity() {
+      var sum_outlight = 0;
       this.$store.getters.getProducts.forEach(function (item) {
-        sum_outlight += item.quantity.outlight; // sum_empty += item.quantity.empty,
-        // sum_normal += item.quantity.normal
+        sum_outlight += item.quantity.outlight;
       });
-      return sum_outlight; // this.normalQuantity = sum_normal
-      // this.outlightQuantity = sum_outlight
-      // this.emptyQuantity = sum_empty
+      return sum_outlight;
+    },
+    getEmptyProductQuantity: function getEmptyProductQuantity() {
+      var sum_empty = 0;
+      this.$store.getters.getProducts.forEach(function (item) {
+        sum_empty += item.quantity.empty;
+      });
+      return sum_empty;
+    },
+    getNormalProductQuantity: function getNormalProductQuantity() {
+      var sum_normal = 0;
+      this.$store.getters.getProducts.forEach(function (item) {
+        sum_normal += item.quantity.normal;
+      });
+      return sum_normal;
     }
   }
 });
@@ -273,7 +326,7 @@ var render = function() {
               "router-link",
               {
                 staticClass: "small-box-footer",
-                attrs: { to: "/admin/product/index" }
+                attrs: { to: "/admin/products/index" }
               },
               [
                 _vm._v("More info "),
@@ -288,7 +341,7 @@ var render = function() {
       _c("div", { staticClass: "col-lg-3 col-6" }, [
         _c("div", { staticClass: "small-box bg-success" }, [
           _c("div", { staticClass: "inner" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.outlightQuantity))]),
+            _c("h3", [_vm._v(_vm._s(_vm.getOutlightProductQuantity))]),
             _vm._v(" "),
             _c("p", [_vm._v("Outlight cylinders")])
           ]),
@@ -300,7 +353,7 @@ var render = function() {
       _c("div", { staticClass: "col-lg-3 col-6" }, [
         _c("div", { staticClass: "small-box bg-warning" }, [
           _c("div", { staticClass: "inner" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.emptyQuantity))]),
+            _c("h3", [_vm._v(_vm._s(_vm.getEmptyProductQuantity))]),
             _vm._v(" "),
             _c("p", [_vm._v("Empty cylinders")])
           ]),
@@ -312,7 +365,7 @@ var render = function() {
       _c("div", { staticClass: "col-lg-3 col-6" }, [
         _c("div", { staticClass: "small-box bg-danger" }, [
           _c("div", { staticClass: "inner" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.normalQuantity))]),
+            _c("h3", [_vm._v(_vm._s(_vm.getNormalProductQuantity))]),
             _vm._v(" "),
             _c("p", [_vm._v("Normal items")])
           ]),
@@ -334,7 +387,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.weeklyRevenue, function(day, index) {
+                  _vm._l(_vm.lastWeekRevenue, function(day, index) {
                     return _c("tr", { key: index }, [
                       _c("td", { staticClass: "text-nowrap" }, [
                         _c("div", { staticClass: "font-weight-600" }, [
@@ -367,6 +420,42 @@ var render = function() {
             _c("div", { staticClass: "table-responsive" }, [
               _c("table", { staticClass: "table table-hover table-center" }, [
                 _vm._m(7),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.weeklyRevenue, function(day, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", { staticClass: "text-nowrap" }, [
+                        _c("div", { staticClass: "font-weight-600" }, [
+                          _vm._v(_vm._s(day.dayname))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-nowrap" }, [
+                        _vm._v(_vm._s(day.quantity))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(_vm._f("formatNumber")(day.amount)))
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 d-flex" }, [
+        _c("div", { staticClass: "card card-table flex-fill" }, [
+          _vm._m(8),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c("table", { staticClass: "table table-hover table-center" }, [
+                _vm._m(9),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -435,6 +524,28 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "card-title" }, [_vm._v("Last Week")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Day")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
       _c("h4", { staticClass: "card-title" }, [_vm._v("Current Week")])
     ])
   },
@@ -470,9 +581,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Quantity")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Vat Total")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total")])
       ])
     ])
   }

@@ -7,4 +7,6 @@ interface ReportRepositoryInterface
     public function currentWeekReport();
 
     public function currentYearReport();
+
+    public function lastWeekReport();
 }

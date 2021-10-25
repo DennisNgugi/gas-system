@@ -22,10 +22,10 @@ class Transfer extends Model
     public function getTotalStockIn() {
         return $this->transfers->sum('stock_in');
     }
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->toFormattedDateString();
-    }
+//    public function getCreatedAtAttribute($value)
+//    {
+//        return Carbon::parse($value)->toFormattedDateString();
+//    }
     // Notify every user after update has been done
 //     public static function boot()
 //     {

@@ -2239,6 +2239,12 @@ var routes = [{
   component: function component() {
     return __webpack_require__.e(/*! import() */ "resources_js_components_Customers_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Customers/Index.vue */ "./resources/js/components/Customers/Index.vue"));
   }
+}, {
+  path: '/admin/customers/view/:id',
+  name: 'customers.view',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_components_Customers_View_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Customers/View.vue */ "./resources/js/components/Customers/View.vue"));
+  }
 }, // inventory components
 {
   path: '/admin/inventory/add',
@@ -2343,11 +2349,41 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateCart: function updateCart(state, cart) {
       state.cart = cart;
+    },
+    paymentMode: function paymentMode(payment) {
+      var payment_mode = '';
+
+      switch (true) {
+        case payment === '0':
+          payment_mode = 'CASH';
+          break;
+
+        case payment === '1':
+          payment_mode = 'M-PESA PAYBILL';
+          break;
+
+        case payment === '2':
+          payment_mode = 'M-PESA TILLNO';
+          break;
+
+        case payment === '3':
+          payment_mode = 'CASH + M-PESA TILLNO';
+          break;
+
+        case payment === '4':
+          payment_mode = 'CASH + M-PESA PAYBILL';
+          break;
+
+        default:
+          payment_mode = "Invalid";
+      }
+
+      return payment_mode;
     }
   },
   actions: {
     fetchProduct: function fetchProduct(context) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/product').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/products').then(function (response) {
         context.commit("updateProducts", response.data.products);
       })["catch"](function (error) {
         console.log(error);
@@ -2368,7 +2404,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     fetchCustomer: function fetchCustomer(context) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/customer').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/customers').then(function (response) {
         context.commit("updateCustomers", response.data.customers);
       })["catch"](function (error) {
         console.log(error);
@@ -61721,7 +61757,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Dashboard_Dashboard_vue":1,"resources_js_components_Products_Create_vue":1,"resources_js_components_Products_Index_vue":1,"resources_js_components_Products_Edit_vue":1,"resources_js_components_Products_View_vue":1,"resources_js_components_Branch_Create_vue":1,"resources_js_components_Branch_Index_vue":1,"resources_js_components_Customers_Create_vue":1,"resources_js_components_Customers_Index_vue":1,"resources_js_components_Transfer_MakeTransfer_vue":1,"resources_js_components_Transfer_Index_vue":1,"resources_js_components_Brands_Create_vue":1,"resources_js_components_Brands_Index_vue":1,"resources_js_components_Sales_Sales_vue":1,"resources_js_components_Sales_Show_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Dashboard_Dashboard_vue":1,"resources_js_components_Products_Create_vue":1,"resources_js_components_Products_Index_vue":1,"resources_js_components_Products_Edit_vue":1,"resources_js_components_Products_View_vue":1,"resources_js_components_Branch_Create_vue":1,"resources_js_components_Branch_Index_vue":1,"resources_js_components_Customers_Create_vue":1,"resources_js_components_Customers_Index_vue":1,"resources_js_components_Customers_View_vue":1,"resources_js_components_Transfer_MakeTransfer_vue":1,"resources_js_components_Transfer_Index_vue":1,"resources_js_components_Brands_Create_vue":1,"resources_js_components_Brands_Index_vue":1,"resources_js_components_Sales_Sales_vue":1,"resources_js_components_Sales_Show_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
