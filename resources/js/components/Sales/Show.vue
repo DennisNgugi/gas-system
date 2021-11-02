@@ -31,9 +31,9 @@
 
                 <tr>
                     <th>Payment status:</th>
-                    <td>{{reciept.payment_status}}</td>
+                    <td v-text="status(reciept.payment_status)"></td>
                     <th>Paid via:</th>
-                    <td>{{reciept.payment_mode}}</td>
+                    <td v-text="paymentMode(reciept.payment_mode)"></td>
                 </tr>
                 <tr>
                     <th>Remarks:</th>
@@ -105,6 +105,42 @@ export default {
     },
 
     methods:{
+        status(status){
+         if(status === 1){
+             return 'Completed'
+         }   else {
+             return 'Pending'
+         }
+        },
+        paymentMode(payment){
+            let payment_mode = ''
+            switch (true) {
+                case (payment === '0'):
+                    payment_mode = 'CASH'
+                    break;
+                case (payment === '1'):
+                    payment_mode = 'M-PESA PAYBILL'
+                    break;
+                case (payment === '2'):
+                    payment_mode = 'M-PESA TILLNO'
+                    break;
+                case (payment === '3'):
+                    payment_mode = 'CASH + M-PESA TILLNO'
+                    break;
+                case (payment === '4'):
+                    payment_mode = 'CASH + M-PESA PAYBILL'
+                    break;
+                case (payment === '5'):
+                    payment_mode = 'EQUITY PAYBILL'
+                    break;
+                case (payment === '6'):
+                    payment_mode = 'CASH + EQUITY PAYBILL'
+                    break;
+                default:
+                    payment_mode = "Invalid";
+            }
+            return payment_mode
+        },
         getProductDetail(){
             axios.get(`/reciept/view/${this.$route.params.id}`).then( response => {
                 this.reciept = response.data.recieptDetail

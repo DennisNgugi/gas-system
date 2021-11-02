@@ -2,5 +2,6 @@
 namespace App\Interfaces;
 
 interface ProductRepositoryInterface{
-    public function productDetail($id);
+    public function getProductSales($id);
+    public function getProductTransfers($id);
 }

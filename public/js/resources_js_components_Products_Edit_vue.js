@@ -164,7 +164,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -250,6 +249,17 @@ var SweetAlert = /*#__PURE__*/function () {
       toast.fire({
         type: 'success',
         title: message
+      });
+    }
+  }, {
+    key: "errorLarge",
+    value: function errorLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
       });
     }
   }, {
@@ -569,15 +579,17 @@ var render = function() {
                       _vm._v("Select Unit size")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [_vm._v("3 Kg")]),
+                    _c("option", { attrs: { value: "kg" } }, [
+                      _vm._v("Kilogrammes")
+                    ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "6" } }, [_vm._v("6 Kg")]),
+                    _c("option", { attrs: { value: "g" } }, [
+                      _vm._v("Grammes")
+                    ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "13" } }, [_vm._v("13 Kg")]),
+                    _c("option", { attrs: { value: "m" } }, [_vm._v("Metres")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "50" } }, [_vm._v("50 Kg")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "0" } }, [_vm._v("N/A")])
+                    _c("option", { attrs: { value: "s" } }, [_vm._v("Single")])
                   ]
                 )
               ]),
@@ -1006,7 +1018,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-4" }, [
       _c("label", { staticClass: "col-form-label col-lg-4" }, [
-        _vm._v("Outlight")
+        _vm._v("Outright")
       ])
     ])
   },

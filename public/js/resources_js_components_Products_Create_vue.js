@@ -264,6 +264,17 @@ var SweetAlert = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "errorLarge",
+    value: function errorLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  }, {
     key: "warning",
     value: function warning() {
       swal.fire({
@@ -1022,7 +1033,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-4" }, [
       _c("label", { staticClass: "col-form-label col-lg-4" }, [
-        _vm._v("Outlight")
+        _vm._v("Outright")
       ])
     ])
   },

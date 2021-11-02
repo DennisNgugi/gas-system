@@ -48,7 +48,9 @@ class TransferRepository extends BaseRepository implements TransferRepositoryInt
 
     public function getTransfersByProductId($id)
     {
-        return $this->model->where('product_id',$id)->get();
+        return $this->model->with('products','branches')->get()->groupBy(function ($item){
+            return $item->created_at->format('Y-m-d');
+        });
     }
 
 

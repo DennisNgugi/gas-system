@@ -81,11 +81,18 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id,ProductRepositoryInterface $productRepository)
+    public function getProductSales($id,ProductRepositoryInterface $productRepository)
     {
-        $product = $productRepository->productDetail($id);
+        $sales = $productRepository->getProductSales($id);
         return response()->json([
-            'productDetail' => $product
+            'sales' => $sales
+        ],200);
+    }
+    public function getProductTransfers($id,ProductRepositoryInterface $productRepository)
+    {
+        $transfers = $productRepository->getProductTransfers($id);
+        return response()->json([
+            'transfers' => $transfers
         ],200);
     }
 

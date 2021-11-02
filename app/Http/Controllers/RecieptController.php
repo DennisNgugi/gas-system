@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\CheckoutRepositoryInterface;
 use App\Models\Reciept;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecieptController extends Controller
 {
@@ -30,11 +32,25 @@ class RecieptController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function salesReport(Request $request)
     {
-        //
+
+        $to_date =Carbon::parse($request->todate)->format('Y-m-d');
+        $from_date =Carbon::parse($request->fromdate)->format('Y-m-d');
+
+
+        if($to_date!= '' && $from_date!=''){
+            $sales =  Reciept::with('sales','users:id,name','customers:id,customer_name')
+                ->where(DB::raw("(DATE_FORMAT(created_at,'%Y-%m-%d'))"), '>=', $from_date)
+                ->where(DB::raw("(DATE_FORMAT(created_at,'%Y-%m-%d'))"), '<=', $to_date)->get();
+
+        }
+        return response()->json([
+            'sales' => $sales
+        ]);
+
     }
 
     /**
@@ -45,17 +61,17 @@ class RecieptController extends Controller
      */
     public function store(Request $request,CheckoutRepositoryInterface $checkoutRepository)
     {
-        // try{
+         try{
          //return $request;
         $sales = $checkoutRepository->saveTransaction($request);
         return response()->json([
             'success' => 'Transaction processed succesfully'
         ],200);
-        // }catch(\Exception $exception){
-        //     return response()->json([
-        //         "errors" => "Item has not been added to database. Try again!!"
-        //     ],500);
-        // }
+         }catch(\Exception $exception){
+             return response()->json([
+                 "errors" => "Unsuccesfull Transaction. Try again!!"
+             ],500);
+         }
     }
 
     /**

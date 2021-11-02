@@ -31,9 +31,9 @@
                     {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {{--                    @if(Auth::user()->is_admin == 1)--}}
-                    {{--                        <a class="dropdown-item" href="/admin/products/index">Dashboard</a>--}}
-                    {{--                    @endif--}}
+
+                                            <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
+
 
 
                     <div class="dropdown-divider"></div>

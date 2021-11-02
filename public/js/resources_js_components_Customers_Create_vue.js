@@ -155,6 +155,17 @@ var SweetAlert = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "errorLarge",
+    value: function errorLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  }, {
     key: "warning",
     value: function warning() {
       swal.fire({

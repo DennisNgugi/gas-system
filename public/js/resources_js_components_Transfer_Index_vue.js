@@ -11,6 +11,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-infinite-loading */ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js");
+/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -96,25 +106,24 @@ __webpack_require__.r(__webpack_exports__);
 // import {
 //     EventBus
 // } from '../../events/event-bus';
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      search: ''
+      search: '',
+      transfers: []
     };
-  },
-  mounted: function mounted() {
-    this.$store.dispatch("fetchTransfer");
   },
   // components: {
   //     SearchComponent
   // },
   computed: {
     filteredData: function filteredData() {
-      // return this.$store.getters.getInventory.filter(item =>
-      //     item.category_name.toLowerCase().includes(
-      //         this.search.toLowerCase()
-      //     ))
-      return this.$store.getters.getTransfers;
+      var _this = this;
+
+      return this.transfers.filter(function (item) {
+        return item.created_at.toLowerCase().includes(_this.search.toLowerCase()) || item.branches.branch_name.toLowerCase().includes(_this.search.toLowerCase());
+      });
     }
   },
   // created() {
@@ -123,10 +132,30 @@ __webpack_require__.r(__webpack_exports__);
   //     })
   // },
   methods: {
-    getTotalStockInQuantity: function getTotalStockInQuantity(item) {
-      return item;
+    gasType: function gasType(type) {
+      if (type === 'e') {
+        return 'Empty';
+      } else {
+        return 'Outright';
+      }
     },
-    getTotalStockOutQuantity: function getTotalStockOutQuantity(item) {// console.log(item)
+    infiniteHandler: function infiniteHandler($state) {
+      setTimeout(function () {
+        var _this2 = this;
+
+        axios.get('/transfer?page=' + this.page).then(function (response) {
+          if (response.data.transfers.data.length > 0) {
+            // let lastPage = response.data.reciepts.last_page
+            response.data.transfers.data.forEach(function (transfer) {
+              _this2.transfers.push(transfer);
+            });
+            $state.loaded();
+            _this2.page += 1;
+          }
+        })["catch"](function (e) {
+          return console.log(e);
+        });
+      }.bind(this), 1000);
     } // This event bus is created to transfer the value of edit = true to the create component
     // emitEditValue(category) {
     //     EventBus.$emit('edit', this.edit, category)
@@ -160,6 +189,9 @@ __webpack_require__.r(__webpack_exports__);
     //     })
     // }
 
+  },
+  components: {
+    InfiniteLoading: (vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default())
   }
 });
 
@@ -213,8 +245,39 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "input-group mb-3" }, [
         _vm._m(0),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.search,
+              expression: "search"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            autofocus: "",
+            placeholder: "Search here .....",
+            "aria-describedby": "basic-addon1"
+          },
+          domProps: { value: _vm.search },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.search = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card" }, [
+        _vm._m(1),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
@@ -222,39 +285,71 @@ var render = function() {
               "table",
               { staticClass: "table table-responsive-md table-bordered" },
               [
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _vm._l(_vm.filteredData, function(transfer, index) {
                   return _c(
                     "tbody",
                     [
                       _c("tr", [
-                        _c("td", { attrs: { colspan: "3" } }, [
-                          _vm._v(_vm._s(index))
-                        ])
+                        _c("td", [_vm._v(_vm._s(transfer.created_at))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(transfer.stock_in))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(transfer.stock_out))]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(_vm.gasType(transfer.gas_type))
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(transfer.products.product_name))
+                        ]),
+                        _vm._v(" "),
+                        transfer.branches != null
+                          ? _c("td", [
+                              _vm._v(_vm._s(transfer.branches.branch_name))
+                            ])
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _vm._l(transfer, function(t) {
-                        return _c("tr", [
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                _vm.getTotalStockInQuantity(t.stock_in)
-                              )
-                            }
-                          }),
+                      _c(
+                        "infinite-loading",
+                        {
+                          attrs: { spinner: "spiral" },
+                          on: {
+                            distance: function($event) {
+                              1
+                            },
+                            infinite: _vm.infiniteHandler
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "text-red",
+                              attrs: { slot: "no-more" },
+                              slot: "no-more"
+                            },
+                            [_vm._v("No more transfers")]
+                          ),
                           _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              textContent: _vm._s(
-                                _vm.getTotalStockOutQuantity(t.stock_out)
-                              )
-                            }
-                          })
-                        ])
-                      })
+                          _c(
+                            "div",
+                            {
+                              staticClass: "text-red",
+                              attrs: { slot: "no-results" },
+                              slot: "no-results"
+                            },
+                            [_vm._v("No more transfers")]
+                          )
+                        ]
+                      )
                     ],
-                    2
+                    1
                   )
                 })
               ],
@@ -271,26 +366,46 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "card-title" }, [_vm._v("Inventory")])
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c(
+        "span",
+        { staticClass: "input-group-text", attrs: { id: "basic-addon1" } },
+        [_vm._v("Search")]
+      )
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Date")]),
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "card-title" }, [_vm._v("Transfers")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { rowspan: "3", size: "10%" } }, [_vm._v("Day")])
+      ]),
       _vm._v(" "),
-      _c("th", [_vm._v("Quantity")]),
+      _c("tr", [
+        _c("th", { attrs: { colspan: "2" } }, [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Product name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Gas Type")]),
+        _vm._v(" "),
+        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Branch name")])
+      ]),
       _vm._v(" "),
-      _c("th", [_vm._v("Branch name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Stock In")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Stock out")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Total")])
+      _c("tr", [
+        _c("th", [_vm._v("Stock In")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Stock Out")])
+      ])
     ])
   }
 ]

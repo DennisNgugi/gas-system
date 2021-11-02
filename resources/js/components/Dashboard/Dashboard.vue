@@ -49,7 +49,7 @@
                 <div class="inner">
                     <h3>{{ getNormalProductQuantity }}</h3>
 
-                    <p>Normal items</p>
+                    <p>Other items</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
@@ -60,40 +60,40 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 d-flex">
+<!--        <div class="col-md-6 d-flex">-->
 
-            <!-- Recent Orders -->
-            <div class="card card-table flex-fill">
-                <div class="card-header">
-                    <h4 class="card-title">Last Week</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-center">
-                            <thead>
-                            <tr>
-                                <th>Day</th>
-                                <th>Quantity</th>
-                                <th class="text-center">Total</th>
+<!--            &lt;!&ndash; Recent Orders &ndash;&gt;-->
+<!--            <div class="card card-table flex-fill">-->
+<!--                <div class="card-header">-->
+<!--                    <h4 class="card-title">Last Week</h4>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <div class="table-responsive">-->
+<!--                        <table class="table table-responsive-md table-bordered">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th>Day</th>-->
+<!--                                <th>Quantity</th>-->
+<!--                                <th class="text-center">Total</th>-->
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="(day,index) in lastWeekRevenue" :key="index">
-                                <td class="text-nowrap">
-                                    <div class="font-weight-600">{{day.dayname}}</div>
-                                </td>
-                                <td class="text-nowrap">{{day.quantity}}</td>
-                                <td class="text-center">{{day.amount| formatNumber}}</td>
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr v-for="(day,index) in lastWeekRevenue" :key="index">-->
+<!--                                <td class="text-nowrap">-->
+<!--                                    <div class="font-weight-600">{{day.dayname}}</div>-->
+<!--                                </td>-->
+<!--                                <td class="text-nowrap">{{day.quantity}}</td>-->
+<!--                                <td class="text-center">{{day.amount| formatNumber}}</td>-->
 
-                            </tr>
+<!--                            </tr>-->
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            </div>
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            </div>-->
         <div class="col-md-6 d-flex">
 
             <!-- Recent Orders -->
@@ -103,7 +103,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-center">
+                        <table class="table table-responsive-md table-bordered">
                             <thead>
                             <tr>
                                 <th>Day</th>
@@ -139,7 +139,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-center">
+                        <table class="table table-responsive-md table-bordered">
                             <thead>
                             <tr>
                                 <th>Month</th>
@@ -178,7 +178,7 @@ export default {
         return {
             yearlyRevenue: [],
             weeklyRevenue: [],
-            lastWeekRevenue:[],
+            // lastWeekRevenue:[],
             normalQuantity:'',
             outlightQuantity:'',
             emptyQuantity:'',
@@ -189,6 +189,7 @@ export default {
         this.$store.dispatch("fetchProduct")
         this.getTotalYearRevenue()
         this.getTotalWeekRevenue()
+        // this.getLastWeekRevenue()
     },
 
     methods: {
@@ -206,13 +207,13 @@ export default {
                 console.log(error)
             })
         },
-        getLastWeekRevenue() {
-            axios.get('/last_week').then((response) => {
-                this.lastWeekRevenue = response.data.lastWeekRevenue
-            }).catch((error) => {
-                console.log(error)
-            })
-        },
+        // getLastWeekRevenue() {
+        //     axios.get('/last_week').then((response) => {
+        //         this.lastWeekRevenue = response.data.lastWeekRevenue
+        //     }).catch((error) => {
+        //         console.log(error)
+        //     })
+        // },
     },
     created() {
     },
@@ -250,7 +251,7 @@ export default {
 
             this.$store.getters.getProducts.forEach(function(item){
 
-                sum_normal += item.quantity.normal
+                sum_normal += parseInt(item.quantity.normal)
 
             });
             return sum_normal

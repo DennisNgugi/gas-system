@@ -116,6 +116,51 @@ __webpack_require__.r(__webpack_exports__);
     this.getProductDetail();
   },
   methods: {
+    status: function status(_status) {
+      if (_status === 1) {
+        return 'Completed';
+      } else {
+        return 'Pending';
+      }
+    },
+    paymentMode: function paymentMode(payment) {
+      var payment_mode = '';
+
+      switch (true) {
+        case payment === '0':
+          payment_mode = 'CASH';
+          break;
+
+        case payment === '1':
+          payment_mode = 'M-PESA PAYBILL';
+          break;
+
+        case payment === '2':
+          payment_mode = 'M-PESA TILLNO';
+          break;
+
+        case payment === '3':
+          payment_mode = 'CASH + M-PESA TILLNO';
+          break;
+
+        case payment === '4':
+          payment_mode = 'CASH + M-PESA PAYBILL';
+          break;
+
+        case payment === '5':
+          payment_mode = 'EQUITY PAYBILL';
+          break;
+
+        case payment === '6':
+          payment_mode = 'CASH + EQUITY PAYBILL';
+          break;
+
+        default:
+          payment_mode = "Invalid";
+      }
+
+      return payment_mode;
+    },
     getProductDetail: function getProductDetail() {
       var _this = this;
 
@@ -218,11 +263,23 @@ var render = function() {
                 _c("tr", [
                   _c("th", [_vm._v("Payment status:")]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.reciept.payment_status))]),
+                  _c("td", {
+                    domProps: {
+                      textContent: _vm._s(
+                        _vm.status(_vm.reciept.payment_status)
+                      )
+                    }
+                  }),
                   _vm._v(" "),
                   _c("th", [_vm._v("Paid via:")]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.reciept.payment_mode))])
+                  _c("td", {
+                    domProps: {
+                      textContent: _vm._s(
+                        _vm.paymentMode(_vm.reciept.payment_mode)
+                      )
+                    }
+                  })
                 ]),
                 _vm._v(" "),
                 _c("tr", [

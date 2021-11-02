@@ -107,7 +107,7 @@
 
                          <div v-if="brand_id === 1" class="input-group input-group-lg mt-2">
                              <div class="col-md-4">
-                                 <label class="col-form-label col-lg-4">Outlight</label>
+                                 <label class="col-form-label col-lg-4">Outright</label>
                              </div>
                              <div class="col-md-5">
                                  <input type="text" class="form-control" v-model.number="quantity.outlight" aria-describedby="sizing-addon1" @keydown="errors.clear('quantity.outlight')" >

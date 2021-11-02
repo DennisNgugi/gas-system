@@ -99,10 +99,10 @@
                     <div class="row mt-3">
 
                         <div class="col-md-6">
-                            <label for=""><b>Outlight cylinder</b> </label>
+                            <label for=""><b>Outright cylinder</b> </label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"> <b><i>Outlight cylinder</i></b></span>
+                                    <span class="input-group-text" id="basic-addon1"> <b><i>Outright cylinder</i></b></span>
                                 </div>
                                 <vue-select v-model="checkout.product_id" label="product_name" class="form-control" :options="getProducts" :reduce="product => product.id"  @keypress="errors.clear('product_id')"/>
 
@@ -271,6 +271,8 @@
                                                                     <option value="2">M-PESA TILLNO</option>
                                                                     <option value="3">CASH + M-PESA TILLNO</option>
                                                                     <option value="4">CASH + M-PESA PAYBILL</option>
+                                                                    <option value="5">EQUITY PAYBILL</option>
+                                                                    <option value="6">CASH + EQUITY PAYBILL</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -581,7 +583,7 @@ export default {
 
         }).catch((error) => {
             // display the error
-            this.alert.error(error.response.data.errors)
+            this.alert.errorLarge(error.response.data.errors)
         })
 
     },

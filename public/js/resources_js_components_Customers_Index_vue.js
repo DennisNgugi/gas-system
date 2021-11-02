@@ -186,6 +186,17 @@ var SweetAlert = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "errorLarge",
+    value: function errorLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  }, {
     key: "warning",
     value: function warning() {
       swal.fire({
@@ -333,96 +344,100 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
-            _c("table", { staticClass: "table table-nowrap mb-0" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                [
-                  _vm._l(_vm.filteredData, function(customer, index) {
-                    return _c("tr", { key: customer.id }, [
-                      _c("td", [_vm._v(_vm._s(index + 1))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customer.customer_name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customer.phone_number))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customer.location))]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "btn btn-primary btn-sm",
-                              attrs: {
-                                to: {
-                                  name: "customers.edit",
-                                  params: { id: customer.id }
+            _c(
+              "table",
+              { staticClass: "table table-responsive-md table-bordered" },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  [
+                    _vm._l(_vm.filteredData, function(customer, index) {
+                      return _c("tr", { key: customer.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(customer.customer_name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(customer.phone_number))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(customer.location))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-primary btn-sm",
+                                attrs: {
+                                  to: {
+                                    name: "customers.edit",
+                                    params: { id: customer.id }
+                                  }
+                                }
+                              },
+                              [_vm._v("Edit")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-info btn-sm",
+                                attrs: {
+                                  to: {
+                                    name: "customers.view",
+                                    params: { id: customer.id }
+                                  }
+                                }
+                              },
+                              [_vm._v("View")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: { type: "submit", value: "Delete" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.disable(customer.id)
                                 }
                               }
-                            },
-                            [_vm._v("Edit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "btn btn-info btn-sm",
-                              attrs: {
-                                to: {
-                                  name: "customers.view",
-                                  params: { id: customer.id }
-                                }
-                              }
-                            },
-                            [_vm._v("View")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "btn btn-danger btn-sm",
-                            attrs: { type: "submit", value: "Delete" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.disable(customer.id)
-                              }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "infinite-loading",
-                    {
-                      attrs: { spinner: "spiral" },
-                      on: {
-                        distance: function($event) {
+                            })
+                          ],
                           1
-                        },
-                        infinite: _vm.infiniteHandler
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "text-red",
-                          attrs: { slot: "no-more" },
-                          slot: "no-more"
-                        },
-                        [_vm._v("No more customers")]
-                      )
-                    ]
-                  )
-                ],
-                2
-              )
-            ])
+                        )
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "infinite-loading",
+                      {
+                        attrs: { spinner: "spiral" },
+                        on: {
+                          distance: function($event) {
+                            1
+                          },
+                          infinite: _vm.infiniteHandler
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "text-red",
+                            attrs: { slot: "no-more" },
+                            slot: "no-more"
+                          },
+                          [_vm._v("No more customers")]
+                        )
+                      ]
+                    )
+                  ],
+                  2
+                )
+              ]
+            )
           ])
         ])
       ])

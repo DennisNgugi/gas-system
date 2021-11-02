@@ -24,18 +24,15 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'product_code' => 'unique:products',
-//            'brand_id' => 'required', // for update purpose
-//            'retail_price'=> 'required|numeric',
-//            'wholesale_price'=> 'numeric',
-//            'unit' => 'required',
-          //  'category_id' => 'required|exists:categories,id'
+             'product_name' => 'required',
+            'brand_id' => 'required', // for update purpose
+            'unit' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'brand_id.required' => 'The brand name field is required',
+            'brand_id.required' => 'The category name field is required',
         ];
     }
 }

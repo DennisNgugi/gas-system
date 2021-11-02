@@ -7,13 +7,24 @@ export default class SweetAlert{
         showConfirmButton: false,
         timer: 1500
       })
-     
+
     }
+
     successSmall(message){
        toast.fire({
           type: 'success',
           title: message
       })
+    }
+    errorLarge(message){
+        swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        })
+
     }
 
     warning(){

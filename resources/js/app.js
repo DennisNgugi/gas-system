@@ -13,7 +13,12 @@ import vSelect from 'vue-select'
 Vue.component('vue-select', vSelect)
 import 'vue-select/dist/vue-select.css';
 
+import { Receipt, ReceiptItem, ReceiptSummary } from 'vue-receipt-component';
 
+// Install as a global component...
+Vue.component('receipts', Receipt);
+Vue.component('receipt-items', ReceiptItem);
+Vue.component('receipt-summary', ReceiptSummary);
 
 import swal from 'sweetalert2';
 window.swal = swal;

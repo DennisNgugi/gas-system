@@ -79,7 +79,7 @@
           <img src="/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">User name</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -145,7 +145,8 @@
             </li>
             <li class="nav-item">
                 <router-link to="/admin/reciept/index" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fas fa-receipt"></i>
+
                     <p>
                         Sales
                     </p>
@@ -153,8 +154,8 @@
             </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
+                <i class="nav-icon fas fa-store"></i>
+                <p>
                 Branch
                 <i class="right fas fa-angle-left"></i>
               </p>
@@ -177,8 +178,7 @@
           </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-chart-pie"></i>
-                    <p>
+                    <i class="nav-icon fas fa-users"></i>                    <p>
                         Customers
                         <i class="right fas fa-angle-left"></i>
                     </p>
@@ -201,8 +201,9 @@
             </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
+                <i class="nav-icon fas fa-store"></i>
+
+                <p>
                 Stock
                 <i class="fas fa-angle-left right"></i>
               </p>
@@ -210,8 +211,8 @@
             <ul class="nav nav-treeview">
             <li class="nav-item">
                 <router-link to="/admin/inventory/add" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Stock In/Out</p>
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Stock In/Out</p>
                 </router-link>
               </li>
               <li class="nav-item">
@@ -223,6 +224,39 @@
 
             </ul>
           </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-store"></i>
+
+                    <p>
+                        Report
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <router-link to="/admin/sales/report" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Sales report</p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/transfers/report" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Transfers Report</p>
+                        </router-link>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="/" class="nav-link">
+                    <i class="nav-icon fas fa-home"></i>
+                    <p>
+                        Home
+                    </p>
+                </a>
+            </li>
 
 
 

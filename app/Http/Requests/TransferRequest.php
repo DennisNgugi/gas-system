@@ -23,8 +23,20 @@ class TransferRequest extends FormRequest
      */
     public function rules()
     {
+
+                  return [
+                      'product_id' => 'required',
+                      'branch_id' => 'required',
+                      'stock_type' => 'required',
+                      'gas_type' => 'required'
+                  ];
+
+    }
+    public function messages()
+    {
         return [
-            //
+            'product_id.required' => 'The product name field is required',
+            'branch_id.required' => 'The branch name field is required',
         ];
     }
 }

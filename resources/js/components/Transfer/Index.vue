@@ -1,10 +1,16 @@
 <template>
 <div class="row">
     <div class="col-md-12">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Search</span>
+            </div>
+            <input type="text" v-model="search"  class="form-control" autofocus placeholder="Search here ....."  aria-describedby="basic-addon1">
+        </div>
         <!-- <SearchComponent></SearchComponent> -->
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Inventory</h4>
+                <h4 class="card-title">Transfers</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -38,38 +44,40 @@
 
 
 <!--                    </table>-->
-                    <table class="table table-responsive-md table-bordered">  <tr>
-                        <th>Date</th>
-                        <th>Quantity</th>
-                        <th>Branch name</th>
-                        <th>Stock In</th>
-                        <th>Stock out</th>
-                        <th>Total</th>
-                    </tr>
-                        <tbody v-for="(transfer, index) in filteredData">
+                    <table class="table table-responsive-md table-bordered">
+                        <thead>
                         <tr>
-                            <!-- this cell will occupy 3 columns -->
-                            <td colspan=3>{{ index }}</td>
+                            <th rowspan="3" size="10%">Day</th>
+<!--                            <th colspan="3">Seminar</th>-->
                         </tr>
-                        <tr v-for="t in transfer">
-                            <td v-text="getTotalStockInQuantity(t.stock_in)"></td>
-<!--                            <td v-if="t.branches.branch_name !=''">{{ t.branches.branch_name }}</td>-->
-                            <td v-text="getTotalStockOutQuantity(t.stock_out)"></td>
-
+                        <tr>
+                            <th colspan="2">Quantity</th>
+                            <th rowspan="2">Product name</th>
+                            <th rowspan="2">Gas Type</th>
+                            <th rowspan="2">Branch name</th>
                         </tr>
+                        <tr>
+                            <th>Stock In</th>
+                            <th>Stock Out</th>
+                        </tr>
+                        </thead>
+
+                        <tbody v-for="(transfer, index) in filteredData">
+
+                        <tr>
+                            <td>{{ transfer.created_at }}</td>
+                            <td>{{transfer.stock_in}}</td>
+                            <td>{{transfer.stock_out}}</td>
+                            <td v-text="gasType(transfer.gas_type)"></td>
+                            <td>{{transfer.products.product_name}}</td>
+                            <td v-if="transfer.branches!= null">{{transfer.branches.branch_name}}</td>
+                        </tr>
+                        <infinite-loading @distance="1" spinner="spiral" @infinite="infiniteHandler">
+                            <div class="text-red" slot="no-more">No more transfers</div>
+                            <div class="text-red" slot="no-results">No more transfers</div>
+                        </infinite-loading>
 
 
-
-<!--                            <tr v-for="(transfer, index) in filteredData" :key="transfer.id">-->
-
-<!--                                 <td></td>-->
-<!--                                <td>{{index}}</td>-->
-<!--&lt;!&ndash;                                <td>{{transfer.products.product_name}}</td>&ndash;&gt;-->
-<!--                                <td v-for="t in transfer">{{t}}</td>-->
-<!--&lt;!&ndash;                                <td>{{transfer.stock_out}}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <td>{{transfer.remarks}}</td>&ndash;&gt;-->
-
-<!--                            </tr>-->
 
                         </tbody>
                     </table>
@@ -84,26 +92,30 @@
 // import {
 //     EventBus
 // } from '../../events/event-bus';
+import InfiniteLoading from "vue-infinite-loading";
+
 export default {
     data() {
         return {
             search: '',
+            transfers:[],
         }
     },
-    mounted() {
-        this.$store.dispatch("fetchTransfer")
-    },
+
     // components: {
     //     SearchComponent
     // },
     computed: {
 
         filteredData() {
-            // return this.$store.getters.getInventory.filter(item =>
-            //     item.category_name.toLowerCase().includes(
-            //         this.search.toLowerCase()
-            //     ))
-            return this.$store.getters.getTransfers
+            return this.transfers.filter(item =>
+                item.created_at.toLowerCase().includes(
+                    this.search.toLowerCase()
+                ) ||
+                item.branches.branch_name.toLowerCase().includes(
+                    this.search.toLowerCase()
+                ));
+
         },
 
 
@@ -114,12 +126,34 @@ export default {
     //     })
     // },
     methods: {
-        getTotalStockInQuantity(item){
-           return item
+        gasType(type){
+            if(type === 'e'){
+                return 'Empty'
+            }else {
+                return 'Outright'
+            }
+
         },
-        getTotalStockOutQuantity(item){
-            // console.log(item)
+        infiniteHandler($state){
+            setTimeout(function (){
+
+
+                axios.get('/transfer?page='+this.page).then((response)=>{
+                    if(response.data.transfers.data.length > 0){
+                        // let lastPage = response.data.reciepts.last_page
+                        response.data.transfers.data.forEach(transfer => {
+                            this.transfers.push(transfer);
+                        });
+                        $state.loaded();
+                        this.page +=1;
+
+                    }
+
+                }).catch(e => console.log(e));
+
+            }.bind(this),1000);
         },
+
         // This event bus is created to transfer the value of edit = true to the create component
         // emitEditValue(category) {
         //     EventBus.$emit('edit', this.edit, category)
@@ -155,6 +189,9 @@ export default {
 
 
         // }
-    }
+    },
+    components: {
+        InfiniteLoading,
+    },
 }
 </script>

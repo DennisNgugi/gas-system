@@ -87,6 +87,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -202,6 +203,17 @@ var SweetAlert = /*#__PURE__*/function () {
       toast.fire({
         type: 'success',
         title: message
+      });
+    }
+  }, {
+    key: "errorLarge",
+    value: function errorLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
       });
     }
   }, {
@@ -352,150 +364,169 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
-            _c("table", { staticClass: "table table-nowrap mb-0" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                [
-                  _vm._l(_vm.filteredData, function(product, index) {
-                    return _c("tr", { key: product.id }, [
-                      _c("td", [_vm._v(_vm._s(index + 1))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(product.product_name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(product.brands.brand_name))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("b", [_vm._v("Complete")]),
-                        _vm._v(
-                          " => Retail: " +
-                            _vm._s(product.price.complete.retail_price) +
-                            "/= , Wholesale: " +
-                            _vm._s(product.price.complete.wholesale_price) +
-                            "/=\n                                        "
-                        ),
-                        _c("br"),
+            _c(
+              "table",
+              { staticClass: "table table-responsive-md table-bordered" },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  [
+                    _vm._l(_vm.filteredData, function(product, index) {
+                      return _c("tr", { key: product.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
                         _vm._v(" "),
-                        _c("b", [_vm._v("Refill")]),
-                        _vm._v(
-                          " => Retail: " +
-                            _vm._s(product.price.refill.retail_price) +
-                            "/= , Wholesale: " +
-                            _vm._s(product.price.refill.wholesale_price) +
-                            "/=\n                                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("b", [_vm._v("Outlight")]),
-                        _vm._v(
-                          " => " +
-                            _vm._s(product.quantity.outlight) +
-                            "\n                                        "
-                        ),
-                        _c("br"),
+                        _c("td", [_vm._v(_vm._s(product.product_name))]),
                         _vm._v(" "),
-                        _c("b", [_vm._v("Empty")]),
-                        _vm._v(
-                          " => " +
-                            _vm._s(product.quantity.empty) +
-                            "\n                                        "
-                        ),
-                        _c("br"),
+                        _c("td", [_vm._v(_vm._s(product.brands.brand_name))]),
                         _vm._v(" "),
-                        _c("b", [_vm._v("Qty")]),
-                        _vm._v(
-                          " => " +
-                            _vm._s(product.quantity.others) +
-                            "\n\n                                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                        " +
-                            _vm._s(
-                              product.quantity.empty + product.quantity.outlight
-                            ) +
-                            "\n                                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "btn btn-primary btn-sm",
-                              attrs: {
-                                to: {
-                                  name: "products.edit",
-                                  params: { id: product.id }
+                        _c("td", [
+                          _c("b", [_vm._v("Complete")]),
+                          _vm._v(
+                            " => Retail: " +
+                              _vm._s(product.price.complete.retail_price) +
+                              "/= , Wholesale: " +
+                              _vm._s(product.price.complete.wholesale_price) +
+                              "/=\n                                        "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("b", [_vm._v("Refill")]),
+                          _vm._v(
+                            " => Retail: " +
+                              _vm._s(product.price.refill.retail_price) +
+                              "/= , Wholesale: " +
+                              _vm._s(product.price.refill.wholesale_price) +
+                              "/=\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("b", [_vm._v("Outright")]),
+                          _vm._v(
+                            " => " +
+                              _vm._s(product.quantity.outlight) +
+                              "\n                                        "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("b", [_vm._v("Empty")]),
+                          _vm._v(
+                            " => " +
+                              _vm._s(product.quantity.empty) +
+                              "\n                                        "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("b", [_vm._v("Qty")]),
+                          _vm._v(
+                            " => " +
+                              _vm._s(product.quantity.others) +
+                              "\n\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(
+                                product.quantity.empty +
+                                  product.quantity.outlight
+                              ) +
+                              "\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-primary btn-sm",
+                                attrs: {
+                                  to: {
+                                    name: "products.edit",
+                                    params: { id: product.id }
+                                  }
+                                }
+                              },
+                              [_vm._v("Edit")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-info btn-sm",
+                                attrs: {
+                                  to: {
+                                    name: "products.sales",
+                                    params: { id: product.id }
+                                  }
+                                }
+                              },
+                              [_vm._v("Sales")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-info btn-sm",
+                                attrs: {
+                                  to: {
+                                    name: "products.transfers",
+                                    params: { id: product.id }
+                                  }
+                                }
+                              },
+                              [_vm._v("Transfers")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: { type: "submit", value: "Delete" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.disable(product.id)
                                 }
                               }
-                            },
-                            [_vm._v("Edit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "btn btn-info btn-sm",
-                              attrs: {
-                                to: {
-                                  name: "products.view",
-                                  params: { id: product.id }
-                                }
-                              }
-                            },
-                            [_vm._v("View")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "btn btn-danger btn-sm",
-                            attrs: { type: "submit", value: "Delete" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.disable(product.id)
-                              }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "infinite-loading",
-                    {
-                      attrs: { spinner: "spiral" },
-                      on: {
-                        distance: function($event) {
+                            })
+                          ],
                           1
-                        },
-                        infinite: _vm.infiniteHandler
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "text-red",
-                          attrs: { slot: "no-more" },
-                          slot: "no-more"
-                        },
-                        [_vm._v("No more products")]
-                      )
-                    ]
-                  )
-                ],
-                2
-              )
-            ])
+                        )
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "infinite-loading",
+                      {
+                        attrs: { spinner: "spiral" },
+                        on: {
+                          distance: function($event) {
+                            1
+                          },
+                          infinite: _vm.infiniteHandler
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "text-red",
+                            attrs: { slot: "no-more" },
+                            slot: "no-more"
+                          },
+                          [_vm._v("No more products")]
+                        )
+                      ]
+                    )
+                  ],
+                  2
+                )
+              ]
+            )
           ])
         ])
       ])

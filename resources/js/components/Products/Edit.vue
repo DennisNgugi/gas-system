@@ -40,11 +40,10 @@
                         <div class="input-group input-group-lg">
                             <select v-model="product.unit" class="form-control" @keypress="errors.clear('product.unit')">
                                 <option value="">Select Unit size</option>
-                                <option value="3">3 Kg</option>
-                                <option value="6">6 Kg</option>
-                                <option value="13">13 Kg</option>
-                                <option value="50">50 Kg</option>
-                                <option value="0">N/A</option>
+                                <option value="kg">Kilogrammes</option>
+                                <option value="g">Grammes</option>
+                                <option value="m">Metres</option>
+                                <option value="s">Single</option>
 
                             </select>
                         </div>
@@ -107,7 +106,7 @@
 
                     <div class="input-group input-group-lg mt-2">
                         <div class="col-md-4">
-                            <label class="col-form-label col-lg-4">Outlight</label>
+                            <label class="col-form-label col-lg-4">Outright</label>
                         </div>
                         <div class="col-md-5">
                             <input type="text" class="form-control" v-model.number="product.quantity.outlight" aria-describedby="sizing-addon1" @keydown="errors.clear('product.quantity.outlight')" >

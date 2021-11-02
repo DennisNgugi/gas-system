@@ -190,7 +190,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       yearlyRevenue: [],
       weeklyRevenue: [],
-      lastWeekRevenue: [],
+      // lastWeekRevenue:[],
       normalQuantity: '',
       outlightQuantity: '',
       emptyQuantity: ''
@@ -199,7 +199,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$store.dispatch("fetchProduct");
     this.getTotalYearRevenue();
-    this.getTotalWeekRevenue();
+    this.getTotalWeekRevenue(); // this.getLastWeekRevenue()
   },
   methods: {
     getTotalYearRevenue: function getTotalYearRevenue() {
@@ -219,16 +219,14 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
-    },
-    getLastWeekRevenue: function getLastWeekRevenue() {
-      var _this3 = this;
+    } // getLastWeekRevenue() {
+    //     axios.get('/last_week').then((response) => {
+    //         this.lastWeekRevenue = response.data.lastWeekRevenue
+    //     }).catch((error) => {
+    //         console.log(error)
+    //     })
+    // },
 
-      axios.get('/last_week').then(function (response) {
-        _this3.lastWeekRevenue = response.data.lastWeekRevenue;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    }
   },
   created: function created() {},
   computed: {
@@ -252,7 +250,7 @@ __webpack_require__.r(__webpack_exports__);
     getNormalProductQuantity: function getNormalProductQuantity() {
       var sum_normal = 0;
       this.$store.getters.getProducts.forEach(function (item) {
-        sum_normal += item.quantity.normal;
+        sum_normal += parseInt(item.quantity.normal);
       });
       return sum_normal;
     }
@@ -367,7 +365,7 @@ var render = function() {
           _c("div", { staticClass: "inner" }, [
             _c("h3", [_vm._v(_vm._s(_vm.getNormalProductQuantity))]),
             _vm._v(" "),
-            _c("p", [_vm._v("Normal items")])
+            _c("p", [_vm._v("Other items")])
           ]),
           _vm._v(" "),
           _vm._m(3)
@@ -382,31 +380,35 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table table-hover table-center" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.lastWeekRevenue, function(day, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", { staticClass: "text-nowrap" }, [
-                        _c("div", { staticClass: "font-weight-600" }, [
-                          _vm._v(_vm._s(day.dayname))
+              _c(
+                "table",
+                { staticClass: "table table-responsive-md table-bordered" },
+                [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.weeklyRevenue, function(day, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", { staticClass: "text-nowrap" }, [
+                          _c("div", { staticClass: "font-weight-600" }, [
+                            _vm._v(_vm._s(day.dayname))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-nowrap" }, [
+                          _vm._v(_vm._s(day.quantity))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm._v(_vm._s(_vm._f("formatNumber")(day.amount)))
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-nowrap" }, [
-                        _vm._v(_vm._s(day.quantity))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(_vm._f("formatNumber")(day.amount)))
                       ])
-                    ])
-                  }),
-                  0
-                )
-              ])
+                    }),
+                    0
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -418,67 +420,35 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table table-hover table-center" }, [
-                _vm._m(7),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.weeklyRevenue, function(day, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", { staticClass: "text-nowrap" }, [
-                        _c("div", { staticClass: "font-weight-600" }, [
-                          _vm._v(_vm._s(day.dayname))
+              _c(
+                "table",
+                { staticClass: "table table-responsive-md table-bordered" },
+                [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.yearlyRevenue, function(month, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", { staticClass: "text-nowrap" }, [
+                          _c("div", { staticClass: "font-weight-600" }, [
+                            _vm._v(_vm._s(month.month))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-nowrap" }, [
+                          _vm._v(_vm._s(month.quantity))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm._v(_vm._s(_vm._f("formatNumber")(month.amount)))
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-nowrap" }, [
-                        _vm._v(_vm._s(day.quantity))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(_vm._f("formatNumber")(day.amount)))
                       ])
-                    ])
-                  }),
-                  0
-                )
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 d-flex" }, [
-        _c("div", { staticClass: "card card-table flex-fill" }, [
-          _vm._m(8),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table table-hover table-center" }, [
-                _vm._m(9),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.yearlyRevenue, function(month, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", { staticClass: "text-nowrap" }, [
-                        _c("div", { staticClass: "font-weight-600" }, [
-                          _vm._v(_vm._s(month.month))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-nowrap" }, [
-                        _vm._v(_vm._s(month.quantity))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(_vm._f("formatNumber")(month.amount)))
-                      ])
-                    ])
-                  }),
-                  0
-                )
-              ])
+                    }),
+                    0
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -517,28 +487,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "icon" }, [
       _c("i", { staticClass: "ion ion-pie-graph" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "card-title" }, [_vm._v("Last Week")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Day")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Quantity")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Total")])
-      ])
     ])
   },
   function() {

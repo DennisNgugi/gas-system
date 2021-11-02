@@ -112,6 +112,44 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    paymentMode: function paymentMode(payment) {
+      var payment_mode = '';
+
+      switch (true) {
+        case payment === '0':
+          payment_mode = 'CASH';
+          break;
+
+        case payment === '1':
+          payment_mode = 'M-PESA PAYBILL';
+          break;
+
+        case payment === '2':
+          payment_mode = 'M-PESA TILLNO';
+          break;
+
+        case payment === '3':
+          payment_mode = 'CASH + M-PESA TILLNO';
+          break;
+
+        case payment === '4':
+          payment_mode = 'CASH + M-PESA PAYBILL';
+          break;
+
+        case payment === '5':
+          payment_mode = 'EQUITY PAYBILL';
+          break;
+
+        case payment === '6':
+          payment_mode = 'CASH + EQUITY PAYBILL';
+          break;
+
+        default:
+          payment_mode = "Invalid";
+      }
+
+      return payment_mode;
+    },
     infiniteHandler: function infiniteHandler($state) {
       setTimeout(function () {
         var _this2 = this;
@@ -207,6 +245,17 @@ var SweetAlert = /*#__PURE__*/function () {
       toast.fire({
         type: 'success',
         title: message
+      });
+    }
+  }, {
+    key: "errorLarge",
+    value: function errorLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
       });
     }
   }, {
@@ -421,126 +470,130 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
-            _c("table", { staticClass: "table table-nowrap mb-0" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                [
-                  _vm._l(_vm.filteredData, function(reciept, index) {
-                    return _c("tr", { key: reciept.id }, [
-                      _c("td", [_vm._v(_vm._s(index + 1))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(reciept.reciept_code))]),
-                      _vm._v(" "),
-                      reciept.customers != null
-                        ? _c("td", [
-                            _vm._v(_vm._s(reciept.customers.customer_name))
-                          ])
-                        : _c("td", [_vm._v("Walk in")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(reciept.total_quantity))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(_vm._f("formatNumber")(reciept.total_amount))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(_vm._f("formatNumber")(reciept.amount_paid))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(_vm._f("formatNumber")(reciept.balance)))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", {
-                        domProps: {
-                          textContent: _vm._s(
-                            _vm.$store.commit(
+            _c(
+              "table",
+              { staticClass: "table table-responsive-md table-bordered" },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  [
+                    _vm._l(_vm.filteredData, function(reciept, index) {
+                      return _c("tr", { key: reciept.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(reciept.reciept_code))]),
+                        _vm._v(" "),
+                        reciept.customers != null
+                          ? _c("td", [
+                              _vm._v(_vm._s(reciept.customers.customer_name))
+                            ])
+                          : _c("td", [_vm._v("Walk in")]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(reciept.total_quantity))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm._f("formatNumber")(reciept.total_amount))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm._f("formatNumber")(reciept.amount_paid))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm._f("formatNumber")(reciept.balance))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(
                               _vm.paymentMode(reciept.payment_mode)
                             )
-                          )
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(reciept.users.name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(reciept.created_at))]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "btn btn-info btn-sm",
-                              attrs: {
-                                to: {
-                                  name: "reciepts.view",
-                                  params: { id: reciept.id }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(reciept.users.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(reciept.created_at))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-info btn-sm",
+                                attrs: {
+                                  to: {
+                                    name: "reciepts.view",
+                                    params: { id: reciept.id }
+                                  }
+                                }
+                              },
+                              [_vm._v("View")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: { type: "submit", value: "Delete" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.disable(reciept.id)
                                 }
                               }
-                            },
-                            [_vm._v("View")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "btn btn-danger btn-sm",
-                            attrs: { type: "submit", value: "Delete" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.disable(reciept.id)
-                              }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "infinite-loading",
-                    {
-                      attrs: { spinner: "spiral" },
-                      on: {
-                        distance: function($event) {
+                            })
+                          ],
                           1
-                        },
-                        infinite: _vm.infiniteHandler
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "text-red",
-                          attrs: { slot: "no-more" },
-                          slot: "no-more"
-                        },
-                        [_vm._v("No more reciepts")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "text-red",
-                          attrs: { slot: "no-results" },
-                          slot: "no-results"
-                        },
-                        [_vm._v("No more reciepts")]
-                      )
-                    ]
-                  )
-                ],
-                2
-              )
-            ])
+                        )
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "infinite-loading",
+                      {
+                        attrs: { spinner: "spiral" },
+                        on: {
+                          distance: function($event) {
+                            1
+                          },
+                          infinite: _vm.infiniteHandler
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "text-red",
+                            attrs: { slot: "no-more" },
+                            slot: "no-more"
+                          },
+                          [_vm._v("No more reciepts")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "text-red",
+                            attrs: { slot: "no-results" },
+                            slot: "no-results"
+                          },
+                          [_vm._v("No more reciepts")]
+                        )
+                      ]
+                    )
+                  ],
+                  2
+                )
+              ]
+            )
           ])
         ])
       ])

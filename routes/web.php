@@ -20,16 +20,18 @@ use App\Http\Controllers\InventoryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-  return view('store');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('store');
+    });
 });
 Route::resource('product',ProductController::class);
 Route::delete('/product/{id}',[ProductController::class, 'destroy']);
 Route::get('/products',[ProductController::class, 'index2']);
 Route::get('/product/edit/{id}',[ProductController::class, 'edit']);
 Route::post('/product/update/{id}',[ProductController::class, 'update']);
-Route::get('/product/view/{id}',[ProductController::class, 'show']);
+Route::get('/product/sales/view/{id}',[ProductController::class, 'getProductSales']);
+Route::get('/product/transfers/view/{id}',[ProductController::class, 'getProductTransfers']);
 Route::resource('branch',BranchController::class);
 Route::resource('inventory',InventoryController::class);
 Route::resource('brand',BrandController::class);
@@ -39,15 +41,18 @@ Route::get('/customers',[CustomerController::class, 'index2']);
 Route::get('/customer/view/{id}',[CustomerController::class, 'show']);
 Route::delete('/customer/{id}',[CustomerController::class, 'destroy']);
 Route::resource('transfer',TransferController::class);
+Route::get('/transfers/report',[TransferController::class, 'transfersReport']);
 Route::resource('reciept',RecieptController::class);
 Route::get('/reciept/view/{id}',[RecieptController::class, 'show']);
 Route::delete('/reciept/{id}',[RecieptController::class, 'destroy']);
+Route::get('/sales/report',[RecieptController::class, 'salesReport']);
 Route::get('/weekly_report',[ReportController::class,'currentWeekReport']);
 Route::get('/last_week',[ReportController::class,'lastWeekReport']);
 Route::get('/yearly_report',[ReportController::class,'currentYearReport']);
-Route::get('/admin/{any}', function () {
-    return view('dashboard');
-  })->where('any', '.*');
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/admin/{any}', function () {
+        return view('dashboard');
+    })->where('any', '.*');
+});
 
 require __DIR__.'/auth.php';

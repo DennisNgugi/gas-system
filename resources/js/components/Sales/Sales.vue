@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-nowrap mb-0">
+                        <table class="table table-responsive-md table-bordered">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -41,7 +41,7 @@
                                 <td>{{reciept.total_amount| formatNumber}}</td>
                                 <td>{{reciept.amount_paid | formatNumber}}</td>
                                 <td>{{reciept.balance | formatNumber}}</td>
-                                <td v-text="$store.commit(paymentMode(reciept.payment_mode))">
+                                <td v-text="paymentMode(reciept.payment_mode)">
 
                                 </td>
                                 <td>{{reciept.users.name}}</td>
@@ -106,6 +106,35 @@ export default {
 
     },
     methods:{
+        paymentMode(payment){
+            let payment_mode = ''
+            switch (true) {
+                case (payment === '0'):
+                    payment_mode = 'CASH'
+                    break;
+                case (payment === '1'):
+                    payment_mode = 'M-PESA PAYBILL'
+                    break;
+                case (payment === '2'):
+                    payment_mode = 'M-PESA TILLNO'
+                    break;
+                case (payment === '3'):
+                    payment_mode = 'CASH + M-PESA TILLNO'
+                    break;
+                case (payment === '4'):
+                    payment_mode = 'CASH + M-PESA PAYBILL'
+                    break;
+                case (payment === '5'):
+                    payment_mode = 'EQUITY PAYBILL'
+                    break;
+                case (payment === '6'):
+                    payment_mode = 'CASH + EQUITY PAYBILL'
+                    break;
+                default:
+                    payment_mode = "Invalid";
+            }
+            return payment_mode
+        },
         infiniteHandler($state){
             setTimeout(function (){
 

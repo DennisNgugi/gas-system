@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-nowrap mb-0">
+                            <table class="table table-responsive-md table-bordered">
                                 <thead>
                                 <tr>
                                     <th width="5%">#</th>
@@ -39,7 +39,7 @@
                                         <b>Refill</b> => Retail: {{product.price.refill.retail_price}}/= , Wholesale: {{product.price.refill.wholesale_price}}/=
                                     </td>
                                     <td>
-                                        <b>Outlight</b> => {{product.quantity.outlight}}
+                                        <b>Outright</b> => {{product.quantity.outlight}}
                                         <br>
                                         <b>Empty</b> => {{product.quantity.empty}}
                                         <br>
@@ -52,7 +52,8 @@
                                     <td>
                                         <router-link :to="{name: 'products.edit', params: { id: product.id }}"  class="btn btn-primary btn-sm">Edit</router-link>
 <!--                                        <button class="btn btn-danger btn-sm" @click.prevent="disable(product.id)">Delete</button>-->
-                                          <router-link :to="{name: 'products.view', params: { id: product.id }}"  class="btn btn-info btn-sm">View</router-link>
+                                          <router-link :to="{name: 'products.sales', params: { id: product.id }}"  class="btn btn-info btn-sm">Sales</router-link>
+                                        <router-link :to="{name: 'products.transfers', params: { id: product.id }}"  class="btn btn-info btn-sm">Transfers</router-link>
                                         <input type="submit" @click.prevent="disable(product.id)" class="btn btn-danger btn-sm" value="Delete">
 
 

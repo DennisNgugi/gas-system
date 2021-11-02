@@ -8,7 +8,6 @@ export default {
         brands: [],
         branches:[],
         customers:[],
-        transfers:[],
     },
 
     getters:{
@@ -24,9 +23,7 @@ export default {
         getCustomers(state) {
             return state.customers
         },
-        getTransfers(state) {
-            return state.transfers
-        },
+
     },
     mutations:{
         updateProducts(state, data) {
@@ -41,38 +38,14 @@ export default {
         updateCustomers(state, data) {
             return state.customers = data
         },
-        updateTransfer(state, data) {
-            return state.transfers = data
-        },
+
         removeFromCart(state, index) {
             state.cart.splice(index, 1);
         },
         updateCart(state, cart) {
             state.cart = cart;
         },
-        paymentMode(payment){
-            let payment_mode = ''
-            switch (true) {
-                case (payment === '0'):
-                    payment_mode = 'CASH'
-                    break;
-                case (payment === '1'):
-                    payment_mode = 'M-PESA PAYBILL'
-                    break;
-                case (payment === '2'):
-                    payment_mode = 'M-PESA TILLNO'
-                    break;
-                case (payment === '3'):
-                    payment_mode = 'CASH + M-PESA TILLNO'
-                    break;
-                case (payment === '4'):
-                    payment_mode = 'CASH + M-PESA PAYBILL'
-                    break;
-                default:
-                    payment_mode = "Invalid";
-            }
-            return payment_mode
-        },
+
     },
     actions:{
         fetchProduct(context) {
@@ -108,14 +81,7 @@ export default {
                 console.log(error)
             })
         },
-        fetchTransfer(context) {
-            axios.get('/transfer').then((response) => {
 
-                context.commit("updateTransfer", response.data.transfers)
-            }).catch((error) => {
-                console.log(error)
-            })
-        },
         clearCart({
                       commit
                   }) {

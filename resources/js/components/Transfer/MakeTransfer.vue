@@ -24,6 +24,20 @@
 
 
                     </div>
+                     <div class="form-group row">
+                         <div class="col-lg-6">
+                             <label class="col-form-label col-lg-4">Gas Type</label>
+                             <div class="input-group input-group-lg">
+                                 <select v-model="gas_type" class="form-control">
+                                     <option value="">Select Gas type</option>
+                                     <option value="o">Outright</option>
+                                     <option value="e">Empty</option>
+                                 </select>
+                             </div>
+                             <span class="help is-danger" style="color:red;" v-text="errors.get('gas_type')"></span>
+
+                         </div>
+                     </div>
 
                      <div class="form-group row">
                          <div class="col-lg-6">
@@ -35,7 +49,7 @@
                                      <option value="out">Stock Out</option>
                                  </select>
                              </div>
-                             <span class="help is-danger" style="color:red;" v-text="errors.get('quantity')"></span>
+                             <span class="help is-danger" style="color:red;" v-text="errors.get('stock_type')"></span>
 
                          </div>
                      </div>
@@ -63,6 +77,15 @@
 
 
                     </div>
+                     <div class="col-lg-6">
+                         <label class="col-form-label col-lg-4">Branch name</label>
+                         <div class="input-group input-group-lg">
+                             <vue-select v-model="branch_id" label="branch_name" class="form-control" :options="getBranches" :reduce="branch => branch.id" @keypress="errors.clear('branch_id')"/>
+
+                         </div>
+                         <span class="help is-danger" style="color:red;" v-text="errors.get('branch_id')"></span>
+
+                     </div>
 
                      <div class="form-group row">
                          <label class="col-form-label col-lg-4">Remarks</label>
@@ -93,6 +116,8 @@ export default {
 
 
             product_id: '',
+            branch_id:'',
+            gas_type:'',
             stock_type: '',
             stock_out:'',
             stock_in:'',

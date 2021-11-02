@@ -22,10 +22,15 @@ export const routes =  [
                 component: () => import('../components/Products/Edit.vue'),
             },
             {
-                path: '/admin/products/view/:id',
-                name: 'products.view',
-                component: () => import('../components/Products/View.vue'),
+                path: '/admin/products/sales/view/:id',
+                name: 'products.sales',
+                component: () => import('../components/Products/SalesView.vue'),
             },
+    {
+        path: '/admin/products/transfers/view/:id',
+        name: 'products.transfers',
+        component: () => import('../components/Products/TransferView.vue'),
+    },
 
           // branch components
           {
@@ -87,5 +92,23 @@ export const routes =  [
         name: 'reciepts.view',
         component: () => import('../components/Sales/Show.vue'),
     },
+    {
+        path: '/admin/print',
+        name: 'print',
+        component: () => import('../components/Printer/Print.vue'),
+    },
+
+    // sales
+    {
+        path: '/admin/sales/report',
+        name: 'sales.report',
+        component: () => import('../components/Report/SalesReport.vue'),
+    },
+    {
+        path: '/admin/transfers/report',
+        name: 'transfers.report',
+        component: () => import('../components/Report/TransfersReport.vue'),
+    },
+
 
       ]

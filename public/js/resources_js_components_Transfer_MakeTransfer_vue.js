@@ -98,12 +98,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       product_id: '',
+      branch_id: '',
+      gas_type: '',
       stock_type: '',
       stock_out: '',
       stock_in: '',
@@ -181,6 +206,17 @@ var SweetAlert = /*#__PURE__*/function () {
       toast.fire({
         type: 'success',
         title: message
+      });
+    }
+  }, {
+    key: "errorLarge",
+    value: function errorLarge(message) {
+      swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
       });
     }
   }, {
@@ -406,6 +442,63 @@ var render = function() {
           _c("div", { staticClass: "form-group row" }, [
             _c("div", { staticClass: "col-lg-6" }, [
               _c("label", { staticClass: "col-form-label col-lg-4" }, [
+                _vm._v("Gas Type")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group input-group-lg" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.gas_type,
+                        expression: "gas_type"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.gas_type = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("Select Gas type")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "o" } }, [
+                      _vm._v("Outright")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "e" } }, [_vm._v("Empty")])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "help is-danger",
+                staticStyle: { color: "red" },
+                domProps: { textContent: _vm._s(_vm.errors.get("gas_type")) }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c("div", { staticClass: "col-lg-6" }, [
+              _c("label", { staticClass: "col-form-label col-lg-4" }, [
                 _vm._v("Stock Type")
               ]),
               _vm._v(" "),
@@ -457,7 +550,7 @@ var render = function() {
               _c("span", {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
-                domProps: { textContent: _vm._s(_vm.errors.get("quantity")) }
+                domProps: { textContent: _vm._s(_vm.errors.get("stock_type")) }
               })
             ])
           ]),
@@ -564,6 +657,48 @@ var render = function() {
                   })
                 ])
               : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-6" }, [
+            _c("label", { staticClass: "col-form-label col-lg-4" }, [
+              _vm._v("Branch name")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "input-group input-group-lg" },
+              [
+                _c("vue-select", {
+                  staticClass: "form-control",
+                  attrs: {
+                    label: "branch_name",
+                    options: _vm.getBranches,
+                    reduce: function(branch) {
+                      return branch.id
+                    }
+                  },
+                  on: {
+                    keypress: function($event) {
+                      return _vm.errors.clear("branch_id")
+                    }
+                  },
+                  model: {
+                    value: _vm.branch_id,
+                    callback: function($$v) {
+                      _vm.branch_id = $$v
+                    },
+                    expression: "branch_id"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "help is-danger",
+              staticStyle: { color: "red" },
+              domProps: { textContent: _vm._s(_vm.errors.get("branch_id")) }
+            })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [

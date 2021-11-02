@@ -1,0 +1,195 @@
+<template>
+    <div>
+
+        <div class="row my-4">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <form>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="">Start Date</label>
+
+                                        <!-- <v2-datepicker v-model="startDate" lang="en" format="MM/DD/YYYY"></v2-datepicker> -->
+                                        <datepicker wrapper-class="inline" placeholder="From date" class="form-control" format="dd/MM/yyyy" :clear-button="true" v-model='fromdate' @closed='checkDate();'></datepicker>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="">End Date</label>
+
+                                        <!-- <v2-datepicker v-model="endDate" lang="en" format="MM/DD/YYYY"></v2-datepicker> -->
+
+                                        <datepicker wrapper-class="inline" placeholder="To date" class="form-control" format="dd/MM/yyyy" :clear-button="true" v-model='todate' @closed='checkDate();'></datepicker>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type='button' class="btn btn-primary btn-sm" @click='fetchRecords()' value='Search'>
+
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-2 mt-4">
+                      <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Search">
+                      </div>
+                    </div> -->
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--        <div class="row my-4">-->
+<!--            <div class="col-md-6 float-right">-->
+<!--                <label for="">Search</label>-->
+<!--                <input type="text" class="form-control" placeholder="Search reciept code" v-model="search" value="">-->
+
+<!--            </div>-->
+<!--        </div>-->
+        <div class="table-responsive">
+            <table class="table table-responsive-md table-bordered">
+                <thead>
+                <tr>
+                    <th rowspan="3" size="10%">Day</th>
+                    <!--                            <th colspan="3">Seminar</th>-->
+                </tr>
+                <tr>
+                    <th colspan="2">Quantity</th>
+                    <th rowspan="2">Product name</th>
+                    <th rowspan="2">Gas Type</th>
+                    <th rowspan="2">Branch name</th>
+                </tr>
+                <tr>
+                    <th>Stock In</th>
+                    <th>Stock Out</th>
+                </tr>
+                </thead>
+
+                <tbody v-for="(transfer, index) in posts">
+
+                <tr>
+                    <td>{{ transfer.created_at }}</td>
+                    <td>{{transfer.stock_in}}</td>
+                    <td>{{transfer.stock_out}}</td>
+                    <td v-text="gasType(transfer.gas_type)"></td>
+                    <td>{{transfer.products.product_name}}</td>
+                    <td v-if="transfer.branches!= null">{{transfer.branches.branch_name}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+</template>
+
+<script>
+import Datepicker from 'vuejs-datepicker';
+import InfiniteLoading from "vue-infinite-loading";
+export default {
+    components: {
+        Datepicker,
+    },
+    data() {
+        return {
+            posts: [],
+            fromdate: '',
+            todate: '',
+            search:'',
+            recordNotFound: true
+
+        }
+    },
+
+
+    computed: {
+        // reportTotal: function() {
+        //     var total = 0;
+        //     this.posts.forEach(function(item) {
+        //       total += parseInt(item.grand_total);
+        //
+        //     });
+        //   //  this.form.total = total;
+        //     return total;
+        //
+        // },
+        // reportQuantity: function(){
+        //   var quantity = 0;
+        //   this.posts.forEach(function(item) {
+        //     quantity += parseInt(item.total_quantity);
+        //   });
+        //   //this.form.quantity = quantity;
+        //   return quantity;
+        // },
+        // filteredData: function(){ // filter search
+        //     var search = this.search;
+        //
+        //     return this.posts.filter(customer => {
+        //         return reciept_code.toLowerCase().includes(search.toLowerCase())
+        //     })
+        //
+        // },
+
+
+    },
+    methods: {
+        gasType(type){
+            if(type === 'e'){
+                return 'Empty'
+            }else {
+                return 'Outright'
+            }
+
+        },
+
+        checkDate: function() {
+            if (this.fromdate !== '') {
+                var fromdate = new Date(this.fromdate)
+                var todate = new Date(this.todate)
+
+                if (fromdate.getTime() > todate.getTime()) {
+                    var currentDate = new Date();
+                    var day = fromdate.getDate();
+                    var month = fromdate.getMonth();
+                    var year = fromdate.getFullYear();
+
+                    this.todate = new Date(year, month, day)
+                }
+            }
+        },
+        fetchRecords: function() {
+
+            axios.get('/transfers/report', {
+                params: {
+                    fromdate: this.fromdate,
+                    todate: this.todate
+                }
+            }).then((response) => {
+                this.posts = response.data.transfers;
+                if(this.posts.length === 0){
+                    this.recordNotFound = true;
+                }else{
+                    this.recordNotFound= false;
+                }
+            }).catch((error) => {
+                console.log(error);
+            })
+        },
+
+    }
+}
+</script>
+
+<style lang="css" scoped>
+</style>
