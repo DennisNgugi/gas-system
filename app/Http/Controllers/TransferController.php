@@ -24,7 +24,7 @@ class TransferController extends Controller
      */
     public function index(TransferRepositoryInterface $transferRepository)
     {
-        $transfers = Transfer::with(['products:id,product_name','branches:id,branch_name'])->makeHidden(['updated_at'])->paginate(20);
+        $transfers = Transfer::with(['products:id,product_name','branches:id,branch_name'])->paginate(20);
 //        $transfers = Transfer::with(['products' => function ($query) {
 //            $query->select('id', 'product_name');
 //        },
@@ -32,6 +32,16 @@ class TransferController extends Controller
 //                $query->select('id', 'branch_name');
 //            },
 //        ])->get();
+
+        return response()->json([
+            'transfers' => $transfers
+        ],200);
+    }
+    public function todayTransfers(TransferRepositoryInterface $transferRepository)
+    {
+        $transfers = Transfer::with(['products:id,product_name','branches:id,branch_name'])->whereDay('created_at', '=', date('d'))
+            ->paginate(20);
+
         return response()->json([
             'transfers' => $transfers
         ],200);
@@ -76,7 +86,7 @@ class TransferController extends Controller
     {
         $transfers = [
             'branch_id' => $request->branch_id,
-            'gas_type' => $request->gas_type,
+          //  'gas_type' => $request->gas_type,
             'stock_in' => $request->stock_in,
             'stock_type' => $request->stock_type,
             'product_id' => $request->product_id,

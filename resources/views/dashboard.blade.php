@@ -90,7 +90,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
+        @can('isAdmin')
             <li class="nav-item">
                 <router-link to="/admin/dashboard" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -99,7 +99,7 @@
                     </p>
                 </router-link>
             </li>
-
+            @endcan
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -143,14 +143,31 @@
 
                 </ul>
             </li>
+
             <li class="nav-item">
-                <router-link to="/admin/reciept/index" class="nav-link">
+                <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-receipt"></i>
 
                     <p>
                         Sales
+                        <i class="fas fa-angle-left right"></i>
                     </p>
-                </router-link>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <router-link to="/admin/reciept/index" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Overall Sales</p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/reciept/today" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Today Sales</p>
+                        </router-link>
+                    </li>
+
+                </ul>
             </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -218,9 +235,15 @@
               <li class="nav-item">
                 <router-link to="/admin/inventory/index" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>List stock</p>
+                  <p>Overall Stock In/Out</p>
                 </router-link>
               </li>
+                <li class="nav-item">
+                    <router-link to="/admin/inventory/today" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Today Stock In/Out</p>
+                    </router-link>
+                </li>
 
             </ul>
           </li>

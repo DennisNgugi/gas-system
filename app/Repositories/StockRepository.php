@@ -25,18 +25,21 @@ class StockRepository extends BaseRepository implements StockRepositoryInterface
     {
         // get item id
         $itemIndex = parent::findIndex($item['product']['id']);
+        $exchange_id = parent::findIndex($item['detail']['exchanged']);
         // check whether complete or refill
         if ($item['detail']['gas_type'] === 'C'){
             // method 1
             $newOutlightQuantity = $itemIndex->quantity['outlight'] - $item['quantity'];
+                print_r($itemIndex->quantity['outlight']);
             $itemIndex->update(['quantity->outlight'=> $newOutlightQuantity]);
 
 
         }elseif($item['detail']['gas_type'] === 'R'){
             $newOutlightQuantity = $itemIndex->quantity['outlight'] - $item['quantity'];
-            $newEmptyQuantity = $itemIndex->quantity['empty'] + $item['quantity'];
-            $itemIndex->update(['quantity->outlight'=> $newOutlightQuantity,
-                'quantity->empty'=> $newEmptyQuantity]);
+            $newEmptyQuantity = $exchange_id->quantity['empty']+$item['quantity'];
+           // $newEmptyQuantity = $itemIndex->quantity['empty'] + $item['quantity'];
+            $itemIndex->update(['quantity->outlight'=> $newOutlightQuantity]);
+            $itemIndex->where('id',$item['detail']['exchanged'])->update(['quantity->empty' => $newEmptyQuantity]);
         }else{
             $newOtherQuantity = $itemIndex->quantity['others'] - $item['quantity'];
             $itemIndex->update(['quantity->others'=> $newOtherQuantity]);

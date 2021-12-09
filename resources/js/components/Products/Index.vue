@@ -47,7 +47,7 @@
 
                                     </td>
                                     <td>
-                                        {{product.quantity.empty + product.quantity.outlight}}
+                                        {{product.quantity.empty + product.quantity.outlight + product.quantity.others}}
                                     </td>
                                     <td>
                                         <router-link :to="{name: 'products.edit', params: { id: product.id }}"  class="btn btn-primary btn-sm">Edit</router-link>
@@ -135,7 +135,6 @@
                 catch(()=>{
                     this.alert.error(response.data.error)
                 })
-
 
             }
         },

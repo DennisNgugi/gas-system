@@ -26,7 +26,7 @@ class BaseRepository implements BaseRepositoryInterface{
 
     public function findIndex($id)
     {
-        return $this->model->lockForUpdate()->findorFail($id);
+        return $this->model->find($id);
     }
     public function all(){
         return $this->model->cursor();

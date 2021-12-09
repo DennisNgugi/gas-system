@@ -73,9 +73,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     saleType: function saleType(type) {
-      if (type === 'o') {
+      if (type === 'O') {
         return 'Others';
-      } else if (type === 'r') {
+      } else if (type === 'R') {
         return 'Refill';
       } else {
         return 'Complete';

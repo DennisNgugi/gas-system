@@ -8,6 +8,7 @@ export default {
         brands: [],
         branches:[],
         customers:[],
+        printDetails:[],
     },
 
     getters:{
@@ -22,6 +23,9 @@ export default {
         },
         getCustomers(state) {
             return state.customers
+        },
+        getPrintable(state) {
+            return state.printDetails
         },
 
     },
@@ -38,7 +42,9 @@ export default {
         updateCustomers(state, data) {
             return state.customers = data
         },
-
+        printable(state, data) {
+            return state.printDetails = data
+        },
         removeFromCart(state, index) {
             state.cart.splice(index, 1);
         },
@@ -81,12 +87,18 @@ export default {
                 console.log(error)
             })
         },
+        printable(context,payload) {
+
+                context.commit("printable", payload)
+
+        },
 
         clearCart({
                       commit
                   }) {
             commit('updateCart', []);
         },
+
         holdCart({
                      commit
                  }) {

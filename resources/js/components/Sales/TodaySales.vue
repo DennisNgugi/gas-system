@@ -10,7 +10,7 @@
             <div class="card">
 
                 <div class="card-header">
-                    <h4 class="card-title">Reciepts</h4>
+                    <h4 class="card-title">Today Sales</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -139,7 +139,7 @@ export default {
             setTimeout(function (){
 
 
-                axios.get('/reciept?page='+this.page).then((response)=>{
+                axios.get('/sales/today?page='+this.page).then((response)=>{
                     if(response.data.reciepts.data.length > 0){
                         // let lastPage = response.data.reciepts.last_page
                         response.data.reciepts.data.forEach(reciept => {
@@ -173,9 +173,6 @@ export default {
                         this.alert.successLarge(response.data.success)
                         window.location.reload(false);
                         //this.fetchData();
-                    }).
-                    catch((error)=>{
-                        this.alert.error(error.response.data.error)
                     });
 
                 }

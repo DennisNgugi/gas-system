@@ -25,6 +25,15 @@ Route::group(['middleware' => 'auth'], function () {
         return view('store');
     });
 });
+Route::group(['middleware' => ['auth','is_admin']],function (){
+    Route::get('/admin/{any}', function () {
+        return view('dashboard');
+    })->where('any', '.*');
+});
+Route::get('/print', function () {
+    return view('print');
+});
+
 Route::resource('product',ProductController::class);
 Route::delete('/product/{id}',[ProductController::class, 'destroy']);
 Route::get('/products',[ProductController::class, 'index2']);
@@ -42,17 +51,15 @@ Route::get('/customer/view/{id}',[CustomerController::class, 'show']);
 Route::delete('/customer/{id}',[CustomerController::class, 'destroy']);
 Route::resource('transfer',TransferController::class);
 Route::get('/transfers/report',[TransferController::class, 'transfersReport']);
+Route::get('/transfers/today',[TransferController::class, 'todayTransfers']);
 Route::resource('reciept',RecieptController::class);
 Route::get('/reciept/view/{id}',[RecieptController::class, 'show']);
 Route::delete('/reciept/{id}',[RecieptController::class, 'destroy']);
+Route::get('/sales/today',[RecieptController::class, 'todaySales']);
 Route::get('/sales/report',[RecieptController::class, 'salesReport']);
 Route::get('/weekly_report',[ReportController::class,'currentWeekReport']);
 Route::get('/last_week',[ReportController::class,'lastWeekReport']);
 Route::get('/yearly_report',[ReportController::class,'currentYearReport']);
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/admin/{any}', function () {
-        return view('dashboard');
-    })->where('any', '.*');
-});
+
 
 require __DIR__.'/auth.php';

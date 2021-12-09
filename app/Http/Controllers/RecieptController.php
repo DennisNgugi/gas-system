@@ -28,6 +28,15 @@ class RecieptController extends Controller
             'reciepts' => $reciepts
         ]);
     }
+    public function todaySales()
+    {
+        $reciepts = Reciept::with('sales','customers:id,customer_name','sales.products:id,product_name','users:id,name')
+            ->whereDay('created_at', '=', date('d'))
+            ->paginate(10);
+        return response()->json([
+            'reciepts' => $reciepts
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -61,15 +70,15 @@ class RecieptController extends Controller
      */
     public function store(Request $request,CheckoutRepositoryInterface $checkoutRepository)
     {
-         try{
+        try{
          //return $request;
         $sales = $checkoutRepository->saveTransaction($request);
         return response()->json([
-            'success' => 'Transaction processed succesfully'
+            'success' => 'Transaction processed successfully'
         ],200);
          }catch(\Exception $exception){
              return response()->json([
-                 "errors" => "Unsuccesfull Transaction. Try again!!"
+                 'errors' => 'Transaction failed. Try again!!'
              ],500);
          }
     }

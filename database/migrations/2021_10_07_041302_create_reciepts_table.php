@@ -27,7 +27,7 @@ class CreateRecieptsTable extends Migration
             $table->mediumText('remarks')->nullable();
             $table->string('customer_id')->nullable();
             $table->string('phone_number')->nullable();
-            $table->time('message_time')->nullable();
+            $table->string('message_time')->nullable();
             $table->boolean('payment_status')->default(1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));

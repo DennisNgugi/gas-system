@@ -19,6 +19,6 @@ class Sale extends Model
     }
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->toFormattedDateString();
+        return Carbon::parse($value)->timezone('America/Los_Angeles')->toDayDateTimeString();
     }
 }

@@ -1,144 +1,114 @@
 <template>
-    <div class="row">
+    <div style="max-width:400px;margin:0 auto">
+        <div class="hidden-print">
+            <table>
+                <tbody><tr>
+                    <td><a href="/" class="btn btn-info"><i class="fa fa-arrow-left"></i> Back</a> </td>
+                    <td><button onclick="window.print();" class="btn btn-primary"><i class="dripicons-print"></i> Print</button></td>
+                </tr>
+                </tbody></table>
+            <br>
+        </div>
+
+        <div id="receipt-data">
+            <div class="centered">
+                <h1 style="font-size:20px;">Saka Gas Centre & Kitchenware</h1>
+                <p><i>Dealers in all types of gas cylinders,gas cookers,fuel & accessories</i></p>
+                <p>We Offer free home delivery</p>
+                <p>Address: P.O Box 14 Emali
+                    <br>Phone Number: 0798 615 195 / 0721 753 508
+                    <br>Email: lusakaemali@gmail.com
+                </p>
+            </div>
+            <p>Date: {{currentDateTime()}}<br>
+                Reference: {{ print.reciept_code }}<br>
+<!--                Customer: walk-in-customer-->
+            </p>
+            <table class="table-data">
+                <tbody>
+                <tr v-for="print in print.cart">
+                    <td colspan="2">
+                        {{print.product.product_name}} [{{print.detail.gas_type}}]
+                        <br>{{print.quantity}} x {{print.detail.price}}
+
+<!--                        [Tax (10%): 200]-->
+                    </td>
+                    <td style="text-align:right;vertical-align:bottom">{{print.quantity * print.detail.price}}</td>
+                </tr>
 
 
-<!--        <div id="ticket">-->
-<!--            <p class="centered">RECEIPT EXAMPLE-->
-<!--                <br>Address line 1-->
-<!--                <br>Address line 2</p>-->
-<!--            <table>-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th class="quantity">Q.</th>-->
-<!--                    <th class="description">Description</th>-->
-<!--                    <th class="price">$$</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr>-->
-<!--                    <td class="quantity">1.00</td>-->
-<!--                    <td class="description">ARDUINO UNO R3</td>-->
-<!--                    <td class="price">$25.00</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td class="quantity">2.00</td>-->
-<!--                    <td class="description">JAVASCRIPT BOOK</td>-->
-<!--                    <td class="price">$10.00</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td class="quantity">1.00</td>-->
-<!--                    <td class="description">STICKER PACK</td>-->
-<!--                    <td class="price">$10.00</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td class="quantity"></td>-->
-<!--                    <td class="description">TOTAL</td>-->
-<!--                    <td class="price">$55.00</td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--            <p class="centered">Thanks for your purchase!-->
-<!--                <br>parzibyte.me/blog</p>-->
-<!--            <button id="btnPrint"  class="hidden-print btn btn-primary btn-sm" @click.prevent="printMe">Print</button>-->
+                <!-- <tfoot> -->
+                <tr>
+                    <th colspan="2" style="text-align:left">Total</th>
+                    <th style="text-align:right">{{print.cart_total}}</th>
+                </tr>
+                <tr>
+                    <th colspan="2" style="text-align:left">Grand Total</th>
+                    <th style="text-align:right">{{print.total_amount}}</th>
+                </tr>
 
-<!--        </div>-->
-        <receipt-item :products="productItems"></receipt-item>
-
+                </tbody>
+                <!-- </tfoot> -->
+            </table>
+            <table>
+                <tbody>
+                <tr style="background-color:#ddd;">
+                    <td style="padding: 5px;width:30%">Paid:</td>
+                    <td style="padding: 5px;width:40%">Amount: {{print.total_amount}}</td>
+                    <!-- <td style="padding: 5px;width:30%">Change: {{print.balance}}</td> -->
+                </tr>
+                <tr><td class="centered" colspan="3">Thank you for shopping with us. Please come again</td></tr>
+                <tr>
+                    <td class="centered" colspan="3">
+                        <img style="margin-top:10px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAaYAAAAeAQMAAABdUSjsAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAEpJREFUOI3ty7EJQDEIBcBAWsFVhLQBVxdsP7hK4LVCMsBf4V1/AzLtimK1pUJd+m5rnIwU36s7K91L1U4EUJ9O7MHFxcXFxfVbD9R8S5SWoYZEAAAAAElFTkSuQmCC" width="300" alt="barcode">                    <br>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- <div class="centered" style="margin:30px 0 50px">
+                <small>Invoice Generated By SalePro.
+                Developed By LionCoders</strong></small>
+            </div> -->
+        </div>
     </div>
 
 </template>
 
 <script>
-import { Receipt, ReceiptItem, ReceiptSummary } from 'vue-receipt-component';
+import {EventBus} from "../../events/event-bus";
+
 export default {
     data(){
-        return {
-            productItems: [
-                {name: 'Cheese Product 1', price: 2.50},
-                {name: 'Cheese Product 2', price: 3.23},
-                {name: 'Cheese Product 3', price: 4.35},
-                {name: 'Cheese Product 4', price: 1.99}
-            ],
-            productSummary: {
-                subtotal: 25.25,
-                discount: 25,
-                discountprice: 10,
-                vatpercentage: 21,
-                vatprice: 20,
-                total: 1400
-            }
+        return{
+            print:[]
         }
     },
 
+    mounted() {
+        //this.$store.dispatch("printable")
+
+    },
     methods:{
-        printMe() {
-            var newstr = document.getElementById('ticket').innerHTML
-            document.body.innerHTML = newstr
-            window.print()
-            window.location.reload()
+        currentDateTime() {
+            const current = new Date();
+            const date = current.getFullYear()+'-'+(current.getMonth()+1)+'-'+current.getDate();
+            const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+            const dateTime = date +' '+ time;
+
+            return dateTime;
         }
     },
-    components: {
-        Receipt,
-        ReceiptItem,
-        ReceiptSummary
+    created() {
+        // EventBus.$on('printable', (value) => {
+        //     console.log(value)
+        // })
+        let retrievedObject = localStorage.getItem('print');
+
+       this.print = JSON.parse(retrievedObject);
+    },
+    computed: {
+
+
     }
 }
 </script>
-
-<style scoped>
-* {
-    font-size: 12px;
-    font-family: 'Times New Roman';
-}
-
-td,
-th,
-tr,
-table {
-    border-top: 1px solid black;
-    border-collapse: collapse;
-}
-
-td.description,
-th.description {
-    width: 75px;
-    max-width: 75px;
-}
-
-td.quantity,
-th.quantity {
-    width: 40px;
-    max-width: 40px;
-    word-break: break-all;
-}
-
-td.price,
-th.price {
-    width: 40px;
-    max-width: 40px;
-    word-break: break-all;
-}
-
-.centered {
-    text-align: center;
-    align-content: center;
-}
-
-#ticket {
-    width: 155px;
-    max-width: 155px;
-}
-
-img {
-    max-width: inherit;
-    width: inherit;
-}
-
-@media print {
-    .hidden-print,
-    .hidden-print * {
-        display: none !important;
-    }
-}
-</style>

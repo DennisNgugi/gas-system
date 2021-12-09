@@ -31,3 +31,5 @@ mix.js('resources/js/app.js', 'public/js').vue().postCss('resources/css/app.css'
 ]);
 mix.js('resources/js/store.js', 'public/js').vue()
     .sass('resources/sass/store.scss', 'public/css');
+mix.js('resources/js/print.js', 'public/js').vue()
+    .sass('resources/sass/print.scss', 'public/css');

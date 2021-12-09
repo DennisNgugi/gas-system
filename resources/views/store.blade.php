@@ -32,7 +32,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                            <a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
+                                            <a class="dropdown-item" href="/admin/products/index">Dashboard</a>
 
 
 

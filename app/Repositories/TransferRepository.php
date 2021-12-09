@@ -21,11 +21,22 @@ class TransferRepository extends BaseRepository implements TransferRepositoryInt
     public function transfer($product)
     {
 
+        // if($product['stock_type'] === 'in' && $product['gas_type'] === 'o' ){
+        //     return $this->incrementStockInOutright($product);
+        // }else if($product['stock_type'] === 'in' && $product['gas_type'] === 'e' ){
+        //    return $this->incrementStockInEmpty($product);
+        // }else if($product['stock_type'] === 'out' && $product['gas_type'] === 'o' ){
+        //     return $this->decrementStockOutOutright($product);
+        // }else{
+        //     return $this->decrementStockOutEmpty($product);
+        // }
+        
         if($product['stock_type'] === 'in'){
             return $this->incrementStock($product);
         }else{
            return $this->decrementStock($product);
         }
+
 
     }
 
@@ -34,8 +45,8 @@ class TransferRepository extends BaseRepository implements TransferRepositoryInt
 
        $product = Product::findOrFail($item['product_id']);
         $newOutlightQuantity = $product['quantity']['outlight'] + $item['stock_in'];
-        $newEmptyQuantity = $product['quantity']['empty'] - $item['stock_in'];
-        $product->update(['quantity->outlight'=> $newOutlightQuantity,'quantity->empty' => $newEmptyQuantity]);
+       // $newEmptyQuantity = $product['quantity']['empty'] - $item['stock_in'];
+        $product->update(['quantity->outlight'=> $newOutlightQuantity]);
     }
 
     public function decrementStock($item)

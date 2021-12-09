@@ -30,11 +30,12 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
         $total_amount = $data->total_amount;
         $total_quantity = $data->total_quantity;
         $discount = $data->discount;
+        $reciept_code = $data->reciept_code;
 
         try {
-            DB::transaction(function () use ($checkoutDetails,$cartDetails,$balance,$discount,$total_amount,$total_quantity){
+            DB::transaction(function () use ($checkoutDetails,$cartDetails,$balance,$discount,$total_amount,$total_quantity,$reciept_code){
                 $reciept = new Reciept;
-                $reciept->reciept_code = $this->generateRecieptCode();
+                $reciept->reciept_code = $reciept_code;
                 $reciept->user_id = Auth::id();
                 $reciept->customer_id = $checkoutDetails['customer_id'];
                 $reciept->total_quantity = $total_quantity;
@@ -47,7 +48,7 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
 
                 $reciept->payment_mode = $checkoutDetails['payment_mode'];
                 $reciept->phone_number = $checkoutDetails['phone_number'];
-//                $reciept->message_time = $cartDetails['message_time'];
+                 $reciept->message_time = $checkoutDetails['message_time'];
                 $reciept->remarks = $checkoutDetails['remarks'];
 
                 $reciept->save();
@@ -63,7 +64,7 @@ class CheckoutRepository extends BaseRepository implements CheckoutRepositoryInt
                     $sales->total = $cart['detail']['price'] * $cart['quantity'];
                     $sales->sale_type = $cart['detail']['sale_type'];
                     $sales->gas_type = $cart['detail']['gas_type'];
-                   $sales->save();
+                     $sales->save();
 
                     $this->stockRepository->decrementStock($cart);
 

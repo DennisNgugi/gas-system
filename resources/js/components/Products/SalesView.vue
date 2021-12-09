@@ -62,9 +62,9 @@ export default {
 
     methods:{
         saleType(type){
-            if (type === 'o'){
+            if (type === 'O'){
                 return 'Others'
-            }else if (type === 'r'){
+            }else if (type === 'R'){
                 return 'Refill'
             }else{
                 return 'Complete'

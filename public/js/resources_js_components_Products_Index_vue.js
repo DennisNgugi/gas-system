@@ -432,7 +432,8 @@ var render = function() {
                             "\n                                        " +
                               _vm._s(
                                 product.quantity.empty +
-                                  product.quantity.outlight
+                                  product.quantity.outlight +
+                                  product.quantity.others
                               ) +
                               "\n                                    "
                           )

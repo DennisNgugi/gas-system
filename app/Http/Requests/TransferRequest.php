@@ -28,7 +28,7 @@ class TransferRequest extends FormRequest
                       'product_id' => 'required',
                       'branch_id' => 'required',
                       'stock_type' => 'required',
-                      'gas_type' => 'required'
+                     // 'gas_type' => 'required'
                   ];
 
     }

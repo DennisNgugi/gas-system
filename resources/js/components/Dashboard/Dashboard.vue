@@ -43,19 +43,19 @@
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-                <div class="inner">
-                    <h3>{{ getNormalProductQuantity }}</h3>
+<!--        <div class="col-lg-3 col-6">-->
+<!--            &lt;!&ndash; small box &ndash;&gt;-->
+<!--            <div class="small-box bg-danger">-->
+<!--                <div class="inner">-->
+<!--                    <h3>{{ getOthersProductQuantity }}</h3>-->
 
-                    <p>Other items</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
-                </div>
-            </div>
-        </div>
+<!--                    <p>Other items</p>-->
+<!--                </div>-->
+<!--                <div class="icon">-->
+<!--                    <i class="ion ion-pie-graph"></i>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <!-- ./col -->
     </div>
 
@@ -179,7 +179,7 @@ export default {
             yearlyRevenue: [],
             weeklyRevenue: [],
             // lastWeekRevenue:[],
-            normalQuantity:'',
+            othersQuantity:'',
             outlightQuantity:'',
             emptyQuantity:'',
         }
@@ -246,15 +246,15 @@ export default {
             return sum_empty
 
         },
-        getNormalProductQuantity(){
-            let sum_normal = 0;
+        getOthersProductQuantity(){
+            let sum_others = 0;
 
             this.$store.getters.getProducts.forEach(function(item){
 
-                sum_normal += parseInt(item.quantity.normal)
+                sum_others += parseInt(item.quantity.others)
 
             });
-            return sum_normal
+            return sum_others
 
         },
 

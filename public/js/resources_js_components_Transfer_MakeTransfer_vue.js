@@ -128,7 +128,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       product_id: '',
       branch_id: '',
-      gas_type: '',
+      // gas_type:'',
       stock_type: '',
       stock_out: '',
       stock_in: '',
@@ -435,63 +435,6 @@ var render = function() {
                 staticClass: "help is-danger",
                 staticStyle: { color: "red" },
                 domProps: { textContent: _vm._s(_vm.errors.get("product_id")) }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c("div", { staticClass: "col-lg-6" }, [
-              _c("label", { staticClass: "col-form-label col-lg-4" }, [
-                _vm._v("Gas Type")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group input-group-lg" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.gas_type,
-                        expression: "gas_type"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.gas_type = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "" } }, [
-                      _vm._v("Select Gas type")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "o" } }, [
-                      _vm._v("Outright")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "e" } }, [_vm._v("Empty")])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("span", {
-                staticClass: "help is-danger",
-                staticStyle: { color: "red" },
-                domProps: { textContent: _vm._s(_vm.errors.get("gas_type")) }
               })
             ])
           ]),

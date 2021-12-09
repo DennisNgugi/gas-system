@@ -93,10 +93,12 @@ export const routes =  [
         component: () => import('../components/Sales/Show.vue'),
     },
     {
-        path: '/admin/print',
-        name: 'print',
-        component: () => import('../components/Printer/Print.vue'),
+        path: '/admin/reciept/today',
+        name: 'reciepts.today',
+        component: () => import('../components/Sales/TodaySales.vue'),
     },
+
+ 
 
     // sales
     {
@@ -108,6 +110,11 @@ export const routes =  [
         path: '/admin/transfers/report',
         name: 'transfers.report',
         component: () => import('../components/Report/TransfersReport.vue'),
+    },
+    {
+        path: '/admin/inventory/today',
+        name: 'transfers.today',
+        component: () => import('../components/Transfer/TodayTransfers.vue'),
     },
 
 

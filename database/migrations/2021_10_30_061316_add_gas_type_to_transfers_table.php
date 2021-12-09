@@ -15,7 +15,7 @@ class AddGasTypeToTransfersTable extends Migration
     {
         Schema::table('transfers', function (Blueprint $table) {
 
-            $table->string('gas_type');
+           // $table->string('gas_type');
 
         });
     }
@@ -31,7 +31,7 @@ class AddGasTypeToTransfersTable extends Migration
     public function down()
     {
         Schema::table('transfers', function (Blueprint $table) {
-            $table->dropColumn('gas_type');
+          //  $table->dropColumn('gas_type');
         });
     }
 }

@@ -24,7 +24,7 @@
 
 
                     </div>
-                     <div class="form-group row">
+                     <!-- <div class="form-group row">
                          <div class="col-lg-6">
                              <label class="col-form-label col-lg-4">Gas Type</label>
                              <div class="input-group input-group-lg">
@@ -37,7 +37,7 @@
                              <span class="help is-danger" style="color:red;" v-text="errors.get('gas_type')"></span>
 
                          </div>
-                     </div>
+                     </div> -->
 
                      <div class="form-group row">
                          <div class="col-lg-6">
@@ -117,7 +117,7 @@ export default {
 
             product_id: '',
             branch_id:'',
-            gas_type:'',
+           // gas_type:'',
             stock_type: '',
             stock_out:'',
             stock_in:'',

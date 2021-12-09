@@ -53,7 +53,7 @@
                         <tr>
                             <th colspan="2">Quantity</th>
                             <th rowspan="2">Product name</th>
-                            <th rowspan="2">Gas Type</th>
+                            <!-- <th rowspan="2">Gas Type</th> -->
                             <th rowspan="2">Branch name</th>
                         </tr>
                         <tr>
@@ -62,24 +62,21 @@
                         </tr>
                         </thead>
 
-                        <tbody v-for="(transfer, index) in filteredData">
+                        <tbody v-for="(transfer) in filteredData" :key="transfer.id">
 
                         <tr>
                             <td>{{ transfer.created_at }}</td>
                             <td>{{transfer.stock_in}}</td>
                             <td>{{transfer.stock_out}}</td>
-                            <td v-text="gasType(transfer.gas_type)"></td>
+                            <!-- <td v-text="gasType(transfer.gas_type)"></td> -->
                             <td>{{transfer.products.product_name}}</td>
                             <td v-if="transfer.branches!= null">{{transfer.branches.branch_name}}</td>
                         </tr>
-                        <infinite-loading @distance="1" spinner="spiral" @infinite="infiniteHandler">
+                                   </tbody>
+                         <infinite-loading @distance="1" spinner="spiral" @infinite="infiniteHandler">
                             <div class="text-red" slot="no-more">No more transfers</div>
                             <div class="text-red" slot="no-results">No more transfers</div>
                         </infinite-loading>
-
-
-
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -99,6 +96,8 @@ export default {
         return {
             search: '',
             transfers:[],
+            page:1,
+            bottom:false
         }
     },
 
@@ -110,9 +109,6 @@ export default {
         filteredData() {
             return this.transfers.filter(item =>
                 item.created_at.toLowerCase().includes(
-                    this.search.toLowerCase()
-                ) ||
-                item.branches.branch_name.toLowerCase().includes(
                     this.search.toLowerCase()
                 ));
 
@@ -126,19 +122,20 @@ export default {
     //     })
     // },
     methods: {
-        gasType(type){
-            if(type === 'e'){
-                return 'Empty'
-            }else {
-                return 'Outright'
-            }
+        // gasType(type){
+        //     if(type === 'e'){
+        //         return 'Empty'
+        //     }else {
+        //         return 'Outright'
+        //     }
 
-        },
+        // },
         infiniteHandler($state){
             setTimeout(function (){
 
 
                 axios.get('/transfer?page='+this.page).then((response)=>{
+                  
                     if(response.data.transfers.data.length > 0){
                         // let lastPage = response.data.reciepts.last_page
                         response.data.transfers.data.forEach(transfer => {

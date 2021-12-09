@@ -191,7 +191,7 @@ __webpack_require__.r(__webpack_exports__);
       yearlyRevenue: [],
       weeklyRevenue: [],
       // lastWeekRevenue:[],
-      normalQuantity: '',
+      othersQuantity: '',
       outlightQuantity: '',
       emptyQuantity: ''
     };
@@ -247,12 +247,12 @@ __webpack_require__.r(__webpack_exports__);
       });
       return sum_empty;
     },
-    getNormalProductQuantity: function getNormalProductQuantity() {
-      var sum_normal = 0;
+    getOthersProductQuantity: function getOthersProductQuantity() {
+      var sum_others = 0;
       this.$store.getters.getProducts.forEach(function (item) {
-        sum_normal += parseInt(item.quantity.normal);
+        sum_others += parseInt(item.quantity.others);
       });
-      return sum_normal;
+      return sum_others;
     }
   }
 });
@@ -358,25 +358,13 @@ var render = function() {
           _vm._v(" "),
           _vm._m(2)
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-3 col-6" }, [
-        _c("div", { staticClass: "small-box bg-danger" }, [
-          _c("div", { staticClass: "inner" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.getNormalProductQuantity))]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Other items")])
-          ]),
-          _vm._v(" "),
-          _vm._m(3)
-        ])
       ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6 d-flex" }, [
         _c("div", { staticClass: "card card-table flex-fill" }, [
-          _vm._m(4),
+          _vm._m(3),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "table-responsive" }, [
@@ -384,7 +372,7 @@ var render = function() {
                 "table",
                 { staticClass: "table table-responsive-md table-bordered" },
                 [
-                  _vm._m(5),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -416,7 +404,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-6 d-flex" }, [
         _c("div", { staticClass: "card card-table flex-fill" }, [
-          _vm._m(6),
+          _vm._m(5),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "table-responsive" }, [
@@ -424,7 +412,7 @@ var render = function() {
                 "table",
                 { staticClass: "table table-responsive-md table-bordered" },
                 [
-                  _vm._m(7),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -479,14 +467,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "icon" }, [
       _c("i", { staticClass: "ion ion-person-add" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "icon" }, [
-      _c("i", { staticClass: "ion ion-pie-graph" })
     ])
   },
   function() {

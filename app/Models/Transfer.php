@@ -25,7 +25,7 @@ class Transfer extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->toDayDateTimeString();
+        return Carbon::parse($value)->timezone('America/Los_Angeles')->toDayDateTimeString();
     }
     // Notify every user after update has been done
 //     public static function boot()

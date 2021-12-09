@@ -173,8 +173,7 @@
                                             <th width="5%" scope="col">#</th>
                                             <th width="35%" scope="col">Item</th>
                                             <th width="5%" scope="col">Sale</th>
-                                            <th width="5%" scope="col">Picked</th>
-                                            <th width="20%" scope="col">Qty</th>
+                                            <th width="30%" scope="col">Qty</th>
                                             <th width="10%" scope="col">Price</th>
                                             <th width="17%" scope="col">Total</th>
                                             <th width="6%" scope="col">Action</th>
@@ -186,11 +185,7 @@
                                             <td scope="row" v-text="index+1"></td>
                                             <td>{{item.product.product_name}} [{{item.detail.gas_type}}]</td>
                                             <td>{{item.detail.sale_type}}</td>
-                                            <td style="text-align:center;">
-
-                                                    <input class="form-check-input" type="checkbox"  id="flexCheckChecked" checked>
-
-                                            </td>
+                                       
 
                                     <td>
                                         <button class="btn btn-info btn-sm" @click.prevent="decrement(item,index)"><span><i class="fas fa-minus"></i></span></button>
@@ -353,6 +348,35 @@
                     </div>
                 <!--Buttons-->
 
+                    <div v-if="checkout.showReceipt">
+                        <transition name="modal">
+                            <div class="modal-mask">
+                                <div class="modal-wrapper">
+
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Reciept</h5>
+                                                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" @click="showReceipt = false">&times;</span>
+                                                </button> -->
+                                            </div>
+                                            <div class="modal-body" id="modal-body">
+                                                <Print />
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" @click="closeReciept">Close</button>
+                                                <button type="button" @click="print()" class="btn btn-primary">Print</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+
+
 
                 </div>
             </div>
@@ -363,15 +387,16 @@
     </div>
 </template>
 <script>
-// import {
-//     EventBus
-// } from '../events/event-bus';
+
 //import _ from 'lodash';
 import Errors from '../errors/errors';
 import SweetAlert from '../alerts/alert';
+ import {EventBus} from "../events/event-bus";
+import Print from "../components/Printer/Print";
 // import SearchComponent from '../components/Search/SearchComponent.vue'
 
 export default {
+    components: {Print},
     data() {
         return {
 
@@ -390,6 +415,7 @@ export default {
                 gas_status: '',
                 amount_paid: '',
                 balance: '',
+                showReceipt:false,
             },
 
             alert: new SweetAlert(),
@@ -419,64 +445,6 @@ export default {
     methods: {
 
 
-        triggerAddToCart() {
-
-            let productIndex = this.$store.state.products.findIndex(item => item.id === this.checkout.product_id);
-
-
-            if (productIndex != -1) {
-                let gas_type = this.checkout.gas_type
-                let sale_type = this.checkout.sale_type
-                let price = this.$store.state.products[productIndex].price
-                let product = this.$store.state.products[productIndex]
-                let exchanged_gas = this.checkout.exchanged_id
-
-                let new_price = this.determinePrice(gas_type,sale_type,price);
-
-                let detail = {
-                    gas_type: gas_type,
-                    sale_type: sale_type,
-                    price:new_price,
-                    exchanged:exchanged_gas
-                }
-
-                this.addToCart(product, detail)
-
-                this.checkout.product_id = ''
-                this.checkout.gas_type = ''
-                this.checkout.sale_type = ''
-            }
-
-
-        },
-    determinePrice(gas_type, sale_type, price) {
-
-        let final_price = "";
-        switch (true) {
-
-            case (gas_type === 'C' && sale_type === 'WHL'):
-                final_price = price.complete.wholesale_price;
-                break;
-            case (gas_type === 'C' && sale_type === 'RET'):
-                final_price = price.complete.retail_price;
-                break;
-            case (gas_type === 'R' && sale_type === 'WHL'):
-                final_price = price.refill.wholesale_price;
-                break;
-            case (gas_type === 'R' && sale_type === 'RET'):
-                final_price = price.refill.retail_price;
-                break;
-            case (gas_type === 'O' && sale_type === 'WHL'):
-                final_price = price.complete.wholesale_price;
-                break;
-            case (gas_type === 'O' && sale_type === 'RET'):
-                final_price = price.complete.retail_price;
-                break;
-            default:
-                final_price = "Invalid";
-        }
-        return final_price;
-    },
     // cart functionality
     getCartItem: function (product) {
         for (var i = 0; i < this.cart.length; i++) {
@@ -509,7 +477,7 @@ export default {
         //product.quantity--;
         //item.product.quantity++;
         item.quantity--;
-        if (item.quantity == 0) {
+        if (item.quantity === 0) {
             this.$store.commit('removeFromCart', index)
         }
 
@@ -535,12 +503,17 @@ export default {
         // empty the data object
         Object.assign(this.$data, this.$options.data())
     },
-
+        getRandomNumberBetween(){
+            return Math.ceil(Math.random()*1000000)
+        },
 
     saveTransaction() {
 
         // reciept details
         let checkout = this.checkout
+
+        // reciept_code
+        let reciept_code = this.getRandomNumberBetween()
 
         // cart details
         let cart = this.$store.state.cart
@@ -557,36 +530,134 @@ export default {
         // quantity
         let total_quantity = this.cartQuantity
 
+        let print_detail = {
+            checkout: checkout,
+            cart : cart,
+            cart_total:this.cartTotal,
+            total_amount:total_amount,
+            balance:balance,
+            reciept_code:reciept_code
+
+        }
+
         axios.post('/checkout', {
             checkout,
             cart,
             balance,
             discount,
             total_amount,
-            total_quantity
+            total_quantity,
+            reciept_code
         }).then((response) => {
-
             // display success message from backend
             this.alert.successLarge(response.data.success)
 
-            // clear the cart
-            this.$store.dispatch('clearCart', [])
+            swal.fire({
+                title: 'Print Reciept',
+                text: "Do you want to print reciept?",
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, print it!'
+            }).then((result) => {
 
+                if (result.isConfirmed) {
+                    // store on local storage
+                    this.sendPrintDetails(print_detail)
+                    window.location.href = '/print';
+
+                }
+            }).
+            catch(()=>{
+                this.alert.errorLarge("Failed to print reciept")
+            })
+
+            // clear the cart
+             this.$store.dispatch('clearCart', [])
+            //
             // reset
             this.reset()
 
             // get products
-            this.getProducts
+            this.getProducts()
+
+            // this.sendPrintDetails(print_detail)
+            //
+            // window.location.href = '/print';
 
             //reload
             //window.location.reload(false);
 
         }).catch((error) => {
             // display the error
-            this.alert.errorLarge(error.response.data.errors)
+          // this.alert.errorLarge(error.response.data.errors)
         })
 
     },
+        sendPrintDetails(printable){
+           // return EventBus.$emit('print',printable);
+            localStorage.clear();
+            localStorage.setItem('print', JSON.stringify(printable));
+        },
+        triggerAddToCart() {
+
+            let productIndex = this.$store.state.products.findIndex(item => item.id === this.checkout.product_id);
+
+
+            if (productIndex !== -1) {
+                let gas_type = this.checkout.gas_type
+                let sale_type = this.checkout.sale_type
+                let price = this.$store.state.products[productIndex].price
+                let product = this.$store.state.products[productIndex]
+                let exchanged_gas = this.checkout.exchanged_id
+
+                let new_price = this.determinePrice(gas_type,sale_type,price);
+
+                let detail = {
+                    gas_type: gas_type,
+                    sale_type: sale_type,
+                    price:new_price,
+                    exchanged:exchanged_gas
+                }
+
+                this.addToCart(product, detail)
+
+                this.checkout.product_id = ''
+                this.checkout.gas_type = ''
+                this.checkout.sale_type = ''
+            }
+
+
+        },
+        determinePrice(gas_type, sale_type, price) {
+
+            let final_price = "";
+            switch (true) {
+
+                case (gas_type === 'C' && sale_type === 'WHL'):
+                    final_price = price.complete.wholesale_price;
+                    break;
+                case (gas_type === 'C' && sale_type === 'RET'):
+                    final_price = price.complete.retail_price;
+                    break;
+                case (gas_type === 'R' && sale_type === 'WHL'):
+                    final_price = price.refill.wholesale_price;
+                    break;
+                case (gas_type === 'R' && sale_type === 'RET'):
+                    final_price = price.refill.retail_price;
+                    break;
+                case (gas_type === 'O' && sale_type === 'WHL'):
+                    final_price = price.complete.wholesale_price;
+                    break;
+                case (gas_type === 'O' && sale_type === 'RET'):
+                    final_price = price.complete.retail_price;
+                    break;
+                default:
+                    final_price = "Invalid";
+            }
+            return final_price;
+        },
     cancel() {
         this.$store.dispatch('clearCart', [])
         this.reset()
@@ -596,7 +667,8 @@ export default {
     cartLineTotal(item) {
         let price = item.detail.price * item.quantity;
         return price;
-    }
+    },
+
 
     },
     computed: {
